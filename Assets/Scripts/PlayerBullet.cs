@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerBullet : MonoBehaviour
 {
     public float shotSpeed = 7.5f;
+    public float damage = 3f;
 
     public Rigidbody2D rb;
     public GameObject impactEffect;
@@ -25,6 +26,11 @@ public class PlayerBullet : MonoBehaviour
     {
         Instantiate(impactEffect, transform.position, transform.rotation);
         Destroy(gameObject);
+
+        if (other.CompareTag("Enemy"))
+        {
+            other.GetComponent<EnemyController>().TakeDamage(damage);
+        }
     }
 
     private void OnBecameInvisible()

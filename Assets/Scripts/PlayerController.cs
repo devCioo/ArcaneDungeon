@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController instance;
+
     public float moveSpeed;
     private Vector2 moveInput;
     public float attackSpeed;
@@ -15,9 +17,15 @@ public class PlayerController : MonoBehaviour
     public Transform upPos, downPos, leftPos, rightPos;
     public Animator anim;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         shotDelay = 1 / attackSpeed;
     }
 
