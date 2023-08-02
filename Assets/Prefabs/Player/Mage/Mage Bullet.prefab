@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 4717684010609594975}
   - component: {fileID: 1608062775299894010}
   - component: {fileID: 3536031156365158778}
-  m_Layer: 0
+  - component: {fileID: 107021150849515480}
+  m_Layer: 7
   m_Name: Mage Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,3 +175,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &107021150849515480
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605669385805731259}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 09813e23fde6d9c478a4f80ea01f929e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

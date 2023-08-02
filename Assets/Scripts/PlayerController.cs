@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject bulletToFire;
     public Transform upPos, downPos, leftPos, rightPos;
+    public Animator anim;
 
     // Start is called before the first frame update
     void Start()
@@ -29,26 +30,33 @@ public class PlayerController : MonoBehaviour
 
         rb.velocity = moveInput * moveSpeed;
 
+        anim.SetFloat("posY", moveInput.y);
+        anim.SetFloat("posX", moveInput.x);
+
         if (canShoot)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
+                anim.SetTrigger("attackBack");
                 Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
                 StartCoroutine(DisableShootingTemporarily());
             }
             if (Input.GetKeyDown(KeyCode.DownArrow))
             {
+                anim.SetTrigger("attackFront");
                 Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
                 StartCoroutine(DisableShootingTemporarily());
             }
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                anim.SetTrigger("attackLeft");
                 Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
                 StartCoroutine(DisableShootingTemporarily());
             }
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                Instantiate(bulletToFire, rightPos.position, rightPos.rotation);
+                anim.SetTrigger("attackRight");
+                Instantiate(bulletToFire, rightPos.position, upPos.rotation);
                 StartCoroutine(DisableShootingTemporarily());
             }
 
@@ -58,22 +66,26 @@ public class PlayerController : MonoBehaviour
                 {
                     if (Input.GetKey(KeyCode.UpArrow))
                     {
+                        anim.SetTrigger("attackBack");
                         Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
                         StartCoroutine(DisableShootingTemporarily());
                     }
                     if (Input.GetKey(KeyCode.DownArrow))
                     {
+                        anim.SetTrigger("attackFront");
                         Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
                         StartCoroutine(DisableShootingTemporarily());
                     }
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
+                        anim.SetTrigger("attackLeft");
                         Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
                         StartCoroutine(DisableShootingTemporarily());
                     }
                     if (Input.GetKey(KeyCode.RightArrow))
                     {
-                        Instantiate(bulletToFire, rightPos.position, rightPos.rotation);
+                        anim.SetTrigger("attackRight");
+                        Instantiate(bulletToFire, rightPos.position, upPos.rotation);
                         StartCoroutine(DisableShootingTemporarily());
                     }
                 }
