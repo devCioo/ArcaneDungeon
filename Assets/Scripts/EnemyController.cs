@@ -21,17 +21,21 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sr.isVisible)
+        if (sr.isVisible && PlayerController.instance.gameObject.activeSelf)
         {
             moveDirection = PlayerController.instance.transform.position - transform.position;
             moveDirection.Normalize();
-
-            rb.velocity = moveDirection * moveSpeed;
-
-            anim.SetFloat("posX", moveDirection.x);
-            anim.SetFloat("posY", moveDirection.y);
-            anim.SetFloat("velocity", moveDirection.sqrMagnitude);
         }
+        else
+        {
+            moveDirection = Vector3.zero;
+        }
+
+        rb.velocity = moveDirection * moveSpeed;
+
+        anim.SetFloat("posX", moveDirection.x);
+        anim.SetFloat("posY", moveDirection.y);
+        anim.SetFloat("velocity", moveDirection.sqrMagnitude);
     }
 
     public void TakeDamage(float amount)
@@ -41,6 +45,22 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerHealthController.instance.TakeDamage(1);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            PlayerHealthController.instance.TakeDamage(1);
         }
     }
 }
