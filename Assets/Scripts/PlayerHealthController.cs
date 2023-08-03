@@ -80,4 +80,16 @@ public class PlayerHealthController : MonoBehaviour
         sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
         isInvincible = false;
     }
+
+    public void Heal(int amount)
+    {
+        currentHealth += amount;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UIController.instance.UpdateHealthUI();
+    }
 }
