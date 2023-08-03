@@ -31,6 +31,11 @@ public class PlayerBullet : MonoBehaviour
         {
             other.GetComponent<EnemyController>().TakeDamage(damage);
         }
+
+        if (other.CompareTag("Breakable"))
+        {
+            other.GetComponent<Breakables>().TakeDamage(1);
+        }
     }
 
     private void OnBecameInvisible()
