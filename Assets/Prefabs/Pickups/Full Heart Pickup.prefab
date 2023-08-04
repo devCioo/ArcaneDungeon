@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8410347702531698126}
   - component: {fileID: 5588776142765827107}
   - component: {fileID: 5387317107416948046}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Full Heart Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
