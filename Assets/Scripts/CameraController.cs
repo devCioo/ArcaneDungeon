@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour
 
     public float transitionSpeed;
 
+    public Camera backgroundCamera;
     public Transform target;
-
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        backgroundCamera.backgroundColor = gameObject.GetComponent<Camera>().backgroundColor;
     }
 
     // Update is called once per frame
