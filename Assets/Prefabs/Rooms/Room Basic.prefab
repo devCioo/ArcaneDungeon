@@ -54,6 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1833262629599045132}
+  - component: {fileID: 2049179815320739160}
   - component: {fileID: 2223166961033955544}
   m_Layer: 0
   m_Name: Room Basic
@@ -76,9 +77,34 @@ Transform:
   m_Children:
   - {fileID: 8891518828228319448}
   - {fileID: 6711246881559276826}
+  - {fileID: 8625545545621943580}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2049179815320739160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997587760378152016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13bb74ae4030fe141add3cdc220a7645, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeWhenEntered: 0
+  openWhenEnemiesCleared: 0
+  tilemap: {fileID: 8168977326938449285}
+  doorUp: {fileID: 11400000, guid: ac05f059ebc32db4f9b8eb82b2e25a97, type: 2}
+  doorDown: {fileID: 11400000, guid: 2b11a87a68c8c7c4ebfbe61d084d0358, type: 2}
+  doorLeft: {fileID: 11400000, guid: 79961c4149b849449a2fbad072e04666, type: 2}
+  doorRight: {fileID: 11400000, guid: 7536a72d33962254dadec4ca2293d634, type: 2}
+  closedDoorUp: {fileID: 11400000, guid: 0cee2c57c51feda488244634f994f5b5, type: 2}
+  closedDoorDown: {fileID: 11400000, guid: a08e8289bce25ad48a4c6a17907b8c1f, type: 2}
+  closedDoorLeft: {fileID: 11400000, guid: edf05f8f98368e8448ae82c65c320b6f, type: 2}
+  closedDoorRight: {fileID: 11400000, guid: 9b0f562aadd53934289e26d4e122e998, type: 2}
+  enemies: []
 --- !u!50 &2223166961033955544
 Rigidbody2D:
   serializedVersion: 4
@@ -2500,3 +2526,34 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 13, y: 7}
   m_EdgeRadius: 0
+--- !u!1 &7162518916862980728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8625545545621943580}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8625545545621943580
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7162518916862980728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1833262629599045132}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

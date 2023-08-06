@@ -9,9 +9,13 @@ public class UIController : MonoBehaviour
 
     public int numberOfContainers;
     public int currentHealth;
+    public float fadeSpeed;
+    private bool fadeToBlack, fadeOutBlack;
+
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
     public GameObject deathScreen;
+    public Image fadeScreen;
 
     private void Awake()
     {
@@ -22,12 +26,29 @@ public class UIController : MonoBehaviour
     {
         numberOfContainers = PlayerHealthController.instance.maxHealth / 2;
         currentHealth = PlayerHealthController.instance.currentHealth;
+        fadeOutBlack = true;
+        fadeToBlack = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (fadeOutBlack)
+        {
+            fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 0f, fadeSpeed * Time.deltaTime));
+            if (fadeScreen.color.a == 0f)
+            {
+                fadeOutBlack = false;
+            }
+        }
+        if (fadeToBlack)
+        {
+            fadeScreen.color = new Color(fadeScreen.color.r, fadeScreen.color.g, fadeScreen.color.b, Mathf.MoveTowards(fadeScreen.color.a, 1f, fadeSpeed * Time.deltaTime));
+            if (fadeScreen.color.a == 1f)
+            {
+                fadeToBlack = false;
+            }
+        }
     }
 
     public void UpdateHealthUI()
@@ -59,5 +80,11 @@ public class UIController : MonoBehaviour
                 hearts[i].sprite = emptyHeart;
             }
         }
+    }
+
+    public void StartFadeToBlack()
+    {
+        fadeToBlack = true;
+        fadeOutBlack = false;
     }
 }

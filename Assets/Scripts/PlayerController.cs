@@ -10,7 +10,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveInput;
     public float attackSpeed;
     private float shotDelay;
-    private bool canShoot = true;
+    [HideInInspector]
+    public bool canMove = true, canShoot = true;
 
     public Rigidbody2D rb;
     public GameObject bulletToFire;
@@ -32,72 +33,81 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-        moveInput.Normalize();
-
-        rb.velocity = moveInput * moveSpeed;
-
-        anim.SetFloat("posY", moveInput.y);
-        anim.SetFloat("posX", moveInput.x);
-
-        if (canShoot)
+        if (canMove)
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                anim.SetTrigger("attackBack");
-                Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
-                StartCoroutine(DisableShootingTemporarily());
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                anim.SetTrigger("attackFront");
-                Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
-                StartCoroutine(DisableShootingTemporarily());
-            }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                anim.SetTrigger("attackLeft");
-                Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
-                StartCoroutine(DisableShootingTemporarily());
-            }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                anim.SetTrigger("attackRight");
-                Instantiate(bulletToFire, rightPos.position, upPos.rotation);
-                StartCoroutine(DisableShootingTemporarily());
-            }
+            moveInput.x = Input.GetAxisRaw("Horizontal");
+            moveInput.y = Input.GetAxisRaw("Vertical");
+            moveInput.Normalize();
 
-            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+            rb.velocity = moveInput * moveSpeed;
+
+            anim.SetFloat("posY", moveInput.y);
+            anim.SetFloat("posX", moveInput.x);
+
+            if (canShoot)
             {
-                if (canShoot)
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    if (Input.GetKey(KeyCode.UpArrow))
+                    anim.SetTrigger("attackBack");
+                    Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
+                    StartCoroutine(DisableShootingTemporarily());
+                }
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    anim.SetTrigger("attackFront");
+                    Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
+                    StartCoroutine(DisableShootingTemporarily());
+                }
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    anim.SetTrigger("attackLeft");
+                    Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
+                    StartCoroutine(DisableShootingTemporarily());
+                }
+                if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    anim.SetTrigger("attackRight");
+                    Instantiate(bulletToFire, rightPos.position, upPos.rotation);
+                    StartCoroutine(DisableShootingTemporarily());
+                }
+
+                if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+                {
+                    if (canShoot)
                     {
-                        anim.SetTrigger("attackBack");
-                        Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
-                        StartCoroutine(DisableShootingTemporarily());
-                    }
-                    if (Input.GetKey(KeyCode.DownArrow))
-                    {
-                        anim.SetTrigger("attackFront");
-                        Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
-                        StartCoroutine(DisableShootingTemporarily());
-                    }
-                    if (Input.GetKey(KeyCode.LeftArrow))
-                    {
-                        anim.SetTrigger("attackLeft");
-                        Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
-                        StartCoroutine(DisableShootingTemporarily());
-                    }
-                    if (Input.GetKey(KeyCode.RightArrow))
-                    {
-                        anim.SetTrigger("attackRight");
-                        Instantiate(bulletToFire, rightPos.position, upPos.rotation);
-                        StartCoroutine(DisableShootingTemporarily());
+                        if (Input.GetKey(KeyCode.UpArrow))
+                        {
+                            anim.SetTrigger("attackBack");
+                            Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
+                            StartCoroutine(DisableShootingTemporarily());
+                        }
+                        if (Input.GetKey(KeyCode.DownArrow))
+                        {
+                            anim.SetTrigger("attackFront");
+                            Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
+                            StartCoroutine(DisableShootingTemporarily());
+                        }
+                        if (Input.GetKey(KeyCode.LeftArrow))
+                        {
+                            anim.SetTrigger("attackLeft");
+                            Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
+                            StartCoroutine(DisableShootingTemporarily());
+                        }
+                        if (Input.GetKey(KeyCode.RightArrow))
+                        {
+                            anim.SetTrigger("attackRight");
+                            Instantiate(bulletToFire, rightPos.position, upPos.rotation);
+                            StartCoroutine(DisableShootingTemporarily());
+                        }
                     }
                 }
             }
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+            anim.SetFloat("posY", 0f);
+            anim.SetFloat("posX", 0f);
         }
     }
 
