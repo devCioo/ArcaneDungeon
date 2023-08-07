@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -14,8 +15,9 @@ public class UIController : MonoBehaviour
 
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
-    public GameObject deathScreen;
+    public GameObject deathScreen, pauseMenu;
     public Image fadeScreen;
+    public string mainMenuScene;
 
     private void Awake()
     {
@@ -86,5 +88,16 @@ public class UIController : MonoBehaviour
     {
         fadeToBlack = true;
         fadeOutBlack = false;
+    }
+
+    public void ReturnToMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(mainMenuScene);
+    }
+
+    public void Resume()
+    {
+        LevelManager.instance.PauseOrResume();
     }
 }
