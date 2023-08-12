@@ -152,21 +152,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601f91c3b21c4394d9e90c00bff5b474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSize: 10
-  xOffset: 17
-  yOffset: 11
+  levelSize: 8
   startRoomColor: {r: 0, g: 0.9013953, b: 1, a: 1}
+  standardRoomColor: {r: 1, g: 1, b: 1, a: 1}
   secretRoomColor: {r: 1, g: 0, b: 0, a: 1}
-  bossRoomColor: {r: 1, g: 1, b: 1, a: 1}
-  treasureRoomColor: {r: 1, g: 0.8431373, b: 0, a: 1}
+  bossRoomColor: {r: 0, g: 0, b: 0, a: 1}
+  itemRoomColor: {r: 1, g: 0.93470955, b: 0, a: 1}
   shopRoomColor: {r: 0.22352943, g: 1, b: 0.078431375, a: 1}
   direction: 0
   roomBase: {fileID: 2378827721429390041, guid: 9712e9588809d8242badd66ed976aefb, type: 3}
-  generatorPoint: {fileID: 847548633}
-  oldPoint: {fileID: 1629511249}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 8192
 --- !u!4 &697590258
 Transform:
   m_ObjectHideFlags: 0
