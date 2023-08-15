@@ -1,8 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -10,12 +8,15 @@ public class LevelGenerator : MonoBehaviour
     public Color startRoomColor, standardRoomColor, secretRoomColor, bossRoomColor, itemRoomColor, shopRoomColor;
     public enum Direction { up, right, down, left }
     public Direction direction;
-    public enum RoomTypeToSpawn { secretRoom, bossRoom, shopRoom, itemRoom }
     private bool canCreate;
 
     public GameObject roomBase;
     private int?[,] grid = new int?[13, 13];
     private Vector2Int gridPoint, oldPoint;
+
+    public RoomOutlines outlines;
+    public RoomCenter startRoomCenter, bossRoomCenter;
+    public RoomCenter[] roomCenters;
 
     // Start is called before the first frame update
     void Start()
@@ -30,15 +31,18 @@ public class LevelGenerator : MonoBehaviour
         GenerateItemRoom();
 
         CreateLevel();
+        CreateRooms();
     }
 
     // Update is called once per frame
     void Update()
     {
+#if UNITY_EDITOR
         if (Input.GetKey(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+#endif
     }
 
     public void MoveGridPoint()
@@ -231,6 +235,174 @@ public class LevelGenerator : MonoBehaviour
 
                 roomPosition += new Vector2(xOffset, 0f);
             }
+            roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
+        }
+    }
+
+    public void CreateRooms()
+    {
+        bool isRoomUp = false, isRoomRight = false, isRoomDown = false, isRoomLeft = false;
+        int directionCount = 0, selectedCenter = 0;
+        float xOffset = 17f, yOffset = 11f;
+        Vector2 roomPosition = new Vector2(-101.5f, 66.5f);
+
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                isRoomUp = isRoomRight = isRoomDown = isRoomLeft = false;
+                directionCount = 0;
+                gridPoint = new Vector2Int(i, j);
+                if (grid[gridPoint.x, gridPoint.y] is not null)
+                {
+                    if (gridPoint.x > 0)
+                    {
+                        if (grid[gridPoint.x - 1, gridPoint.y] is not null && grid[gridPoint.x - 1, gridPoint.y] != 2)
+                        {
+                            isRoomUp = true;
+                        }
+                    }
+                    if (gridPoint.y < 12)
+                    {
+                        if (grid[gridPoint.x, gridPoint.y + 1] is not null && grid[gridPoint.x, gridPoint.y + 1] != 2)
+                        {
+                            isRoomRight = true;
+                        }
+                    }
+                    if (gridPoint.x < 12)
+                    {
+                        if (grid[gridPoint.x + 1, gridPoint.y] is not null && grid[gridPoint.x + 1, gridPoint.y] != 2)
+                        {
+                            isRoomDown = true;
+                        }
+                    }
+                    if (gridPoint.y > 0)
+                    {
+                        if (grid[gridPoint.x, gridPoint.y - 1] is not null && grid[gridPoint.x, gridPoint.y - 1] != 2)
+                        {
+                            isRoomLeft = true;
+                        }
+                    }
+
+                    if (isRoomUp)
+                    {
+                        directionCount++;
+                    }
+                    if (isRoomRight)
+                    {
+                        directionCount++;
+                    }
+                    if (isRoomDown)
+                    {
+                        directionCount++;
+                    }
+                    if (isRoomLeft)
+                    {
+                        directionCount++;
+                    }
+
+                    if (grid[gridPoint.x, gridPoint.y] == 2)
+                    {
+                        directionCount = 0;
+                    }
+
+                    GameObject outline = new GameObject();
+                    switch (directionCount)
+                    {
+                        case 0:
+                            outline = Instantiate(outlines.noDoor, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            break;
+                        case 1:
+                            if (isRoomUp)
+                            {
+                                outline = Instantiate(outlines.singleUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomRight)
+                            {
+                                outline = Instantiate(outlines.singleRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomDown)
+                            {
+                                outline = Instantiate(outlines.singleDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomLeft)
+                            {
+                                outline = Instantiate(outlines.singleLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            break;
+
+                        case 2:
+                            if (isRoomUp && isRoomRight)
+                            {
+                                outline = Instantiate(outlines.doubleUpRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomRight && isRoomDown)
+                            {
+                                outline = Instantiate(outlines.doubleRightDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomDown && isRoomLeft)
+                            {
+                                outline = Instantiate(outlines.doubleDownLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomLeft && isRoomUp)
+                            {
+                                outline = Instantiate(outlines.doubleLeftUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomUp && isRoomDown)
+                            {
+                                outline = Instantiate(outlines.doubleUpDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomRight && isRoomLeft)
+                            {
+                                outline = Instantiate(outlines.doubleRightLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            break;
+
+                        case 3:
+                            if (isRoomUp && isRoomRight && isRoomDown)
+                            {
+                                outline = Instantiate(outlines.tripleUpRightDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomRight && isRoomDown && isRoomLeft)
+                            {
+                                outline = Instantiate(outlines.tripleRightDownLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomDown && isRoomLeft && isRoomUp)
+                            {
+                                outline = Instantiate(outlines.tripleDownLeftUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            if (isRoomLeft && isRoomUp && isRoomRight)
+                            {
+                                outline = Instantiate(outlines.tripleLeftUpRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            break;
+
+                        case 4:
+                            if (isRoomUp && isRoomRight && isRoomDown && isRoomLeft)
+                            {
+                                outline = Instantiate(outlines.quadruple, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            }
+                            break;
+                    }
+
+                    if (grid[gridPoint.x, gridPoint.y] == 0)
+                    {
+                        Instantiate(startRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = outline.GetComponent<Room>();
+                    }
+                    else if (grid[gridPoint.x, gridPoint.y] == 3)
+                    {
+                        Instantiate(bossRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = outline.GetComponent<Room>();
+                    }
+                    else
+                    {
+                        selectedCenter = Random.Range(0, roomCenters.Length);
+                        Instantiate(roomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = outline.GetComponent<Room>();
+                    }
+                }
+
+                roomPosition += new Vector2(xOffset, 0f);
+            }
+
             roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
         }
     }
@@ -563,4 +735,12 @@ public class LevelGenerator : MonoBehaviour
 
         return furthestPoint;
     }
+}
+
+[System.Serializable]
+public class RoomOutlines
+{
+    public GameObject noDoor, singleUp, singleRight, singleDown, singleLeft,
+        doubleUpRight, doubleRightDown, doubleDownLeft, doubleLeftUp, doubleUpDown, doubleRightLeft,
+        tripleUpRightDown, tripleRightDownLeft, tripleDownLeftUp, tripleLeftUpRight, quadruple;
 }

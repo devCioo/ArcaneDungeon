@@ -5,14 +5,13 @@ using UnityEngine.Tilemaps;
 
 public class Room : MonoBehaviour
 {
-    public bool closeWhenEntered, openWhenEnemiesCleared;
-    private bool isActiveRoom;
+    public bool closeWhenEntered;
+    [HideInInspector]
+    public bool isActiveRoom;
 
     public Tilemap tilemap;
     public TileBase doorUp, doorDown, doorLeft, doorRight;
     public TileBase closedDoorUp, closedDoorDown, closedDoorLeft, closedDoorRight;
-
-    public List<GameObject> enemies = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -23,39 +22,29 @@ public class Room : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemies.Count > 0 && isActiveRoom && openWhenEnemiesCleared)
+
+    }
+
+    public void OpenDoors()
+    {
+        if (tilemap.GetTile(new Vector3Int(0, 4, 0)) == closedDoorUp)
         {
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                if (enemies[i] == null)
-                {
-                    enemies.RemoveAt(i);
-                    i--;
-                }
-            }
-
-            if (enemies.Count == 0)
-            {
-                if (tilemap.GetTile(new Vector3Int(0, 4, 0)) == closedDoorUp)
-                {
-                    tilemap.SetTile(new Vector3Int(0, 4, 0), doorUp);
-                }
-                if (tilemap.GetTile(new Vector3Int(0, -4, 0)) == closedDoorDown)
-                {
-                    tilemap.SetTile(new Vector3Int(0, -4, 0), doorDown);
-                }
-                if (tilemap.GetTile(new Vector3Int(-7, 0, 0)) == closedDoorLeft)
-                {
-                    tilemap.SetTile(new Vector3Int(-7, 0, 0), doorLeft);
-                }
-                if (tilemap.GetTile(new Vector3Int(7, 0, 0)) == closedDoorRight)
-                {
-                    tilemap.SetTile(new Vector3Int(7, 0, 0), doorRight);
-                }
-
-                closeWhenEntered = false;
-            }
+            tilemap.SetTile(new Vector3Int(0, 4, 0), doorUp);
         }
+        if (tilemap.GetTile(new Vector3Int(0, -4, 0)) == closedDoorDown)
+        {
+            tilemap.SetTile(new Vector3Int(0, -4, 0), doorDown);
+        }
+        if (tilemap.GetTile(new Vector3Int(-7, 0, 0)) == closedDoorLeft)
+        {
+            tilemap.SetTile(new Vector3Int(-7, 0, 0), doorLeft);
+        }
+        if (tilemap.GetTile(new Vector3Int(7, 0, 0)) == closedDoorRight)
+        {
+            tilemap.SetTile(new Vector3Int(7, 0, 0), doorRight);
+        }
+
+        closeWhenEntered = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
