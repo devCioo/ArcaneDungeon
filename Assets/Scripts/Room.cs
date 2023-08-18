@@ -9,9 +9,9 @@ public class Room : MonoBehaviour
     [HideInInspector]
     public bool isActiveRoom;
 
+    public RoomType roomType;
+    public GameObject doorUp, doorRight, doorDown, doorLeft;
     public Tilemap tilemap;
-    public TileBase doorUp, doorDown, doorLeft, doorRight;
-    public TileBase closedDoorUp, closedDoorDown, closedDoorLeft, closedDoorRight;
 
     // Start is called before the first frame update
     void Start()
@@ -27,21 +27,25 @@ public class Room : MonoBehaviour
 
     public void OpenDoors()
     {
-        if (tilemap.GetTile(new Vector3Int(0, 4, 0)) == closedDoorUp)
+        if (doorUp != null)
         {
-            tilemap.SetTile(new Vector3Int(0, 4, 0), doorUp);
+            doorUp.GetComponent<Animator>().Play("Doors_Open");
+            doorUp.GetComponent<Collider2D>().enabled = false;
         }
-        if (tilemap.GetTile(new Vector3Int(0, -4, 0)) == closedDoorDown)
+        if (doorRight != null)
         {
-            tilemap.SetTile(new Vector3Int(0, -4, 0), doorDown);
+            doorRight.GetComponent<Animator>().Play("Doors_Open");
+            doorRight.GetComponent<Collider2D>().enabled = false;
         }
-        if (tilemap.GetTile(new Vector3Int(-7, 0, 0)) == closedDoorLeft)
+        if (doorDown != null)
         {
-            tilemap.SetTile(new Vector3Int(-7, 0, 0), doorLeft);
+            doorDown.GetComponent<Animator>().Play("Doors_Open");
+            doorDown.GetComponent<Collider2D>().enabled = false;
         }
-        if (tilemap.GetTile(new Vector3Int(7, 0, 0)) == closedDoorRight)
+        if (doorLeft != null)
         {
-            tilemap.SetTile(new Vector3Int(7, 0, 0), doorRight);
+            doorLeft.GetComponent<Animator>().Play("Doors_Open");
+            doorLeft.GetComponent<Collider2D>().enabled = false;
         }
 
         closeWhenEntered = false;
@@ -55,21 +59,25 @@ public class Room : MonoBehaviour
 
             if (closeWhenEntered)
             {
-                if (tilemap.GetTile(new Vector3Int(0, 4, 0)) == doorUp)
+                if (doorUp != null)
                 {
-                    tilemap.SetTile(new Vector3Int(0, 4, 0), closedDoorUp);
+                    doorUp.GetComponent<Animator>().Play("Doors_Close");
+                    doorUp.GetComponent<Collider2D>().enabled = true;
                 }
-                if (tilemap.GetTile(new Vector3Int(0, -4, 0)) == doorDown)
+                if (doorRight != null)
                 {
-                    tilemap.SetTile(new Vector3Int(0, -4, 0), closedDoorDown);
+                    doorRight.GetComponent<Animator>().Play("Doors_Close");
+                    doorRight.GetComponent<Collider2D>().enabled = true;
                 }
-                if (tilemap.GetTile(new Vector3Int(-7, 0, 0)) == doorLeft)
+                if (doorDown != null)
                 {
-                    tilemap.SetTile(new Vector3Int(-7, 0, 0), closedDoorLeft);
+                    doorDown.GetComponent<Animator>().Play("Doors_Close");
+                    doorDown.GetComponent<Collider2D>().enabled = true;
                 }
-                if (tilemap.GetTile(new Vector3Int(7, 0, 0)) == doorRight)
+                if (doorLeft != null)
                 {
-                    tilemap.SetTile(new Vector3Int(7, 0, 0), closedDoorRight);
+                    doorLeft.GetComponent<Animator>().Play("Doors_Close");
+                    doorLeft.GetComponent<Collider2D>().enabled = true;
                 }
             }
 

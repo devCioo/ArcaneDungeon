@@ -1,37 +1,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 public class LevelGenerator : MonoBehaviour
 {
     public int levelSize;
-    public Color startRoomColor, standardRoomColor, secretRoomColor, bossRoomColor, itemRoomColor, shopRoomColor;
-    public enum Direction { up, right, down, left }
-    public Direction direction;
+    private Direction direction;
     private bool canCreate;
 
-    public GameObject roomBase;
     private int?[,] grid = new int?[13, 13];
     private Vector2Int gridPoint, oldPoint;
 
+    private GameObject[,] rooms = new GameObject[13, 13];
+
     public RoomOutlines outlines;
+    public TileBase secretDoorUp, secretDoorRight, secretDoorDown, secretDoorLeft;
+    public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor;
     public RoomCenter startRoomCenter, bossRoomCenter;
     public RoomCenter[] roomCenters;
 
     // Start is called before the first frame update
     void Start()
     {
-        grid[6, 6] = 0;
-        gridPoint = new Vector2Int(6, 6);
-
-        GenerateStandardRooms();
-        GenerateSecretRoom();
-        GenerateBossRoom();
-        GenerateShop();
-        GenerateItemRoom();
-
-        CreateLevel();
-        CreateRooms();
+        GenerateGrid();
+        CreateOutlines();
+        CreateCenters();
+        ReplaceDoorsVariants();
     }
 
     // Update is called once per frame
@@ -43,6 +39,18 @@ public class LevelGenerator : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 #endif
+    }
+
+    public void GenerateGrid()
+    {
+        grid[6, 6] = (int)RoomType.StartingRoom;
+        gridPoint = new Vector2Int(6, 6);
+
+        GenerateStandardRooms();
+        GenerateSecretRoom();
+        GenerateBossRoom();
+        GenerateShop();
+        GenerateItemRoom();
     }
 
     public void MoveGridPoint()
@@ -68,6 +76,7 @@ public class LevelGenerator : MonoBehaviour
                 gridPoint += new Vector2Int(0, -1);
                 break;
         }
+
         if (gridPoint.x < 0 || gridPoint.x > 12 || gridPoint.y < 0 || gridPoint.y > 12)
         {
             gridPoint = oldPoint;
@@ -138,7 +147,7 @@ public class LevelGenerator : MonoBehaviour
                 canCreate = true;
             }
 
-            grid[gridPoint.x, gridPoint.y] = 1;
+            grid[gridPoint.x, gridPoint.y] = (int)RoomType.NormalRoom;
             Debug.Log($"Created room at [{gridPoint.x},{gridPoint.y}]");
         }
     }
@@ -162,7 +171,7 @@ public class LevelGenerator : MonoBehaviour
         int selected = Random.Range(0, matchingPoints.Count);
         Debug.Log($"Selected point has index {selected}");
         Vector2Int selectedPoint = matchingPoints[selected];
-        grid[selectedPoint.x, selectedPoint.y] = 2;
+        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.SecretRoom;
         Debug.Log($"Created secret room at [{selectedPoint.x},{selectedPoint.y}]");
     }
 
@@ -170,7 +179,7 @@ public class LevelGenerator : MonoBehaviour
     {
         List<Vector2Int> matchingPoints = GetBossRoomMatchingPoints();
         Vector2Int selectedPoint = FindFurthestPointFromStart(matchingPoints);
-        grid[selectedPoint.x, selectedPoint.y] = 3;
+        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.BossRoom;
         Debug.Log($"Created boss room at [{selectedPoint.x},{selectedPoint.y}]");
     }
 
@@ -180,7 +189,7 @@ public class LevelGenerator : MonoBehaviour
         int selected = Random.Range(0, matchingPoints.Count);
         Debug.Log($"Selected point has index {selected}");
         Vector2Int selectedPoint = matchingPoints[selected];
-        grid[selectedPoint.x, selectedPoint.y] = 4;
+        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.ShopRoom;
         Debug.Log($"Created shop at [{selectedPoint.x},{selectedPoint.y}]");
     }
 
@@ -190,59 +199,14 @@ public class LevelGenerator : MonoBehaviour
         int selected = Random.Range(0, matchingPoints.Count);
         Debug.Log($"Selected point has index {selected}");
         Vector2Int selectedPoint = matchingPoints[selected];
-        grid[selectedPoint.x, selectedPoint.y] = 5;
+        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.ItemRoom;
         Debug.Log($"Created item room at [{selectedPoint.x},{selectedPoint.y}]");
     }
 
-    public void CreateLevel()
-    {
-        float xOffset = 17f, yOffset = 11f;
-        Vector2 roomPosition = new Vector2(-101.5f, 66.5f);
-
-        for (int i = 0; i < 13; i++)
-        {
-            for ( int j = 0; j < 13; j++)
-            {  
-                switch (grid[i, j])
-                {
-                    case null:
-                        break;
-
-                    case 0:
-                        Instantiate(roomBase, roomPosition, Quaternion.Euler(0f, 0f, 0f)).GetComponent<SpriteRenderer>().color = startRoomColor;
-                        break;
-
-                    case 1:
-                        Instantiate(roomBase, roomPosition, Quaternion.Euler(0f, 0f, 0f)).GetComponent<SpriteRenderer>().color = standardRoomColor;
-                        break;
-
-                    case 2:
-                        Instantiate(roomBase, roomPosition, Quaternion.Euler(0f, 0f, 0f)).GetComponent<SpriteRenderer>().color = secretRoomColor;
-                        break;
-
-                    case 3:
-                        Instantiate(roomBase, roomPosition, Quaternion.Euler(0f, 0f, 0f)).GetComponent<SpriteRenderer>().color = bossRoomColor;
-                        break;
-
-                    case 4:
-                        Instantiate(roomBase, roomPosition, Quaternion.Euler(0f, 0f, 0f)).GetComponent<SpriteRenderer>().color = shopRoomColor;
-                        break;
-
-                    case 5:
-                        Instantiate(roomBase, roomPosition, Quaternion.Euler(0f, 0f, 0f)).GetComponent<SpriteRenderer>().color = itemRoomColor;
-                        break;
-                }
-
-                roomPosition += new Vector2(xOffset, 0f);
-            }
-            roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
-        }
-    }
-
-    public void CreateRooms()
+    public void CreateOutlines()
     {
         bool isRoomUp = false, isRoomRight = false, isRoomDown = false, isRoomLeft = false;
-        int directionCount = 0, selectedCenter = 0;
+        int directionCount = 0;
         float xOffset = 17f, yOffset = 11f;
         Vector2 roomPosition = new Vector2(-101.5f, 66.5f);
 
@@ -284,119 +248,89 @@ public class LevelGenerator : MonoBehaviour
                         }
                     }
 
-                    if (isRoomUp)
-                    {
-                        directionCount++;
-                    }
-                    if (isRoomRight)
-                    {
-                        directionCount++;
-                    }
-                    if (isRoomDown)
-                    {
-                        directionCount++;
-                    }
-                    if (isRoomLeft)
-                    {
-                        directionCount++;
-                    }
+                    directionCount += (isRoomUp ? 1 : 0) + (isRoomRight ? 1 : 0) + (isRoomDown ? 1 : 0) + (isRoomLeft ? 1 : 0);
 
                     if (grid[gridPoint.x, gridPoint.y] == 2)
                     {
                         directionCount = 0;
                     }
 
-                    GameObject outline = new GameObject();
                     switch (directionCount)
                     {
                         case 0:
-                            outline = Instantiate(outlines.noDoor, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j] = Instantiate(outlines.noDoor, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             break;
                         case 1:
                             if (isRoomUp)
                             {
-                                outline = Instantiate(outlines.singleUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.singleUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomRight)
                             {
-                                outline = Instantiate(outlines.singleRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.singleRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomDown)
                             {
-                                outline = Instantiate(outlines.singleDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.singleDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomLeft)
                             {
-                                outline = Instantiate(outlines.singleLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.singleLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             break;
 
                         case 2:
                             if (isRoomUp && isRoomRight)
                             {
-                                outline = Instantiate(outlines.doubleUpRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.doubleUpRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomRight && isRoomDown)
                             {
-                                outline = Instantiate(outlines.doubleRightDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.doubleRightDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomDown && isRoomLeft)
                             {
-                                outline = Instantiate(outlines.doubleDownLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.doubleDownLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomLeft && isRoomUp)
                             {
-                                outline = Instantiate(outlines.doubleLeftUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.doubleLeftUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomUp && isRoomDown)
                             {
-                                outline = Instantiate(outlines.doubleUpDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.doubleUpDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomRight && isRoomLeft)
                             {
-                                outline = Instantiate(outlines.doubleRightLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.doubleRightLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             break;
 
                         case 3:
                             if (isRoomUp && isRoomRight && isRoomDown)
                             {
-                                outline = Instantiate(outlines.tripleUpRightDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.tripleUpRightDown, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomRight && isRoomDown && isRoomLeft)
                             {
-                                outline = Instantiate(outlines.tripleRightDownLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.tripleRightDownLeft, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomDown && isRoomLeft && isRoomUp)
                             {
-                                outline = Instantiate(outlines.tripleDownLeftUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.tripleDownLeftUp, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             if (isRoomLeft && isRoomUp && isRoomRight)
                             {
-                                outline = Instantiate(outlines.tripleLeftUpRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.tripleLeftUpRight, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             break;
 
                         case 4:
                             if (isRoomUp && isRoomRight && isRoomDown && isRoomLeft)
                             {
-                                outline = Instantiate(outlines.quadruple, roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                                rooms[i, j] = Instantiate(outlines.quadruple, roomPosition, Quaternion.Euler(0f, 0f, 0f));
                             }
                             break;
-                    }
-
-                    if (grid[gridPoint.x, gridPoint.y] == 0)
-                    {
-                        Instantiate(startRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = outline.GetComponent<Room>();
-                    }
-                    else if (grid[gridPoint.x, gridPoint.y] == 3)
-                    {
-                        Instantiate(bossRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = outline.GetComponent<Room>();
-                    }
-                    else
-                    {
-                        selectedCenter = Random.Range(0, roomCenters.Length);
-                        Instantiate(roomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = outline.GetComponent<Room>();
                     }
                 }
 
@@ -404,6 +338,164 @@ public class LevelGenerator : MonoBehaviour
             }
 
             roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
+        }
+    }
+
+    public void CreateCenters()
+    {
+        float xOffset = 17f, yOffset = 11f;
+        Vector2 roomPosition = new Vector2(-101.5f, 66.5f);
+        int selectedCenter;
+
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                gridPoint = new Vector2Int(i, j);
+
+                if (rooms[i ,j] is not null)
+                {
+                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.StartingRoom)
+                    {
+                        Instantiate(startRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                    }
+                    else if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.BossRoom)
+                    {
+                        Instantiate(bossRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                    }
+                    else
+                    {
+                        selectedCenter = Random.Range(0, roomCenters.Length);
+                        Instantiate(roomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                    }
+                }
+
+                roomPosition += new Vector2(xOffset, 0f);
+            }
+
+            roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
+        }
+    }
+
+    public void ReplaceDoorsVariants()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                gridPoint = new Vector2Int(i, j);
+                if (rooms[i, j] is not null)
+                {
+                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.SecretRoom)
+                    {
+                        SwapTiles();
+                    }
+                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.BossRoom)
+                    {
+                        SwapDoors(bossRoomDoor);
+                    }
+                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.ShopRoom)
+                    {
+                        SwapDoors(shopRoomDoor);
+                    }
+                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.ItemRoom)
+                    {
+                        SwapDoors(itemRoomDoor);
+                    }
+                }
+            }
+        }
+    }
+
+    public void SwapTiles()
+    {
+        GameObject room = rooms[gridPoint.x, gridPoint.y];
+
+        if (gridPoint.x > 0)
+        {
+            if (rooms[gridPoint.x - 1, gridPoint.y] is not null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, 4, 0), secretDoorUp);
+            }
+        }
+        if (gridPoint.y < 12)
+        {
+            if (rooms[gridPoint.x, gridPoint.y + 1] is not null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(7, 0, 0), secretDoorRight);
+            }
+        }
+        if (gridPoint.x < 12)
+        {
+            if (rooms[gridPoint.x + 1, gridPoint.y] is not null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, -4, 0), secretDoorDown);
+            }
+        }
+        if (gridPoint.y > 0)
+        {
+            if (rooms[gridPoint.x, gridPoint.y - 1] is not null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(-7, 0, 0), secretDoorLeft);
+            }
+        }
+    }
+
+    public void SwapDoors(GameObject door)
+    {
+        GameObject room = rooms[gridPoint.x, gridPoint.y];
+
+        if (room.GetComponent<Room>().doorUp != null)
+        {
+            Destroy(room.GetComponent<Room>().doorUp);
+            GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(0f, 3.5f, 0f), Quaternion.Euler(0f, 0f, 0f));
+            newDoor.transform.SetParent(room.transform.Find("Doors"));
+            room.GetComponent<Room>().doorUp = newDoor;
+
+            GameObject adjacentRoom = rooms[gridPoint.x - 1, gridPoint.y];
+            Destroy(adjacentRoom.GetComponent<Room>().doorDown);
+            GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0f, -3.5f, 0f), Quaternion.Euler(0f, 0f, -180f));
+            newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+            adjacentRoom.GetComponent<Room>().doorDown = newDoor2;
+        }
+        if (room.GetComponent<Room>().doorRight != null)
+        {
+            Destroy(room.GetComponent<Room>().doorRight);
+            GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+            newDoor.transform.SetParent(room.transform.Find("Doors"));
+            room.GetComponent<Room>().doorRight = newDoor;
+
+            GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y + 1];
+            Destroy(adjacentRoom.GetComponent<Room>().doorLeft);
+            GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(-6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
+            newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+            adjacentRoom.GetComponent<Room>().doorLeft = newDoor2;
+        }
+        if (room.GetComponent<Room>().doorDown != null)
+        {
+            Destroy(room.GetComponent<Room>().doorDown);
+            GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(0f, -3.5f, 0f), Quaternion.Euler(0f, 0f, -180f));
+            newDoor.transform.SetParent(room.transform.Find("Doors"));
+            room.GetComponent<Room>().doorDown = newDoor;
+
+            GameObject adjacentRoom = rooms[gridPoint.x + 1, gridPoint.y];
+            Destroy(adjacentRoom.GetComponent<Room>().doorUp);
+            GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0, 3.5f, 0f), Quaternion.Euler(0f, 0f, 0f));
+            newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+            adjacentRoom.GetComponent<Room>().doorUp = newDoor2;
+        }
+        if (room.GetComponent<Room>().doorLeft != null)
+        {
+            Destroy(room.GetComponent<Room>().doorLeft);
+            GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(-6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
+            newDoor.transform.SetParent(room.transform.Find("Doors"));
+            room.GetComponent<Room>().doorLeft = newDoor;
+
+            GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y - 1];
+            Destroy(adjacentRoom.GetComponent<Room>().doorRight);
+            GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+            newDoor.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+            adjacentRoom.GetComponent<Room>().doorRight = newDoor;
         }
     }
 
@@ -479,7 +571,7 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x - 1, gridPoint.y] is not null)
                         {
-                            if (grid[gridPoint.x - 1, gridPoint.y] == 2)
+                            if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.SecretRoom)
                             {
                                 continue;
                             }
@@ -493,7 +585,7 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x, gridPoint.y + 1] is not null)
                         {
-                            if (grid[gridPoint.x, gridPoint.y + 1] == 2)
+                            if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.SecretRoom)
                             {
                                 continue;
                             }
@@ -507,7 +599,7 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x + 1, gridPoint.y] is not null)
                         {
-                            if (grid[gridPoint.x + 1, gridPoint.y] == 2)
+                            if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.SecretRoom)
                             {
                                 continue;
                             }
@@ -521,7 +613,7 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x, gridPoint.y - 1] is not null)
                         {
-                            if (grid[gridPoint.x, gridPoint.y - 1] == 2)
+                            if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.SecretRoom)
                             {
                                 continue;
                             }
@@ -561,11 +653,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x - 1, gridPoint.y] is not null)
                         {
-                            if (grid[gridPoint.x - 1, gridPoint.y] == 3 || grid[gridPoint.x - 1, gridPoint.y] == 0)
+                            if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.StartingRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x - 1, gridPoint.y] != 2)
+                            else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -575,11 +667,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x, gridPoint.y + 1] is not null)
                         {
-                            if (grid[gridPoint.x, gridPoint.y + 1] == 3 || grid[gridPoint.x, gridPoint.y + 1] == 0)
+                            if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.StartingRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x, gridPoint.y + 1] != 2)
+                            else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -589,11 +681,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x + 1, gridPoint.y] is not null)
                         {
-                            if (grid[gridPoint.x + 1, gridPoint.y] == 3 || grid[gridPoint.x + 1, gridPoint.y] == 0)
+                            if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.StartingRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x + 1, gridPoint.y] != 2)
+                            else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -603,11 +695,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x, gridPoint.y - 1] is not null)
                         {
-                            if (grid[gridPoint.x, gridPoint.y - 1] == 3 || grid[gridPoint.x, gridPoint.y - 1] == 0)
+                            if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.StartingRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x, gridPoint.y - 1] != 2)
+                            else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -643,11 +735,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x - 1, gridPoint.y] is not null)
                         {
-                            if (grid[gridPoint.x - 1, gridPoint.y] == 3 || grid[gridPoint.x - 1, gridPoint.y] == 4)
+                            if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.ShopRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x - 1, gridPoint.y] != 2)
+                            else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -657,11 +749,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x, gridPoint.y + 1] is not null)
                         {
-                            if (grid[gridPoint.x, gridPoint.y + 1] == 3 || grid[gridPoint.x, gridPoint.y + 1] == 4)
+                            if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.ShopRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x, gridPoint.y + 1] != 2)
+                            else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -671,11 +763,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x + 1, gridPoint.y] is not null)
                         {
-                            if (grid[gridPoint.x + 1, gridPoint.y] == 3 || grid[gridPoint.x + 1, gridPoint.y] == 4)
+                            if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.ShopRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x + 1, gridPoint.y] != 2)
+                            else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -685,11 +777,11 @@ public class LevelGenerator : MonoBehaviour
                     {
                         if (grid[gridPoint.x, gridPoint.y - 1] is not null)
                         {
-                            if (grid[gridPoint.x, gridPoint.y - 1] == 3 || grid[gridPoint.x, gridPoint.y - 1] == 4)
+                            if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.ShopRoom)
                             {
                                 continue;
                             }
-                            else if (grid[gridPoint.x, gridPoint.y - 1] != 2)
+                            else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
                             {
                                 adjacentRooms++;
                             }
@@ -735,6 +827,24 @@ public class LevelGenerator : MonoBehaviour
 
         return furthestPoint;
     }
+}
+
+public enum Direction 
+{ 
+    up,
+    right,
+    down,
+    left 
+}
+
+public enum RoomType
+{
+    StartingRoom,
+    NormalRoom,
+    SecretRoom,
+    BossRoom,
+    ShopRoom,
+    ItemRoom
 }
 
 [System.Serializable]
