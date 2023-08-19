@@ -94,7 +94,7 @@ Transform:
   - {fileID: 6821004468455103110}
   - {fileID: 8772556877274325451}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &216443018095027142
 MonoBehaviour:
@@ -126,14 +126,12 @@ MonoBehaviour:
     tripleDownLeftUp: {fileID: 213170324699502403, guid: 978484334e00dd847870f565a86f6d24, type: 3}
     tripleLeftUpRight: {fileID: 6964835197897420010, guid: f37add54b03ad1344affe32f47c3265b, type: 3}
     quadruple: {fileID: 4795557585949636379, guid: 1882bbbb677ea0349aa252c1308cb002, type: 3}
-  secretDoorUp: {fileID: 11400000, guid: 13483697c8af4554695e91678b9c3b3c, type: 2}
-  secretDoorRight: {fileID: 11400000, guid: e902a6538cff32b49a2ff5dda397eab4, type: 2}
-  secretDoorDown: {fileID: 11400000, guid: 9e7aa09dcad5b2b42969e249dfb257f5, type: 2}
-  secretDoorLeft: {fileID: 11400000, guid: 0caf75704433e824fae3738ead32a35c, type: 2}
   bossRoomDoor: {fileID: 7715630663662942019, guid: 664e8635e3cb44a429c4dfed23949654, type: 3}
   shopRoomDoor: {fileID: 2891193564792668107, guid: 9fac5f89ee16fee449a0f85c53dd6c92, type: 3}
   itemRoomDoor: {fileID: 1288381576056480723, guid: 15cdd99e3c01b0240baec3beaa6b1659, type: 3}
+  secretRoomDoor: {fileID: 4690399197878477780, guid: 9df0209a427d7ef419d273421b04e54b, type: 3}
   startRoomCenter: {fileID: 3422955423206802587, guid: 0b3f12facbe27c14db2098e640565ff8, type: 3}
   bossRoomCenter: {fileID: 5108709874159726122, guid: dc91a3022aa685f4d81b779e0b096dfa, type: 3}
   roomCenters:
   - {fileID: 3422955423206802587, guid: 0b3f12facbe27c14db2098e640565ff8, type: 3}
+  - {fileID: 6594053591106436846, guid: be2faa5a31084c94e8c4ee8d0ba301d6, type: 3}

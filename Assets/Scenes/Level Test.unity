@@ -681,6 +681,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 995058338}
   m_CullTransparentMesh: 1
+--- !u!114 &1079198694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+  m_PrefabInstance: {fileID: 1735029291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 601f91c3b21c4394d9e90c00bff5b474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1096655154
 GameObject:
   m_ObjectHideFlags: 0
@@ -742,6 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ecc54ae6f22cc241914f2035f1f5729, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levelGenerator: {fileID: 1079198694}
   loadTime: 4
   nextLevel: Victory Screen
   isPaused: 0
@@ -1231,14 +1243,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
-      propertyPath: roomCenters.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
-      propertyPath: roomCenters.Array.data[1]
-      value: 
-      objectReference: {fileID: 6594053591106436846, guid: be2faa5a31084c94e8c4ee8d0ba301d6, type: 3}
     - target: {fileID: 855349722826036247, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -1288,7 +1292,9 @@ PrefabInstance:
       value: Level Generator
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5245260199808468865, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+    - {fileID: 5490190750037963608, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}

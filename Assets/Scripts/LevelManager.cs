@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
+    public LevelGenerator levelGenerator;
 
     public float loadTime = 4f;
     public string nextLevel;
@@ -54,6 +55,51 @@ public class LevelManager : MonoBehaviour
             UIController.instance.pauseMenu.SetActive(false);
             isPaused = false;
             Time.timeScale = 1f;
+        }
+    }
+
+    public void RevealSecretDoors()
+    {
+        Vector2Int secretRoomPosition = levelGenerator.secretRoomPosition;
+        if (secretRoomPosition.x > 0)
+        {
+            if (levelGenerator.rooms[secretRoomPosition.x - 1, secretRoomPosition.y] != null)
+            {
+                GameObject door = levelGenerator.rooms[secretRoomPosition.x - 1, secretRoomPosition.y].GetComponent<Room>().doorDown;
+                door.GetComponent<SecretDoors>().areRevealed = true;
+                door.GetComponent<BoxCollider2D>().enabled = false;
+                door.GetComponent<Animator>().Play("Doors_Open");
+            }
+        }
+        if (secretRoomPosition.y < 12)
+        {
+            if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y + 1] != null)
+            {
+                GameObject door = levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y + 1].GetComponent<Room>().doorLeft;
+                door.GetComponent<SecretDoors>().areRevealed = true;
+                door.GetComponent<BoxCollider2D>().enabled = false;
+                door.GetComponent<Animator>().Play("Doors_Open");
+            }
+        }
+        if (secretRoomPosition.x < 12)
+        {
+            if (levelGenerator.rooms[secretRoomPosition.x + 1, secretRoomPosition.y] != null)
+            {
+                GameObject door = levelGenerator.rooms[secretRoomPosition.x + 1, secretRoomPosition.y].GetComponent<Room>().doorUp;
+                door.GetComponent<SecretDoors>().areRevealed = true;
+                door.GetComponent<BoxCollider2D>().enabled = false;
+                door.GetComponent<Animator>().Play("Doors_Open");
+            }
+        }
+        if (secretRoomPosition.y > 0)
+        {
+            if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y - 1] != null)
+            {
+                GameObject door = levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y - 1].GetComponent<Room>().doorRight;
+                door.GetComponent<SecretDoors>().areRevealed = true;
+                door.GetComponent<BoxCollider2D>().enabled = false;
+                door.GetComponent<Animator>().Play("Doors_Open");
+            }
         }
     }
 }

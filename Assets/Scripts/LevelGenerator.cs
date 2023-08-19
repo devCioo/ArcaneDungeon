@@ -13,11 +13,11 @@ public class LevelGenerator : MonoBehaviour
     private int?[,] grid = new int?[13, 13];
     private Vector2Int gridPoint, oldPoint;
 
-    private GameObject[,] rooms = new GameObject[13, 13];
+    public GameObject[,] rooms = new GameObject[13, 13];
+    public Vector2Int secretRoomPosition;
 
     public RoomOutlines outlines;
-    public TileBase secretDoorUp, secretDoorRight, secretDoorDown, secretDoorLeft;
-    public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor;
+    public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor, secretRoomDoor;
     public RoomCenter startRoomCenter, bossRoomCenter;
     public RoomCenter[] roomCenters;
 
@@ -26,6 +26,7 @@ public class LevelGenerator : MonoBehaviour
     {
         GenerateGrid();
         CreateOutlines();
+        SetRoomTypes();
         CreateCenters();
         ReplaceDoorsVariants();
     }
@@ -172,6 +173,7 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log($"Selected point has index {selected}");
         Vector2Int selectedPoint = matchingPoints[selected];
         grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.SecretRoom;
+        secretRoomPosition = selectedPoint;
         Debug.Log($"Created secret room at [{selectedPoint.x},{selectedPoint.y}]");
     }
 
@@ -341,6 +343,21 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    public void SetRoomTypes()
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                if (rooms[i, j] != null)
+                {
+                    int? roomType = grid[i, j];
+                    rooms[i, j].GetComponent<Room>().roomType = (RoomType)roomType;
+                }
+            }
+        }
+    }
+
     public void CreateCenters()
     {
         float xOffset = 17f, yOffset = 11f;
@@ -379,6 +396,8 @@ public class LevelGenerator : MonoBehaviour
 
     public void ReplaceDoorsVariants()
     {
+        Vector2Int secretRoomPosition = new Vector2Int(0, 0);
+
         for (int i = 0; i < 13; i++)
         {
             for (int j = 0; j < 13; j++)
@@ -388,7 +407,7 @@ public class LevelGenerator : MonoBehaviour
                 {
                     if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.SecretRoom)
                     {
-                        SwapTiles();
+                        secretRoomPosition = gridPoint;
                     }
                     if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.BossRoom)
                     {
@@ -405,40 +424,9 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
-    }
 
-    public void SwapTiles()
-    {
-        GameObject room = rooms[gridPoint.x, gridPoint.y];
-
-        if (gridPoint.x > 0)
-        {
-            if (rooms[gridPoint.x - 1, gridPoint.y] is not null)
-            {
-                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, 4, 0), secretDoorUp);
-            }
-        }
-        if (gridPoint.y < 12)
-        {
-            if (rooms[gridPoint.x, gridPoint.y + 1] is not null)
-            {
-                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(7, 0, 0), secretDoorRight);
-            }
-        }
-        if (gridPoint.x < 12)
-        {
-            if (rooms[gridPoint.x + 1, gridPoint.y] is not null)
-            {
-                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, -4, 0), secretDoorDown);
-            }
-        }
-        if (gridPoint.y > 0)
-        {
-            if (rooms[gridPoint.x, gridPoint.y - 1] is not null)
-            {
-                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(-7, 0, 0), secretDoorLeft);
-            }
-        }
+        gridPoint = secretRoomPosition;
+        SwapSecretDoors(secretRoomDoor);
     }
 
     public void SwapDoors(GameObject door)
@@ -494,8 +482,90 @@ public class LevelGenerator : MonoBehaviour
             GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y - 1];
             Destroy(adjacentRoom.GetComponent<Room>().doorRight);
             GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
-            newDoor.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+            newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
             adjacentRoom.GetComponent<Room>().doorRight = newDoor;
+        }
+    }
+
+    public void SwapSecretDoors(GameObject door)
+    {
+        GameObject room = rooms[gridPoint.x, gridPoint.y];
+
+        if (gridPoint.x > 0)
+        {
+            if (rooms[gridPoint.x - 1, gridPoint.y] != null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, 4, 0), null);
+                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(0f, 4f, 0f), Quaternion.Euler(0f, 0f, 0f));
+                newDoor.GetComponent<SecretDoors>().areRevealed = true;
+                newDoor.GetComponent<BoxCollider2D>().enabled = false;
+                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                newDoor.transform.SetParent(room.transform.Find("Doors"));
+                room.GetComponent<Room>().doorUp = newDoor;
+
+                GameObject adjacentRoom = rooms[gridPoint.x - 1, gridPoint.y];
+                adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, -4, 0), null);
+                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0f, -4f, 0f), Quaternion.Euler(0f, 0f, -180f));
+                newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+                adjacentRoom.GetComponent<Room>().doorDown = newDoor2;
+            }
+        }
+        if (gridPoint.y < 12)
+        {
+            if (rooms[gridPoint.x, gridPoint.y + 1] != null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(7, 0, 0), null);
+                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(7f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+                newDoor.GetComponent<SecretDoors>().areRevealed = true;
+                newDoor.GetComponent<BoxCollider2D>().enabled = false;
+                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                newDoor.transform.SetParent(room.transform.Find("Doors"));
+                room.GetComponent<Room>().doorRight = newDoor;
+
+                GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y + 1];
+                adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(-7, 0, 0), null);
+                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(-7f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
+                newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+                adjacentRoom.GetComponent<Room>().doorLeft = newDoor2;
+            }
+        }
+        if (gridPoint.x < 12)
+        {
+            if (rooms[gridPoint.x + 1, gridPoint.y] != null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, -4, 0), null);
+                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(0f, -4f, 0f), Quaternion.Euler(0f, 0f, -180f));
+                newDoor.GetComponent<SecretDoors>().areRevealed = true;
+                newDoor.GetComponent<BoxCollider2D>().enabled = false;
+                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                newDoor.transform.SetParent(room.transform.Find("Doors"));
+                room.GetComponent<Room>().doorDown = newDoor;
+
+                GameObject adjacentRoom = rooms[gridPoint.x + 1, gridPoint.y];
+                adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, 4, 0), null);
+                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0f, 4f, 0f), Quaternion.Euler(0f, 0f, 0f));
+                newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+                adjacentRoom.GetComponent<Room>().doorUp = newDoor2;
+            }
+        }
+        if (gridPoint.y > 0)
+        {
+            if (rooms[gridPoint.x, gridPoint.y - 1] != null)
+            {
+                room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(-7, 0, 0), null);
+                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(-7f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
+                newDoor.GetComponent<SecretDoors>().areRevealed = true;
+                newDoor.GetComponent<BoxCollider2D>().enabled = false;
+                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                newDoor.transform.SetParent(room.transform.Find("Doors"));
+                room.GetComponent<Room>().doorLeft = newDoor;
+
+                GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y - 1];
+                adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(7, 0, 0), null);
+                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(7f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+                newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
+                adjacentRoom.GetComponent<Room>().doorRight = newDoor2;
+            }
         }
     }
 
