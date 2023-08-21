@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3526648948226419674}
   - component: {fileID: 5769526063122633273}
   - component: {fileID: 7897737759363373105}
-  - component: {fileID: 7823311733843748671}
+  - component: {fileID: 691896909884657942}
   - component: {fileID: 1158523444625967076}
   m_Layer: 11
   m_Name: Half Heart Pickup
@@ -33,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5769526063122633273
 SpriteRenderer:
@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healAmount: 1
---- !u!61 &7823311733843748671
-BoxCollider2D:
+--- !u!58 &691896909884657942
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -133,18 +133,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
-    newSize: {x: 2, y: 2}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
 --- !u!95 &1158523444625967076
 Animator:
   serializedVersion: 5

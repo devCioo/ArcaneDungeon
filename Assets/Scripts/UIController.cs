@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class UIController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class UIController : MonoBehaviour
 
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
+    public TMP_Text coinText, keyText, bombText;
     public GameObject deathScreen, pauseMenu;
     public Image fadeScreen;
     public string mainMenuScene;

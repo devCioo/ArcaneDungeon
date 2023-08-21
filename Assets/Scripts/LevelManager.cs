@@ -12,6 +12,8 @@ public class LevelManager : MonoBehaviour
     public string nextLevel;
     public bool isPaused;
 
+    public int currentCoins, currentKeys, currentBombs;
+
     private void Awake()
     {
         instance = this;
@@ -21,6 +23,10 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+
+        UIController.instance.coinText.text = currentCoins.ToString();
+        UIController.instance.keyText.text = currentBombs.ToString();
+        UIController.instance.bombText.text = currentBombs.ToString();
     }
 
     // Update is called once per frame
@@ -101,5 +107,62 @@ public class LevelManager : MonoBehaviour
                 door.GetComponent<Animator>().Play("Doors_Open");
             }
         }
+    }
+
+    public void GetCoin(int coinValue)
+    {
+        currentCoins += coinValue;
+
+        UIController.instance.coinText.text = currentCoins.ToString();
+    }
+
+    public void SpendCoin(int coinValue)
+    {
+        currentCoins -= coinValue;
+
+        if (currentCoins < 0)
+        {
+            currentCoins = 0;
+        }
+
+        UIController.instance.coinText.text = currentCoins.ToString();
+    }
+
+    public void GetKey()
+    {
+        currentKeys++;
+
+        UIController.instance.keyText.text = currentKeys.ToString();
+    }
+
+    public void UseKey()
+    {
+        currentKeys--;
+
+        if (currentKeys < 0)
+        {
+            currentKeys = 0;
+        }
+
+        UIController.instance.keyText.text = currentKeys.ToString();
+    }
+
+    public void GetBomb()
+    {
+        currentBombs++;
+
+        UIController.instance.bombText.text = currentBombs.ToString();
+    }
+
+    public void UseBomb()
+    {
+        currentBombs--;
+
+        if (currentBombs < 0)
+        {
+            currentBombs = 0;
+        }
+
+        UIController.instance.bombText.text = currentBombs.ToString();
     }
 }
