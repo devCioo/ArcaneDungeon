@@ -1,67 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5245260199808468865
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8772556877274325451}
-  m_Layer: 0
-  m_Name: Old Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8772556877274325451
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5245260199808468865}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 855349722826036247}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5490190750037963608
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6821004468455103110}
-  m_Layer: 0
-  m_Name: Generation Point
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6821004468455103110
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5490190750037963608}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 855349722826036247}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7639278254584535655
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,11 +28,9 @@ Transform:
   m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6821004468455103110}
-  - {fileID: 8772556877274325451}
+  m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &216443018095027142
 MonoBehaviour:
@@ -109,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSize: 8
+  secretRoomPosition: {x: 0, y: 0}
   outlines:
     noDoor: {fileID: 1338678661494255299, guid: d4089121b8f4a7f46b709bc3b4dfaa80, type: 3}
     singleUp: {fileID: 7347791540522630348, guid: 69c10776b3f7c89499552e1763727229, type: 3}
@@ -130,6 +67,12 @@ MonoBehaviour:
   shopRoomDoor: {fileID: 2891193564792668107, guid: 9fac5f89ee16fee449a0f85c53dd6c92, type: 3}
   itemRoomDoor: {fileID: 1288381576056480723, guid: 15cdd99e3c01b0240baec3beaa6b1659, type: 3}
   secretRoomDoor: {fileID: 4690399197878477780, guid: 9df0209a427d7ef419d273421b04e54b, type: 3}
+  mapRoom: {fileID: 2020670205905859884, guid: 21c0b3239d8e28a4b9b7146815869f38, type: 3}
+  normalMapRoom: {fileID: -818621856, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
+  secretMapRoom: {fileID: 1953629086, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
+  bossMapRoom: {fileID: -1255936980, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
+  shopMapRoom: {fileID: -1722700943, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
+  itemMapRoom: {fileID: -461761903, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
   startRoomCenter: {fileID: 3422955423206802587, guid: 0b3f12facbe27c14db2098e640565ff8, type: 3}
   bossRoomCenter: {fileID: 5108709874159726122, guid: dc91a3022aa685f4d81b779e0b096dfa, type: 3}
   roomCenters:

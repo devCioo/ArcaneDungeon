@@ -18,6 +18,8 @@ public class LevelGenerator : MonoBehaviour
 
     public RoomOutlines outlines;
     public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor, secretRoomDoor;
+    public GameObject mapRoom;
+    public Sprite normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
     public RoomCenter startRoomCenter, bossRoomCenter;
     public RoomCenter[] roomCenters;
 
@@ -29,6 +31,7 @@ public class LevelGenerator : MonoBehaviour
         SetRoomTypes();
         CreateCenters();
         ReplaceDoorsVariants();
+        GenerateMapLayout();
     }
 
     // Update is called once per frame
@@ -566,6 +569,53 @@ public class LevelGenerator : MonoBehaviour
                 newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
                 adjacentRoom.GetComponent<Room>().doorRight = newDoor2;
             }
+        }
+    }
+
+    public void GenerateMapLayout()
+    {
+        Vector2 position = new Vector2(-5.5f, 6.5f);
+
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                if (grid[i, j] != null)
+                {
+                    GameObject mapRoomObject = Instantiate(mapRoom, position, Quaternion.Euler(0f, 0f, 0f));
+
+                    switch (grid[i, j])
+                    {
+                        case 0:
+                        case 1:
+                            break;
+
+                        case 2:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = secretMapRoom;
+                            break;
+
+                        case 3:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = bossMapRoom;
+                            break;
+
+                        case 4:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = shopMapRoom;
+                            break;
+
+                        case 5:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = itemMapRoom;
+                            break;
+                    }
+
+                    rooms[i, j].GetComponent<Room>().mapRoom = mapRoomObject;
+                    rooms[i, j].GetComponent<Room>().mapRoom.GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
+                    rooms[i, j].GetComponent<Room>().mapRoom.SetActive(false);
+                }
+
+                position += new Vector2(1f, 0f);
+            }
+
+            position = new Vector2(-5.5f, position.y - 1f);
         }
     }
 

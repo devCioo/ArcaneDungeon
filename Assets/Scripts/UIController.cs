@@ -13,10 +13,12 @@ public class UIController : MonoBehaviour
     public int currentHealth;
     public float fadeSpeed;
     private bool fadeToBlack, fadeOutBlack;
+    public bool isBigMapActive = false;
 
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
     public TMP_Text coinText, keyText, bombText;
+    public GameObject map, bigMap;
     public GameObject deathScreen, pauseMenu;
     public Image fadeScreen;
     public string mainMenuScene;

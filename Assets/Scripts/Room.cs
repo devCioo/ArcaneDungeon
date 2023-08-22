@@ -12,6 +12,7 @@ public class Room : MonoBehaviour
     public RoomType roomType;
     public GameObject doorUp, doorRight, doorDown, doorLeft;
     public Tilemap tilemap;
+    public GameObject mapRoom;
 
     // Start is called before the first frame update
     void Start()
@@ -100,6 +101,7 @@ public class Room : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             CameraController.instance.ChangeTarget(transform);
+            MapController.instance.ChangeTarget(mapRoom.transform);
 
             if (closeWhenEntered)
             {
@@ -174,6 +176,8 @@ public class Room : MonoBehaviour
             }
 
             isActiveRoom = true;
+            LevelManager.instance.UpdateCurrentRoomPosition(transform);
+            LevelManager.instance.UpdateMap();
 
             if (roomType == RoomType.SecretRoom)
             {

@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     public LevelGenerator levelGenerator;
 
     public float loadTime = 4f;
+    public Vector2Int oldRoom, currentRoom;
+    public float currentRoomX, currentRoomY;
     public string nextLevel;
     public bool isPaused;
 
@@ -23,6 +25,12 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        oldRoom = new Vector2Int(6, 6);
+        currentRoom = new Vector2Int(6, 6);
+        currentRoomX = 0.5f;
+        currentRoomY = 0.5f;
+
+        levelGenerator.rooms[currentRoom.x, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
 
         UIController.instance.coinText.text = currentCoins.ToString();
         UIController.instance.keyText.text = currentBombs.ToString();
@@ -105,6 +113,66 @@ public class LevelManager : MonoBehaviour
                 door.GetComponent<SecretDoors>().areRevealed = true;
                 door.GetComponent<BoxCollider2D>().enabled = false;
                 door.GetComponent<Animator>().Play("Doors_Open");
+            }
+        }
+    }
+
+    public void UpdateCurrentRoomPosition(Transform transform)
+    {
+        oldRoom = currentRoom;
+
+        if (transform.position.y > currentRoomY)
+        {
+            currentRoom = new Vector2Int(currentRoom.x - 1, currentRoom.y);
+        }
+        if (transform.position.x > currentRoomX)
+        {
+            currentRoom = new Vector2Int(currentRoom.x, currentRoom.y + 1);
+        }
+        if (transform.position.y < currentRoomY)
+        {
+            currentRoom = new Vector2Int(currentRoom.x + 1, currentRoom.y);
+        }
+        if (transform.position.x < currentRoomX)
+        {
+            currentRoom = new Vector2Int(currentRoom.x, currentRoom.y - 1);
+        }
+
+        currentRoomX = transform.position.x;
+        currentRoomY = transform.position.y;
+    }
+
+    public void UpdateMap()
+    {
+        levelGenerator.rooms[oldRoom.x, oldRoom.y].GetComponent<Room>().mapRoom.GetComponent<SpriteRenderer>().color = new Color(0.6f, 0.6f, 0.6f);
+        levelGenerator.rooms[currentRoom.x, currentRoom.y].GetComponent<Room>().mapRoom.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f);
+
+        if (currentRoom.x > 0)
+        {
+            if (levelGenerator.rooms[currentRoom.x - 1, currentRoom.y] != null && levelGenerator.rooms[currentRoom.x - 1, currentRoom.y].GetComponent<Room>().roomType != RoomType.SecretRoom)
+            {
+                levelGenerator.rooms[currentRoom.x - 1, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
+            }
+        }
+        if (currentRoom.y < 12)
+        {
+            if (levelGenerator.rooms[currentRoom.x, currentRoom.y + 1] != null && levelGenerator.rooms[currentRoom.x, currentRoom.y + 1].GetComponent<Room>().roomType != RoomType.SecretRoom)
+            {
+                levelGenerator.rooms[currentRoom.x, currentRoom.y + 1].GetComponent<Room>().mapRoom.SetActive(true);
+            }
+        }
+        if (currentRoom.x < 12)
+        {
+            if (levelGenerator.rooms[currentRoom.x + 1, currentRoom.y] != null && levelGenerator.rooms[currentRoom.x + 1, currentRoom.y].GetComponent<Room>().roomType != RoomType.SecretRoom)
+            {
+                levelGenerator.rooms[currentRoom.x + 1, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
+            }
+        }
+        if (currentRoom.y > 0)
+        {
+            if (levelGenerator.rooms[currentRoom.x, currentRoom.y - 1] != null && levelGenerator.rooms[currentRoom.x, currentRoom.y - 1].GetComponent<Room>().roomType != RoomType.SecretRoom)
+            {
+                levelGenerator.rooms[currentRoom.x, currentRoom.y - 1].GetComponent<Room>().mapRoom.SetActive(true);
             }
         }
     }

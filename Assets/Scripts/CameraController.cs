@@ -9,8 +9,8 @@ public class CameraController : MonoBehaviour
 
     public float transitionSpeed;
 
-    public Camera backgroundCamera;
-    public Transform target;
+    public Camera backgroundCamera, mapCamera;
+    public Transform target, mapTarget;
 
     private void Awake()
     {
