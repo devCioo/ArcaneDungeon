@@ -6,6 +6,7 @@ using UnityEngine.Tilemaps;
 public class Room : MonoBehaviour
 {
     public bool closeWhenEntered;
+    public bool isClosed = false;
     [HideInInspector]
     public bool isActiveRoom;
 
@@ -93,6 +94,7 @@ public class Room : MonoBehaviour
             }
         }
 
+        isClosed = false;
         closeWhenEntered = false;
     }
 
@@ -173,6 +175,8 @@ public class Room : MonoBehaviour
                         doorLeft.GetComponent<Collider2D>().enabled = true;
                     }
                 }
+
+                isClosed = true;
             }
 
             isActiveRoom = true;

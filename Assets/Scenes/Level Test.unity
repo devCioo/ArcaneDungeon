@@ -639,6 +639,7 @@ MonoBehaviour:
   currentRoomY: 0
   nextLevel: Victory Screen
   isPaused: 0
+  bomb: {fileID: 4404186356592965196, guid: 72c21ca3205963d40ab3e12993816a02, type: 3}
   currentCoins: 0
   currentKeys: 0
   currentBombs: 0
@@ -1321,6 +1322,10 @@ PrefabInstance:
       propertyPath: mapCamera
       value: 
       objectReference: {fileID: 1259391368}
+    - target: {fileID: 8941152469155034015, guid: 613e8b3cafef45a40a4b1fb3458a9140, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

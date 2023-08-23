@@ -13,6 +13,7 @@ public class LevelManager : MonoBehaviour
     public float currentRoomX, currentRoomY;
     public string nextLevel;
     public bool isPaused;
+    public GameObject bomb;
 
     public int currentCoins, currentKeys, currentBombs;
 
@@ -43,6 +44,11 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseOrResume();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Instantiate(bomb, PlayerController.instance.transform.position, Quaternion.Euler(0f, 0f, 0f));
         }
     }
 
