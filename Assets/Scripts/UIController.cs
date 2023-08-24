@@ -18,6 +18,7 @@ public class UIController : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
     public TMP_Text coinText, keyText, bombText;
+    public TMP_Text damageText, attackSpeedText, shotSpeedText, moveSpeedText;
     public GameObject map, bigMap;
     public GameObject deathScreen, pauseMenu;
     public Image fadeScreen;
@@ -34,6 +35,8 @@ public class UIController : MonoBehaviour
         currentHealth = PlayerHealthController.instance.currentHealth;
         fadeOutBlack = true;
         fadeToBlack = false;
+
+        UpdateStats();
     }
 
     // Update is called once per frame
@@ -86,6 +89,14 @@ public class UIController : MonoBehaviour
                 hearts[i].sprite = emptyHeart;
             }
         }
+    }
+
+    public void UpdateStats()
+    {
+        damageText.text = PlayerController.instance.damage.ToString();
+        attackSpeedText.text = PlayerController.instance.attackSpeed.ToString();
+        shotSpeedText.text = PlayerController.instance.shotSpeed.ToString();
+        moveSpeedText.text = PlayerController.instance.moveSpeed.ToString();
     }
 
     public void StartFadeToBlack()

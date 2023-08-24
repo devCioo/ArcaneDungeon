@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
-    public float shotSpeed = 7.5f;
-    public float damage = 3f;
+    public float shotSpeed;
+    public float damage;
 
     public Rigidbody2D rb;
     public GameObject impactEffect;
@@ -13,7 +13,8 @@ public class PlayerBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        damage = PlayerController.instance.damage;
+        shotSpeed = PlayerController.instance.shotSpeed;
     }
 
     // Update is called once per frame
