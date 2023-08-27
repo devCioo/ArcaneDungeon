@@ -31,67 +31,19 @@ public class Room : MonoBehaviour
     {
         if (doorUp != null)
         {
-            if (doorUp.GetComponent<SecretDoors>() != null)
-            {
-                if (doorUp.GetComponent<SecretDoors>().areRevealed == true)
-                {
-                    doorUp.GetComponent<Animator>().Play("Doors_Open");
-                    doorUp.GetComponent<Collider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                doorUp.GetComponent<Animator>().Play("Doors_Open");
-                doorUp.GetComponent<Collider2D>().enabled = false;
-            }
+            doorUp.GetComponent<Door>().OpenDoor();
         }
         if (doorRight != null)
         {
-            if (doorRight.GetComponent<SecretDoors>() != null)
-            {
-                if (doorRight.GetComponent<SecretDoors>().areRevealed == true)
-                {
-                    doorRight.GetComponent<Animator>().Play("Doors_Open");
-                    doorRight.GetComponent<Collider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                doorRight.GetComponent<Animator>().Play("Doors_Open");
-                doorRight.GetComponent<Collider2D>().enabled = false;
-            }
+            doorRight.GetComponent<Door>().OpenDoor();
         }
         if (doorDown != null)
         {
-            if (doorDown.GetComponent<SecretDoors>() != null)
-            {
-                if (doorDown.GetComponent<SecretDoors>().areRevealed == true)
-                {
-                    doorDown.GetComponent<Animator>().Play("Doors_Open");
-                    doorDown.GetComponent<Collider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                doorDown.GetComponent<Animator>().Play("Doors_Open");
-                doorDown.GetComponent<Collider2D>().enabled = false;
-            }
+            doorDown.GetComponent<Door>().OpenDoor();
         }
         if (doorLeft != null)
         {
-            if (doorLeft.GetComponent<SecretDoors>() != null)
-            {
-                if (doorLeft.GetComponent<SecretDoors>().areRevealed == true)
-                {
-                    doorLeft.GetComponent<Animator>().Play("Doors_Open");
-                    doorLeft.GetComponent<Collider2D>().enabled = false;
-                }
-            }
-            else
-            {
-                doorLeft.GetComponent<Animator>().Play("Doors_Open");
-                doorLeft.GetComponent<Collider2D>().enabled = false;
-            }
+            doorLeft.GetComponent<Door>().OpenDoor();
         }
 
         isClosed = false;
@@ -109,71 +61,19 @@ public class Room : MonoBehaviour
             {
                 if (doorUp != null)
                 {
-                    if (doorUp.GetComponent<SecretDoors>() != null)
-                    {
-                        Debug.Log("Doors up are secret doors");
-                        if (doorUp.GetComponent<SecretDoors>().areRevealed == true)
-                        {
-                            doorUp.GetComponent<Animator>().Play("Doors_Close");
-                            doorUp.GetComponent<Collider2D>().enabled = true;
-                        }
-                    }
-                    else
-                    {
-                        doorUp.GetComponent<Animator>().Play("Doors_Close");
-                        doorUp.GetComponent<Collider2D>().enabled = true;
-                    }
+                    doorUp.GetComponent<Door>().OpenDoor();
                 }
                 if (doorRight != null)
                 {
-                    if (doorRight.GetComponent<SecretDoors>() != null)
-                    {
-                        Debug.Log("Doors right are secret doors");
-                        if (doorRight.GetComponent<SecretDoors>().areRevealed == true)
-                        {
-                            doorRight.GetComponent<Animator>().Play("Doors_Close");
-                            doorRight.GetComponent<Collider2D>().enabled = true;
-                        }
-                    }
-                    else
-                    {
-                        doorRight.GetComponent<Animator>().Play("Doors_Close");
-                        doorRight.GetComponent<Collider2D>().enabled = true;
-                    }
+                    doorRight.GetComponent<Door>().OpenDoor();
                 }
                 if (doorDown != null)
                 {
-                    if (doorDown.GetComponent<SecretDoors>() != null)
-                    {
-                        Debug.Log("Doors down are secret doors");
-                        if (doorDown.GetComponent<SecretDoors>().areRevealed == true)
-                        {
-                            doorDown.GetComponent<Animator>().Play("Doors_Close");
-                            doorDown.GetComponent<Collider2D>().enabled = true;
-                        }
-                    }
-                    else
-                    {
-                        doorDown.GetComponent<Animator>().Play("Doors_Close");
-                        doorDown.GetComponent<Collider2D>().enabled = true;
-                    }
+                    doorDown.GetComponent<Door>().OpenDoor();
                 }
                 if (doorLeft != null)
                 {
-                    if (doorLeft.GetComponent<SecretDoors>() != null)
-                    {
-                        if (doorLeft.GetComponent<SecretDoors>().areRevealed == true)
-                        {
-                            Debug.Log("Doors left are secret doors");
-                            doorLeft.GetComponent<Animator>().Play("Doors_Close");
-                            doorLeft.GetComponent<Collider2D>().enabled = true;
-                        }
-                    }
-                    else
-                    {
-                        doorLeft.GetComponent<Animator>().Play("Doors_Close");
-                        doorLeft.GetComponent<Collider2D>().enabled = true;
-                    }
+                    doorLeft.GetComponent<Door>().OpenDoor();
                 }
 
                 isClosed = true;

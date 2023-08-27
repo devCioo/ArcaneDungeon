@@ -25,16 +25,16 @@ public class Bomb : MonoBehaviour
         {
             if (other.GetComponentInParent<Room>().isClosed == true)
             {
-                other.GetComponent<Animator>().Play("Doors_Close");
+                other.GetComponent<Animator>().Play("Door_Close");
                 other.GetComponent<BoxCollider2D>().enabled = true;
             }
             else
             {
-                other.GetComponent<Animator>().Play("Doors_Open");
+                other.GetComponent<Animator>().Play("Door_Open");
                 other.GetComponent<BoxCollider2D>().enabled = false;
             }
 
-            other.GetComponent<SecretDoors>().areRevealed = true;
+            //other.GetComponent<SecretDoors>().areRevealed = true;
 
             Vector2Int secretRoomPosition = LevelManager.instance.levelGenerator.secretRoomPosition;
             LevelManager.instance.levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y].GetComponent<Room>().mapRoom.SetActive(true);

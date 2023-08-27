@@ -1840,15 +1840,39 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
       propertyPath: levelSize
-      value: 8
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
       propertyPath: mapRoomHider
       value: 
       objectReference: {fileID: 8447990204881294876, guid: cfb1d427230b62f49bd1a923c3d09006, type: 3}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: closedItemDoor
+      value: 
+      objectReference: {fileID: 202675470, guid: 76dfd5a1bd7deee4f9e3bb4c67160d82, type: 3}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: closedShopDoor
+      value: 
+      objectReference: {fileID: 880128680, guid: 76dfd5a1bd7deee4f9e3bb4c67160d82, type: 3}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: itemRoomCenter
+      value: 
+      objectReference: {fileID: 3523559361340438467, guid: 22768c7bf1b95194c92ea91bbc1ffdf7, type: 3}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: shopRoomCenter
+      value: 
+      objectReference: {fileID: 7878532232666709061, guid: 6f6bf4985e01a7549ac5e15be9bf1421, type: 3}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: secretRoomCenter
+      value: 
+      objectReference: {fileID: 8510869253098824084, guid: 330003fde93141e45b78508e12d09dc8, type: 3}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: shopAndItemRoomRequireKeys
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 855349722826036247, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 855349722826036247, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2415,7 +2439,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8734520897853504548, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8734520897853504548, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_AnchorMax.x

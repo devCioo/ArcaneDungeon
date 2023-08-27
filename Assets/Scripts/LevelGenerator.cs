@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LevelGenerator : MonoBehaviour
 {
     public int levelSize;
+    public bool shopAndItemRoomRequireKeys;
     private Direction direction;
     private bool canCreate;
 
@@ -19,8 +20,8 @@ public class LevelGenerator : MonoBehaviour
     public RoomOutlines outlines;
     public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor, secretRoomDoor;
     public GameObject mapRoom;
-    public Sprite normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
-    public RoomCenter startRoomCenter, bossRoomCenter;
+    public Sprite closedShopDoor, closedItemDoor, normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
+    public RoomCenter startRoomCenter, secretRoomCenter, bossRoomCenter, shopRoomCenter, itemRoomCenter;
     public RoomCenter[] roomCenters;
 
     // Start is called before the first frame update
@@ -30,7 +31,6 @@ public class LevelGenerator : MonoBehaviour
         CreateOutlines();
         SetRoomTypes();
         CreateCenters();
-        ReplaceDoorsVariants();
         GenerateMapLayout();
     }
 
@@ -47,14 +47,14 @@ public class LevelGenerator : MonoBehaviour
 
     public void GenerateGrid()
     {
-        grid[6, 6] = (int)RoomType.StartingRoom;
         gridPoint = new Vector2Int(6, 6);
+        grid[gridPoint.x, gridPoint.y] = (int)RoomType.StartingRoom;
 
-        GenerateStandardRooms();
-        GenerateSecretRoom();
-        GenerateBossRoom();
-        GenerateShop();
-        GenerateItemRoom();
+        GenerateNormalRooms();
+        GenerateSpecialRoom(RoomType.SecretRoom);
+        GenerateSpecialRoom(RoomType.BossRoom);
+        GenerateSpecialRoom(RoomType.ShopRoom);
+        GenerateSpecialRoom(RoomType.ItemRoom);
     }
 
     public void MoveGridPoint()
@@ -88,7 +88,7 @@ public class LevelGenerator : MonoBehaviour
         Debug.Log("Moved " + direction);
     }
 
-    public void GenerateStandardRooms()
+    public void GenerateNormalRooms()
     {
         for (int i = 0; i < levelSize; i++)
         {
@@ -156,56 +156,293 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    public void GenerateSecretRoom()
+    public void GenerateSpecialRoom(RoomType roomType)
     {
-        List<Vector2Int> matchingPoints = GetSecretRoomMatchingPoints(4);
-        if (matchingPoints.Count == 0)
+        Debug.Log($"Generating {roomType}...");
+        List<Vector2Int> matchingPoints = new List<Vector2Int>();
+        Vector2Int selectedPoint = new Vector2Int();
+
+        if (roomType == RoomType.SecretRoom)
         {
-            matchingPoints = GetSecretRoomMatchingPoints(3);
+            matchingPoints = GetRoomMatchingPoints(roomType, 4);
             if (matchingPoints.Count == 0)
             {
-                matchingPoints = GetSecretRoomMatchingPoints(2);
+                matchingPoints = GetRoomMatchingPoints(roomType, 3);
                 if (matchingPoints.Count == 0)
                 {
-                    matchingPoints = GetSecretRoomMatchingPoints(1);
+                    matchingPoints = GetRoomMatchingPoints(roomType, 2);
+                    if (matchingPoints.Count == 0)
+                    {
+                        matchingPoints = GetRoomMatchingPoints(roomType, 1);
+                    }
+                }
+            }
+        }
+        else
+        {
+            matchingPoints = GetRoomMatchingPoints(roomType, 1);
+            Debug.Log($"Points count: {matchingPoints.Count}");
+        }
+
+        if (roomType == RoomType.BossRoom)
+        {
+            selectedPoint = FindFurthestPointFromStart(matchingPoints);
+        }
+        else
+        {
+            Debug.Log($"Points count: {matchingPoints.Count}");
+            int selected = Random.Range(0, matchingPoints.Count);
+            Debug.Log($"Selected: {selected}");
+            selectedPoint = matchingPoints[selected];
+            if (roomType == RoomType.SecretRoom)
+            {
+                secretRoomPosition = selectedPoint;
+            }
+        }
+
+        grid[selectedPoint.x, selectedPoint.y] = (int)roomType;
+        Debug.Log($"Created {roomType} at ({selectedPoint.x},{selectedPoint.y})");
+    }
+
+    public List<Vector2Int> GetRoomMatchingPoints(RoomType roomType, int matchValue)
+    {
+        Debug.Log($"Looking for points with {matchValue} adjacent rooms to create a {roomType}");
+        List<Vector2Int> points = new List<Vector2Int>();
+        int adjacentRooms = 0;
+
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                gridPoint = new Vector2Int(i, j);
+
+                if (grid[gridPoint.x, gridPoint.y] == null)
+                {
+                    adjacentRooms = 0;
+
+                    if (gridPoint.x > 0)
+                    {
+                        if (grid[gridPoint.x - 1, gridPoint.y] != null)
+                        {
+                            switch (roomType)
+                            {
+                                case RoomType.SecretRoom:
+                                    adjacentRooms++;
+                                    break;
+
+                                case RoomType.BossRoom:
+                                    if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.SecretRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ShopRoom:
+                                    if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.StartingRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ItemRoom:
+                                    if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.ShopRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    if (gridPoint.y < 12)
+                    {
+                        if (grid[gridPoint.x, gridPoint.y + 1] != null)
+                        {
+                            switch (roomType)
+                            {
+                                case RoomType.SecretRoom:
+                                    adjacentRooms++;
+                                    break;
+
+                                case RoomType.BossRoom:
+                                    if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.SecretRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ShopRoom:
+                                    if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.StartingRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ItemRoom:
+                                    if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.ShopRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    if (gridPoint.x < 12)
+                    {
+                        if (grid[gridPoint.x + 1, gridPoint.y] != null)
+                        {
+                            switch (roomType)
+                            {
+                                case RoomType.SecretRoom:
+                                    adjacentRooms++;
+                                    break;
+
+                                case RoomType.BossRoom:
+                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.SecretRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ShopRoom:
+                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.StartingRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ItemRoom:
+                                    if (grid[gridPoint.x + 1, gridPoint.y] is not null)
+                                    {
+                                        if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.ShopRoom)
+                                        {
+                                            continue;
+                                        }
+                                        else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                        {
+                                            adjacentRooms++;
+                                        }
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                    if (gridPoint.y > 0)
+                    {
+                        if (grid[gridPoint.x, gridPoint.y - 1] != null)
+                        {
+                            switch (roomType)
+                            {
+                                case RoomType.SecretRoom:
+                                    adjacentRooms++;
+                                    break;
+
+                                case RoomType.BossRoom:
+                                    if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.SecretRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ShopRoom:
+                                    if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.StartingRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.ItemRoom:
+                                    if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.ShopRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (adjacentRooms == matchValue)
+                    {
+                        points.Add(gridPoint);
+                        Debug.Log($"Added point ({gridPoint.x},{gridPoint.y}) to the list");
+                    }
                 }
             }
         }
 
-        int selected = Random.Range(0, matchingPoints.Count);
-        Debug.Log($"Selected point has index {selected}");
-        Vector2Int selectedPoint = matchingPoints[selected];
-        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.SecretRoom;
-        secretRoomPosition = selectedPoint;
-        Debug.Log($"Created secret room at [{selectedPoint.x},{selectedPoint.y}]");
+        return points;
     }
 
-    public void GenerateBossRoom()
+    public Vector2Int FindFurthestPointFromStart(List<Vector2Int> points)
     {
-        List<Vector2Int> matchingPoints = GetBossRoomMatchingPoints();
-        Vector2Int selectedPoint = FindFurthestPointFromStart(matchingPoints);
-        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.BossRoom;
-        Debug.Log($"Created boss room at [{selectedPoint.x},{selectedPoint.y}]");
-    }
+        Vector2Int furthestPoint = new Vector2Int(6, 6);
+        float distance = 0f, pointDistance = 0f;
 
-    public void GenerateShop()
-    {
-        List<Vector2Int> matchingPoints = GetShopRoomMatchingPoints();
-        int selected = Random.Range(0, matchingPoints.Count);
-        Debug.Log($"Selected point has index {selected}");
-        Vector2Int selectedPoint = matchingPoints[selected];
-        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.ShopRoom;
-        Debug.Log($"Created shop at [{selectedPoint.x},{selectedPoint.y}]");
-    }
+        foreach (Vector2Int point in points)
+        {
+            pointDistance = Vector2Int.Distance(point, new Vector2Int(6, 6));
+            Debug.Log($"Distance between start (6, 6) and point ({point.x},{point.y}) is {pointDistance}");
+            if (pointDistance > distance)
+            {
+                distance = pointDistance;
+                furthestPoint = point;
+                Debug.Log($"Furthest point is now point ({furthestPoint.x},{furthestPoint.y})");
+            }
+            else if (pointDistance == distance)
+            {
+                Debug.Log($"Point ({point.x},{point.y} has the same distance as current furthest point ({furthestPoint.x},{furthestPoint.y})");
+                if (Random.Range(0, 2) == 1)
+                {
+                    Debug.Log("Changing to new point");
+                    furthestPoint = point;
+                }
+            }
+        }
 
-    public void GenerateItemRoom()
-    {
-        List<Vector2Int> matchingPoints = GetItemRoomMatchingPoints();
-        int selected = Random.Range(0, matchingPoints.Count);
-        Debug.Log($"Selected point has index {selected}");
-        Vector2Int selectedPoint = matchingPoints[selected];
-        grid[selectedPoint.x, selectedPoint.y] = (int)RoomType.ItemRoom;
-        Debug.Log($"Created item room at [{selectedPoint.x},{selectedPoint.y}]");
+        return furthestPoint;
     }
 
     public void CreateOutlines()
@@ -371,17 +608,31 @@ public class LevelGenerator : MonoBehaviour
         {
             for (int j = 0; j < 13; j++)
             {
-                gridPoint = new Vector2Int(i, j);
-
-                if (rooms[i ,j] is not null)
+                if (rooms[i, j] is not null)
                 {
-                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.StartingRoom)
+                    if (rooms[i, j].GetComponent<Room>().roomType == RoomType.StartingRoom)
                     {
                         Instantiate(startRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
                     }
-                    else if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.BossRoom)
+                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.SecretRoom)
+                    {
+                        secretRoomPosition = new Vector2Int(i, j);
+                        Instantiate(secretRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                    }
+                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.BossRoom)
                     {
                         Instantiate(bossRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        SwapNormalDoors(new Vector2Int(i, j), bossRoomDoor);
+                    }
+                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ShopRoom)
+                    {
+                        Instantiate(shopRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        SwapNormalDoors(new Vector2Int(i, j), shopRoomDoor);
+                    }
+                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ItemRoom)
+                    {
+                        Instantiate(itemRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        SwapNormalDoors(new Vector2Int(i, j), itemRoomDoor);
                     }
                     else
                     {
@@ -395,46 +646,13 @@ public class LevelGenerator : MonoBehaviour
 
             roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
         }
+
+        SwapSecretDoors(secretRoomPosition);
     }
 
-    public void ReplaceDoorsVariants()
+    public void SwapNormalDoors(Vector2Int roomGridPosition, GameObject door)
     {
-        Vector2Int secretRoomPosition = new Vector2Int(0, 0);
-
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                gridPoint = new Vector2Int(i, j);
-                if (rooms[i, j] is not null)
-                {
-                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.SecretRoom)
-                    {
-                        secretRoomPosition = gridPoint;
-                    }
-                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.BossRoom)
-                    {
-                        SwapDoors(bossRoomDoor);
-                    }
-                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.ShopRoom)
-                    {
-                        SwapDoors(shopRoomDoor);
-                    }
-                    if (grid[gridPoint.x, gridPoint.y] == (int)RoomType.ItemRoom)
-                    {
-                        SwapDoors(itemRoomDoor);
-                    }
-                }
-            }
-        }
-
-        gridPoint = secretRoomPosition;
-        SwapSecretDoors(secretRoomDoor);
-    }
-
-    public void SwapDoors(GameObject door)
-    {
-        GameObject room = rooms[gridPoint.x, gridPoint.y];
+        GameObject room = rooms[roomGridPosition.x, roomGridPosition.y];
 
         if (room.GetComponent<Room>().doorUp != null)
         {
@@ -443,7 +661,7 @@ public class LevelGenerator : MonoBehaviour
             newDoor.transform.SetParent(room.transform.Find("Doors"));
             room.GetComponent<Room>().doorUp = newDoor;
 
-            GameObject adjacentRoom = rooms[gridPoint.x - 1, gridPoint.y];
+            GameObject adjacentRoom = rooms[roomGridPosition.x - 1, roomGridPosition.y];
             Destroy(adjacentRoom.GetComponent<Room>().doorDown);
             GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0f, -3.5f, 0f), Quaternion.Euler(0f, 0f, -180f));
             newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
@@ -456,7 +674,7 @@ public class LevelGenerator : MonoBehaviour
             newDoor.transform.SetParent(room.transform.Find("Doors"));
             room.GetComponent<Room>().doorRight = newDoor;
 
-            GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y + 1];
+            GameObject adjacentRoom = rooms[roomGridPosition.x, roomGridPosition.y + 1];
             Destroy(adjacentRoom.GetComponent<Room>().doorLeft);
             GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(-6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
             newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
@@ -469,7 +687,7 @@ public class LevelGenerator : MonoBehaviour
             newDoor.transform.SetParent(room.transform.Find("Doors"));
             room.GetComponent<Room>().doorDown = newDoor;
 
-            GameObject adjacentRoom = rooms[gridPoint.x + 1, gridPoint.y];
+            GameObject adjacentRoom = rooms[roomGridPosition.x + 1, roomGridPosition.y];
             Destroy(adjacentRoom.GetComponent<Room>().doorUp);
             GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0, 3.5f, 0f), Quaternion.Euler(0f, 0f, 0f));
             newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
@@ -482,7 +700,7 @@ public class LevelGenerator : MonoBehaviour
             newDoor.transform.SetParent(room.transform.Find("Doors"));
             room.GetComponent<Room>().doorLeft = newDoor;
 
-            GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y - 1];
+            GameObject adjacentRoom = rooms[roomGridPosition.x, roomGridPosition.y - 1];
             Destroy(adjacentRoom.GetComponent<Room>().doorRight);
             GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
             newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
@@ -490,82 +708,78 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    public void SwapSecretDoors(GameObject door)
+    public void SwapSecretDoors(Vector2Int roomGridPosition)
     {
-        GameObject room = rooms[gridPoint.x, gridPoint.y];
+        GameObject room = rooms[roomGridPosition.x, roomGridPosition.y];
 
-        if (gridPoint.x > 0)
+        if (roomGridPosition.x > 0)
         {
-            if (rooms[gridPoint.x - 1, gridPoint.y] != null)
+            if (rooms[roomGridPosition.x - 1, roomGridPosition.y] != null)
             {
                 room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, 4, 0), null);
-                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(0f, 4f, 0f), Quaternion.Euler(0f, 0f, 0f));
-                newDoor.GetComponent<SecretDoors>().areRevealed = true;
-                newDoor.GetComponent<BoxCollider2D>().enabled = false;
-                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                GameObject newDoor = Instantiate(secretRoomDoor, room.transform.position + new Vector3(0f, 3.5f, 0f), Quaternion.Euler(0f, 0f, 0f));
+                newDoor.GetComponent<Door>().isRevealed = true;
+                newDoor.GetComponent<Door>().OpenDoor();
                 newDoor.transform.SetParent(room.transform.Find("Doors"));
                 room.GetComponent<Room>().doorUp = newDoor;
 
-                GameObject adjacentRoom = rooms[gridPoint.x - 1, gridPoint.y];
+                GameObject adjacentRoom = rooms[roomGridPosition.x - 1, roomGridPosition.y];
                 adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, -4, 0), null);
-                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0f, -4f, 0f), Quaternion.Euler(0f, 0f, -180f));
+                GameObject newDoor2 = Instantiate(secretRoomDoor, adjacentRoom.transform.position + new Vector3(0f, -3.5f, 0f), Quaternion.Euler(0f, 0f, -180f));
                 newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
                 adjacentRoom.GetComponent<Room>().doorDown = newDoor2;
             }
         }
-        if (gridPoint.y < 12)
+        if (roomGridPosition.y < 12)
         {
-            if (rooms[gridPoint.x, gridPoint.y + 1] != null)
+            if (rooms[roomGridPosition.x, roomGridPosition.y + 1] != null)
             {
                 room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(7, 0, 0), null);
-                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(7f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
-                newDoor.GetComponent<SecretDoors>().areRevealed = true;
-                newDoor.GetComponent<BoxCollider2D>().enabled = false;
-                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                GameObject newDoor = Instantiate(secretRoomDoor, room.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+                newDoor.GetComponent<Door>().isRevealed = true;
+                newDoor.GetComponent<Door>().OpenDoor();
                 newDoor.transform.SetParent(room.transform.Find("Doors"));
                 room.GetComponent<Room>().doorRight = newDoor;
 
-                GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y + 1];
+                GameObject adjacentRoom = rooms[roomGridPosition.x, roomGridPosition.y + 1];
                 adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(-7, 0, 0), null);
-                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(-7f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
+                GameObject newDoor2 = Instantiate(secretRoomDoor, adjacentRoom.transform.position + new Vector3(-6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
                 newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
                 adjacentRoom.GetComponent<Room>().doorLeft = newDoor2;
             }
         }
-        if (gridPoint.x < 12)
+        if (roomGridPosition.x < 12)
         {
-            if (rooms[gridPoint.x + 1, gridPoint.y] != null)
+            if (rooms[roomGridPosition.x + 1, roomGridPosition.y] != null)
             {
                 room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, -4, 0), null);
-                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(0f, -4f, 0f), Quaternion.Euler(0f, 0f, -180f));
-                newDoor.GetComponent<SecretDoors>().areRevealed = true;
-                newDoor.GetComponent<BoxCollider2D>().enabled = false;
-                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                GameObject newDoor = Instantiate(secretRoomDoor, room.transform.position + new Vector3(0f, -3.5f, 0f), Quaternion.Euler(0f, 0f, -180f));
+                newDoor.GetComponent<Door>().isRevealed = true;
+                newDoor.GetComponent<Door>().OpenDoor();
                 newDoor.transform.SetParent(room.transform.Find("Doors"));
                 room.GetComponent<Room>().doorDown = newDoor;
 
-                GameObject adjacentRoom = rooms[gridPoint.x + 1, gridPoint.y];
+                GameObject adjacentRoom = rooms[roomGridPosition.x + 1, roomGridPosition.y];
                 adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(0, 4, 0), null);
-                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(0f, 4f, 0f), Quaternion.Euler(0f, 0f, 0f));
+                GameObject newDoor2 = Instantiate(secretRoomDoor, adjacentRoom.transform.position + new Vector3(0f, 3.5f, 0f), Quaternion.Euler(0f, 0f, 0f));
                 newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
                 adjacentRoom.GetComponent<Room>().doorUp = newDoor2;
             }
         }
-        if (gridPoint.y > 0)
+        if (roomGridPosition.y > 0)
         {
-            if (rooms[gridPoint.x, gridPoint.y - 1] != null)
+            if (rooms[roomGridPosition.x, roomGridPosition.y - 1] != null)
             {
                 room.GetComponent<Room>().tilemap.SetTile(new Vector3Int(-7, 0, 0), null);
-                GameObject newDoor = Instantiate(door, room.transform.position + new Vector3(-7f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
-                newDoor.GetComponent<SecretDoors>().areRevealed = true;
-                newDoor.GetComponent<BoxCollider2D>().enabled = false;
-                newDoor.GetComponent<Animator>().Play("Doors_Open");
+                GameObject newDoor = Instantiate(secretRoomDoor, room.transform.position + new Vector3(-6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -270f));
+                newDoor.GetComponent<Door>().isRevealed = true;
+                newDoor.GetComponent<Door>().OpenDoor();
                 newDoor.transform.SetParent(room.transform.Find("Doors"));
                 room.GetComponent<Room>().doorLeft = newDoor;
 
-                GameObject adjacentRoom = rooms[gridPoint.x, gridPoint.y - 1];
+                GameObject adjacentRoom = rooms[roomGridPosition.x, roomGridPosition.y - 1];
                 adjacentRoom.GetComponent<Room>().tilemap.SetTile(new Vector3Int(7, 0, 0), null);
-                GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(7f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
+                GameObject newDoor2 = Instantiate(secretRoomDoor, adjacentRoom.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
                 newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
                 adjacentRoom.GetComponent<Room>().doorRight = newDoor2;
             }
@@ -617,335 +831,6 @@ public class LevelGenerator : MonoBehaviour
 
             position = new Vector2(-5.5f, position.y - 1f);
         }
-    }
-
-    public List<Vector2Int> GetSecretRoomMatchingPoints(int matchValue)
-    {
-        Debug.Log($"Looking for points with {matchValue} adjacent room/s...");
-        List<Vector2Int> points = new List<Vector2Int>();
-        int adjacentRooms = 0;
-
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                gridPoint = new Vector2Int(i, j);
-                if (grid[gridPoint.x, gridPoint.y] is null)
-                {
-                    adjacentRooms = 0;
-                    if (gridPoint.x > 0)
-                    {
-                        if (grid[gridPoint.x - 1, gridPoint.y] is not null)
-                        {
-                            adjacentRooms++;
-                        }
-                    }
-                    if (gridPoint.y < 12)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y + 1] is not null)
-                        {
-                            adjacentRooms++;
-                        }
-                    }
-                    if (gridPoint.x < 12)
-                    {
-                        if (grid[gridPoint.x + 1, gridPoint.y] is not null)
-                        {
-                            adjacentRooms++;
-                        }
-                    }
-                    if (gridPoint.y > 0)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y - 1] is not null)
-                        {
-                            adjacentRooms++;
-                        }
-                    }
-                    if (adjacentRooms == matchValue)
-                    {
-                        points.Add(gridPoint);
-                        Debug.Log($"Added point [{gridPoint.x}, {gridPoint.y}] to the list");
-                    }
-                }
-            }
-        }
-
-        return points;
-    }
-
-    public List<Vector2Int> GetBossRoomMatchingPoints()
-    {
-        Debug.Log("Looking for points to spawn a boss room...");
-        List<Vector2Int> points = new List<Vector2Int>();
-        int adjacentRooms = 0;
-
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                gridPoint = new Vector2Int(i, j);
-                if (grid[gridPoint.x, gridPoint.y] is null)
-                {
-                    adjacentRooms = 0;
-                    if (gridPoint.x > 0)
-                    {
-                        if (grid[gridPoint.x - 1, gridPoint.y] is not null)
-                        {
-                            if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.SecretRoom)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.y < 12)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y + 1] is not null)
-                        {
-                            if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.SecretRoom)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.x < 12)
-                    {
-                        if (grid[gridPoint.x + 1, gridPoint.y] is not null)
-                        {
-                            if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.SecretRoom)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.y > 0)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y - 1] is not null)
-                        {
-                            if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.SecretRoom)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (adjacentRooms == 1)
-                    {
-                        points.Add(gridPoint);
-                        Debug.Log($"Added point [{gridPoint.x}, {gridPoint.y}] to the list");
-                    }
-                }
-            }
-        }
-
-        return points;
-    }
-
-    public List<Vector2Int> GetShopRoomMatchingPoints()
-    {
-        Debug.Log("Looking for points to spawn a shop...");
-        List<Vector2Int> points = new List<Vector2Int>();
-        int adjacentRooms = 0;
-
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                gridPoint = new Vector2Int(i, j);
-                if (grid[gridPoint.x, gridPoint.y] is null)
-                {
-                    adjacentRooms = 0;
-                    if (gridPoint.x > 0)
-                    {
-                        if (grid[gridPoint.x - 1, gridPoint.y] is not null)
-                        {
-                            if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.StartingRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.y < 12)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y + 1] is not null)
-                        {
-                            if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.StartingRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.x < 12)
-                    {
-                        if (grid[gridPoint.x + 1, gridPoint.y] is not null)
-                        {
-                            if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.StartingRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.y > 0)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y - 1] is not null)
-                        {
-                            if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.StartingRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (adjacentRooms == 1)
-                    {
-                        points.Add(gridPoint);
-                        Debug.Log($"Added point [{gridPoint.x}, {gridPoint.y}] to the list");
-                    }
-                }
-            }
-        }
-
-        return points;
-    }
-
-    public List<Vector2Int> GetItemRoomMatchingPoints()
-    {
-        Debug.Log("Looking for points to spawn an item room...");
-        List<Vector2Int> points = new List<Vector2Int>();
-        int adjacentRooms = 0;
-
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                gridPoint = new Vector2Int(i, j);
-                if (grid[gridPoint.x, gridPoint.y] is null)
-                {
-                    adjacentRooms = 0;
-                    if (gridPoint.x > 0)
-                    {
-                        if (grid[gridPoint.x - 1, gridPoint.y] is not null)
-                        {
-                            if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.ShopRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.y < 12)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y + 1] is not null)
-                        {
-                            if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.ShopRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.x < 12)
-                    {
-                        if (grid[gridPoint.x + 1, gridPoint.y] is not null)
-                        {
-                            if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.ShopRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (gridPoint.y > 0)
-                    {
-                        if (grid[gridPoint.x, gridPoint.y - 1] is not null)
-                        {
-                            if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom || grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.ShopRoom)
-                            {
-                                continue;
-                            }
-                            else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
-                            {
-                                adjacentRooms++;
-                            }
-                        }
-                    }
-                    if (adjacentRooms == 1)
-                    {
-                        points.Add(gridPoint);
-                        Debug.Log($"Added point [{gridPoint.x}, {gridPoint.y}] to the list");
-                    }
-                }
-            }
-        }
-
-        return points;
-    }
-
-    public Vector2Int FindFurthestPointFromStart(List<Vector2Int> points)
-    {
-        Vector2Int furthestPoint = new Vector2Int(6, 6);
-        float distance = 0f, pointDistance = 0f;
-
-        foreach (Vector2Int point in points)
-        {
-            pointDistance = Vector2Int.Distance(point, new Vector2Int(6, 6));
-            Debug.Log($"Distance between start (6, 6) and point ({point.x},{point.y}) is {pointDistance}");
-            if (pointDistance > distance)
-            {
-                distance = pointDistance;
-                furthestPoint = point;
-                Debug.Log($"Furthest point is now point ({furthestPoint.x},{furthestPoint.y})");
-            }
-            else if (pointDistance == distance)
-            {
-                Debug.Log($"Point ({point.x},{point.y} has the same distance as current furthest point ({furthestPoint.x},{furthestPoint.y})");
-                if (Random.Range(0, 2) == 1)
-                {
-                    Debug.Log("Changing to new point");
-                    furthestPoint = point;
-                }
-            }
-        }
-
-        return furthestPoint;
     }
 }
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4321500254491836942}
   - component: {fileID: 7569759887360482698}
+  - component: {fileID: 5847608309921233836}
   - component: {fileID: 8600028759456427064}
   - component: {fileID: 8062773053602796050}
   m_Layer: 0
@@ -32,7 +33,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7569759887360482698
 SpriteRenderer:
@@ -86,6 +87,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5847608309921233836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1288381576056480723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0301335ee2fe24a42894110f9430755c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSecretDoor: 0
+  isShopOrItemDoor: 1
+  isRevealed: 0
+  isLocked: 0
+  doorCollider: {fileID: 8600028759456427064}
+  anim: {fileID: 8062773053602796050}
 --- !u!61 &8600028759456427064
 BoxCollider2D:
   m_ObjectHideFlags: 0
