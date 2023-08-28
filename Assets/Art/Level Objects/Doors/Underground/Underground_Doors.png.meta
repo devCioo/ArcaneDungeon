@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 256
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Undeground_Doors_0
+      name: Underground_Doors_0
       rect:
         serializedVersion: 2
         x: 0
@@ -137,14 +137,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 998b43ca0302a944f9c48cdb2e3d9464
-      internalID: -1146416908
+      spriteID: 3f404e884ac02f74cba14299ffbf9f83
+      internalID: 309686160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_1
+      name: Underground_Doors_1
       rect:
         serializedVersion: 2
         x: 32
@@ -158,14 +158,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fac3443356d6327428a14c69ab93012c
-      internalID: -1374810906
+      spriteID: 58a7677fcc788f447ae670725cbfb48d
+      internalID: -1609445517
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_2
+      name: Underground_Doors_2
       rect:
         serializedVersion: 2
         x: 64
@@ -179,14 +179,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 45ff9066334e21d4785512b7ae1c24a6
-      internalID: 972395382
+      spriteID: 0794530b6df1ff942a700a0af2624e45
+      internalID: -1023004877
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_3
+      name: Underground_Doors_3
       rect:
         serializedVersion: 2
         x: 96
@@ -200,14 +200,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53389c5abe527894ca5b1200c926dfd0
-      internalID: 1580799802
+      spriteID: 987e568e452c3394f8e79dd393dbc3ba
+      internalID: 512772099
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_4
+      name: Underground_Doors_4
       rect:
         serializedVersion: 2
         x: 0
@@ -221,14 +221,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a1631c2b24d7a2418a4408f4de8c545
-      internalID: -1404983415
+      spriteID: 81e0896b495e20244889ac93529def20
+      internalID: 19138557
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_5
+      name: Underground_Doors_5
       rect:
         serializedVersion: 2
         x: 32
@@ -242,14 +242,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6c22c2098edccc438ad20a0fa7d6f4c
-      internalID: -1675927809
+      spriteID: 32c45721e6330934c8338ffdf2a08faf
+      internalID: 383349738
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_6
+      name: Underground_Doors_6
       rect:
         serializedVersion: 2
         x: 64
@@ -263,14 +263,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 78b31b955433b78408e2297c4eed4db9
-      internalID: 1097447082
+      spriteID: e3c3132e914136a4390330c87d5df4bd
+      internalID: -1953320073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_7
+      name: Underground_Doors_7
       rect:
         serializedVersion: 2
         x: 96
@@ -284,14 +284,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 450acb6b744322249b656a01c3834afb
-      internalID: -1072780614
+      spriteID: 6228a6d40569d844da1ed8b35b6468ed
+      internalID: -7849798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_8
+      name: Underground_Doors_8
       rect:
         serializedVersion: 2
         x: 128
@@ -305,14 +305,119 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 293807dbc0ddbf6458396b31784751d4
-      internalID: 880128680
+      spriteID: fbc1a9f303f56e3429411bd597775cc8
+      internalID: 73308744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_9
+      name: Underground_Doors_9
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a2d233043f6c9540b52eec24d892c79
+      internalID: 1133420399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_10
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cdbd43c5058a73b468100ff2c334c58a
+      internalID: 16253310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_11
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3bff99d5326d7e94bbb8d54256c30afe
+      internalID: 1695508726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_12
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d09b3fba4fea424bb02f1bb78309cc2
+      internalID: -576186734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_13
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 64
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b28ac03c22fd6c4990470c773039809
+      internalID: -893075431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_14
       rect:
         serializedVersion: 2
         x: 0
@@ -326,14 +431,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb5166a0cb5ba6246a21b9461d9475d1
-      internalID: 1806156725
+      spriteID: d3fa376c5a2afb3438e98ed6bbe7cf28
+      internalID: -826248840
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_10
+      name: Underground_Doors_15
       rect:
         serializedVersion: 2
         x: 32
@@ -347,14 +452,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 449c6b62d3fb5e649979d7204707d3e7
-      internalID: 80482248
+      spriteID: 98255b4b70872e64d8175045922c6c2c
+      internalID: -1597213902
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_11
+      name: Underground_Doors_16
       rect:
         serializedVersion: 2
         x: 64
@@ -368,14 +473,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f12759d73ff8874fa1a3230428723ff
-      internalID: 988187768
+      spriteID: 4d0851ab72ee4c144b4a041f142800b9
+      internalID: 817067478
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_12
+      name: Underground_Doors_17
       rect:
         serializedVersion: 2
         x: 96
@@ -389,14 +494,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d3d37bbb01d8e54887c28418ffba7f9
-      internalID: 708384844
+      spriteID: 19ca2cdccba693e47a4cfc69856c5d1c
+      internalID: -734982374
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_13
+      name: Underground_Doors_18
       rect:
         serializedVersion: 2
         x: 128
@@ -410,14 +515,119 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c5126fd7f33695a4e9de8f90bd5f3e29
-      internalID: 202675470
+      spriteID: 861a88f93bc6ee5449a8251713254cd6
+      internalID: -1570904034
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_14
+      name: Underground_Doors_19
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5467dfd4dbb4c3041bb4ec57354e11a3
+      internalID: -1844832054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_20
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9401a84eb4a8bae418c8a1110a809f6a
+      internalID: -237640549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_21
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11da9b1bbcaa84f4fa4c513ea1a16868
+      internalID: -1233892633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_22
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7c22ed7120cd09469bf76eeb1575e1f
+      internalID: 4979373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_23
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 32
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd986d45ce9992d4fb596515cbd175f1
+      internalID: 840968271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Underground_Doors_24
       rect:
         serializedVersion: 2
         x: 0
@@ -431,14 +641,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 485851dde030ae4448a1f7bd289fa6dd
-      internalID: -1500372740
+      spriteID: 1861b5892f9de1646a5721b1f07251aa
+      internalID: -2116239778
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_15
+      name: Underground_Doors_25
       rect:
         serializedVersion: 2
         x: 32
@@ -452,14 +662,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9aa82dfe82aede479dc88d0f791cc7a
-      internalID: -25954071
+      spriteID: e4e7b63fb1ff7d048ba6c72e47635553
+      internalID: 1204289417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_16
+      name: Underground_Doors_26
       rect:
         serializedVersion: 2
         x: 64
@@ -473,14 +683,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1131d3ee13c13a743b15fd374b618903
-      internalID: 1409407159
+      spriteID: f429f85852d32d841ad6c898a95be913
+      internalID: 2011366809
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Undeground_Doors_17
+      name: Underground_Doors_27
       rect:
         serializedVersion: 2
         x: 96
@@ -494,8 +704,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12f7c8dbb22bf844787946d0c335a516
-      internalID: -1519986039
+      spriteID: 13d07b5cbe1a50147aeb68decc5d19ce
+      internalID: -1396649431
       vertices: []
       indices: 
       edges: []
@@ -511,24 +721,34 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Undeground_Doors_0: -1146416908
-      Undeground_Doors_1: -1374810906
-      Undeground_Doors_10: 80482248
-      Undeground_Doors_11: 988187768
-      Undeground_Doors_12: 708384844
-      Undeground_Doors_13: 202675470
-      Undeground_Doors_14: -1500372740
-      Undeground_Doors_15: -25954071
-      Undeground_Doors_16: 1409407159
-      Undeground_Doors_17: -1519986039
-      Undeground_Doors_2: 972395382
-      Undeground_Doors_3: 1580799802
-      Undeground_Doors_4: -1404983415
-      Undeground_Doors_5: -1675927809
-      Undeground_Doors_6: 1097447082
-      Undeground_Doors_7: -1072780614
-      Undeground_Doors_8: 880128680
-      Undeground_Doors_9: 1806156725
+      Underground_Doors_0: 309686160
+      Underground_Doors_1: -1609445517
+      Underground_Doors_10: 16253310
+      Underground_Doors_11: 1695508726
+      Underground_Doors_12: -576186734
+      Underground_Doors_13: -893075431
+      Underground_Doors_14: -826248840
+      Underground_Doors_15: -1597213902
+      Underground_Doors_16: 817067478
+      Underground_Doors_17: -734982374
+      Underground_Doors_18: -1570904034
+      Underground_Doors_19: -1844832054
+      Underground_Doors_2: -1023004877
+      Underground_Doors_20: -237640549
+      Underground_Doors_21: -1233892633
+      Underground_Doors_22: 4979373
+      Underground_Doors_23: 840968271
+      Underground_Doors_24: -2116239778
+      Underground_Doors_25: 1204289417
+      Underground_Doors_26: 2011366809
+      Underground_Doors_27: -1396649431
+      Underground_Doors_3: 512772099
+      Underground_Doors_4: 19138557
+      Underground_Doors_5: 383349738
+      Underground_Doors_6: -1953320073
+      Underground_Doors_7: -7849798
+      Underground_Doors_8: 73308744
+      Underground_Doors_9: 1133420399
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -85,40 +85,80 @@ public class LevelManager : MonoBehaviour
     public void RevealSecretDoors()
     {
         Vector2Int secretRoomPosition = levelGenerator.secretRoomPosition;
-        if (secretRoomPosition.x > 0)
+
+        if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y].GetComponent<Room>().doorUp != null)
         {
-            if (levelGenerator.rooms[secretRoomPosition.x - 1, secretRoomPosition.y] != null)
+            GameObject door = levelGenerator.rooms[secretRoomPosition.x - 1, secretRoomPosition.y].GetComponent<Room>().doorDown;
+            door.GetComponent<Door>().isRevealed = true;
+            door.GetComponent<Door>().OpenDoor();
+        }
+        
+        if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y].GetComponent<Room>().doorRight != null)
+        {
+            GameObject door = levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y + 1].GetComponent<Room>().doorLeft;
+            door.GetComponent<Door>().isRevealed = true;
+            door.GetComponent<Door>().OpenDoor();
+        }
+        if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y].GetComponent<Room>().doorDown != null)
+        {
+            GameObject door = levelGenerator.rooms[secretRoomPosition.x + 1, secretRoomPosition.y].GetComponent<Room>().doorUp;
+            door.GetComponent<Door>().isRevealed = true;
+            door.GetComponent<Door>().OpenDoor();
+        }
+        if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y].GetComponent<Room>().doorLeft != null)
+        {
+            GameObject door = levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y - 1].GetComponent<Room>().doorRight;
+            door.GetComponent<Door>().isRevealed = true;
+            door.GetComponent<Door>().OpenDoor();
+        }
+    }
+
+    public void UnlockOtherDoor(Vector2Int roomPosition)
+    {
+        GameObject room = levelGenerator.rooms[roomPosition.x, roomPosition.y];
+
+        if (room.GetComponent<Room>().doorUp != null)
+        {
+            GameObject door = room.GetComponent<Room>().doorUp;
+
+            if (door.GetComponent<Door>().isShopOrItemDoor)
             {
-                GameObject door = levelGenerator.rooms[secretRoomPosition.x - 1, secretRoomPosition.y].GetComponent<Room>().doorDown;
-                door.GetComponent<Door>().isRevealed = true;
-                door.GetComponent<Door>().OpenDoor();
+                GameObject otherDoor = levelGenerator.rooms[roomPosition.x - 1, roomPosition.y].GetComponent<Room>().doorDown;
+                otherDoor.GetComponent<Door>().isLocked = false;
+                otherDoor.GetComponent<Door>().OpenDoor();
             }
         }
-        if (secretRoomPosition.y < 12)
+        if (room.GetComponent<Room>().doorRight != null)
         {
-            if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y + 1] != null)
+            GameObject door = room.GetComponent<Room>().doorRight;
+
+            if (door.GetComponent<Door>().isShopOrItemDoor)
             {
-                GameObject door = levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y + 1].GetComponent<Room>().doorLeft;
-                door.GetComponent<Door>().isRevealed = true;
-                door.GetComponent<Door>().OpenDoor();
+                GameObject otherDoor = levelGenerator.rooms[roomPosition.x, roomPosition.y + 1].GetComponent<Room>().doorLeft;
+                otherDoor.GetComponent<Door>().isLocked = false;
+                otherDoor.GetComponent<Door>().OpenDoor();
             }
         }
-        if (secretRoomPosition.x < 12)
+        if (room.GetComponent<Room>().doorDown != null)
         {
-            if (levelGenerator.rooms[secretRoomPosition.x + 1, secretRoomPosition.y] != null)
+            GameObject door = room.GetComponent<Room>().doorDown;
+
+            if (door.GetComponent<Door>().isShopOrItemDoor)
             {
-                GameObject door = levelGenerator.rooms[secretRoomPosition.x + 1, secretRoomPosition.y].GetComponent<Room>().doorUp;
-                door.GetComponent<Door>().isRevealed = true;
-                door.GetComponent<Door>().OpenDoor();
+                GameObject otherDoor = levelGenerator.rooms[roomPosition.x + 1, roomPosition.y].GetComponent<Room>().doorUp;
+                otherDoor.GetComponent<Door>().isLocked = false;
+                otherDoor.GetComponent<Door>().OpenDoor();
             }
         }
-        if (secretRoomPosition.y > 0)
+        if (room.GetComponent<Room>().doorLeft != null)
         {
-            if (levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y - 1] != null)
+            GameObject door = room.GetComponent<Room>().doorLeft;
+
+            if (door.GetComponent<Door>().isShopOrItemDoor)
             {
-                GameObject door = levelGenerator.rooms[secretRoomPosition.x, secretRoomPosition.y - 1].GetComponent<Room>().doorRight;
-                door.GetComponent<Door>().isRevealed = true;
-                door.GetComponent<Door>().OpenDoor();
+                GameObject otherDoor = levelGenerator.rooms[roomPosition.x, roomPosition.y - 1].GetComponent<Room>().doorRight;
+                otherDoor.GetComponent<Door>().isLocked = false;
+                otherDoor.GetComponent<Door>().OpenDoor();
             }
         }
     }

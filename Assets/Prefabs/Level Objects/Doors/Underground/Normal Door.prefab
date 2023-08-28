@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1146416908, guid: 76dfd5a1bd7deee4f9e3bb4c67160d82, type: 3}
+  m_Sprite: {fileID: 309686160, guid: 76dfd5a1bd7deee4f9e3bb4c67160d82, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSecretDoor: 0
+  isShopOrItemDoor: 0
   isRevealed: 0
+  isLocked: 0
   doorCollider: {fileID: 3694828287736657073}
   anim: {fileID: 5307946980033201507}
 --- !u!61 &3694828287736657073

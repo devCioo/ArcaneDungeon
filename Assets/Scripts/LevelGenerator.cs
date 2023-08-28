@@ -15,12 +15,12 @@ public class LevelGenerator : MonoBehaviour
     private Vector2Int gridPoint, oldPoint;
 
     public GameObject[,] rooms = new GameObject[13, 13];
-    public Vector2Int secretRoomPosition;
+    public Vector2Int secretRoomPosition, shopRoomPosition, itemRoomPosition;
 
     public RoomOutlines outlines;
     public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor, secretRoomDoor;
     public GameObject mapRoom;
-    public Sprite closedShopDoor, closedItemDoor, normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
+    public Sprite normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
     public RoomCenter startRoomCenter, secretRoomCenter, bossRoomCenter, shopRoomCenter, itemRoomCenter;
     public RoomCenter[] roomCenters;
 
@@ -622,17 +622,19 @@ public class LevelGenerator : MonoBehaviour
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.BossRoom)
                     {
                         Instantiate(bossRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
-                        SwapNormalDoors(new Vector2Int(i, j), bossRoomDoor);
+                        SwapDoors(new Vector2Int(i, j), bossRoomDoor);
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ShopRoom)
                     {
+                        shopRoomPosition = new Vector2Int(i, j);
                         Instantiate(shopRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
-                        SwapNormalDoors(new Vector2Int(i, j), shopRoomDoor);
+                        SwapDoors(new Vector2Int(i, j), shopRoomDoor);
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ItemRoom)
                     {
+                        itemRoomPosition = new Vector2Int(i, j);
                         Instantiate(itemRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
-                        SwapNormalDoors(new Vector2Int(i, j), itemRoomDoor);
+                        SwapDoors(new Vector2Int(i, j), itemRoomDoor);
                     }
                     else
                     {
@@ -650,7 +652,7 @@ public class LevelGenerator : MonoBehaviour
         SwapSecretDoors(secretRoomPosition);
     }
 
-    public void SwapNormalDoors(Vector2Int roomGridPosition, GameObject door)
+    public void SwapDoors(Vector2Int roomGridPosition, GameObject door)
     {
         GameObject room = rooms[roomGridPosition.x, roomGridPosition.y];
 
@@ -704,7 +706,7 @@ public class LevelGenerator : MonoBehaviour
             Destroy(adjacentRoom.GetComponent<Room>().doorRight);
             GameObject newDoor2 = Instantiate(door, adjacentRoom.transform.position + new Vector3(6.5f, 0f, 0f), Quaternion.Euler(0f, 0f, -90f));
             newDoor2.transform.SetParent(adjacentRoom.transform.Find("Doors"));
-            adjacentRoom.GetComponent<Room>().doorRight = newDoor;
+            adjacentRoom.GetComponent<Room>().doorRight = newDoor2;
         }
     }
 

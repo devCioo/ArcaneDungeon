@@ -61,19 +61,19 @@ public class Room : MonoBehaviour
             {
                 if (doorUp != null)
                 {
-                    doorUp.GetComponent<Door>().OpenDoor();
+                    doorUp.GetComponent<Door>().CloseDoor();
                 }
                 if (doorRight != null)
                 {
-                    doorRight.GetComponent<Door>().OpenDoor();
+                    doorRight.GetComponent<Door>().CloseDoor();
                 }
                 if (doorDown != null)
                 {
-                    doorDown.GetComponent<Door>().OpenDoor();
+                    doorDown.GetComponent<Door>().CloseDoor();
                 }
                 if (doorLeft != null)
                 {
-                    doorLeft.GetComponent<Door>().OpenDoor();
+                    doorLeft.GetComponent<Door>().CloseDoor();
                 }
 
                 isClosed = true;
@@ -86,6 +86,14 @@ public class Room : MonoBehaviour
             if (roomType == RoomType.SecretRoom)
             {
                 LevelManager.instance.RevealSecretDoors();
+            }
+            if (roomType == RoomType.ShopRoom)
+            {
+                LevelManager.instance.UnlockOtherDoor(LevelManager.instance.levelGenerator.shopRoomPosition);
+            }
+            if (roomType == RoomType.ItemRoom)
+            {
+                LevelManager.instance.UnlockOtherDoor(LevelManager.instance.levelGenerator.itemRoomPosition);
             }
         }
     }

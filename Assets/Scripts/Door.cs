@@ -20,9 +20,12 @@ public class Door : MonoBehaviour
         }
         if (isShopOrItemDoor && LevelManager.instance.levelGenerator.shopAndItemRoomRequireKeys)
         {
-            isLocked = true;
-            anim.Play("Door_Lock");
-            doorCollider.enabled = true;
+            if (gameObject.GetComponentInParent<Room>().roomType != RoomType.ShopRoom && gameObject.GetComponentInParent<Room>().roomType != RoomType.ItemRoom)
+            {
+                isLocked = true;
+                anim.Play("Door_Lock");
+                doorCollider.enabled = true;
+            }
         }
     }
 
@@ -43,11 +46,17 @@ public class Door : MonoBehaviour
 
     public void CloseDoor()
     {
-        if (isRevealed)
+        if (isRevealed && !isLocked)
         {
             anim.Play("Door_Close");
             doorCollider.enabled = true;
         }
+    }
+
+    public void UnlockDoor()
+    {
+        anim.Play("Door_Unlock");
+        doorCollider.enabled = false;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -59,7 +68,7 @@ public class Door : MonoBehaviour
                 if (LevelManager.instance.currentKeys > 0)
                 {
                     isLocked = false;
-                    OpenDoor();
+                    UnlockDoor();
                     LevelManager.instance.UseKey();
                 }
             }
