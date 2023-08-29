@@ -51,10 +51,10 @@ public class LevelGenerator : MonoBehaviour
         grid[gridPoint.x, gridPoint.y] = (int)RoomType.StartingRoom;
 
         GenerateNormalRooms();
-        GenerateSpecialRoom(RoomType.SecretRoom);
         GenerateSpecialRoom(RoomType.BossRoom);
         GenerateSpecialRoom(RoomType.ShopRoom);
         GenerateSpecialRoom(RoomType.ItemRoom);
+        GenerateSpecialRoom(RoomType.SecretRoom);
     }
 
     public void MoveGridPoint()
@@ -226,19 +226,8 @@ public class LevelGenerator : MonoBehaviour
                         {
                             switch (roomType)
                             {
-                                case RoomType.SecretRoom:
-                                    adjacentRooms++;
-                                    break;
-
                                 case RoomType.BossRoom:
-                                    if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.SecretRoom)
-                                    {
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        adjacentRooms++;
-                                    }
+                                    adjacentRooms++;
                                     break;
 
                                 case RoomType.ShopRoom:
@@ -246,7 +235,7 @@ public class LevelGenerator : MonoBehaviour
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
@@ -257,7 +246,18 @@ public class LevelGenerator : MonoBehaviour
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x - 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.SecretRoom:
+                                    if (grid[gridPoint.x - 1, gridPoint.y] == (int)RoomType.BossRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
@@ -271,19 +271,8 @@ public class LevelGenerator : MonoBehaviour
                         {
                             switch (roomType)
                             {
-                                case RoomType.SecretRoom:
-                                    adjacentRooms++;
-                                    break;
-
                                 case RoomType.BossRoom:
-                                    if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.SecretRoom)
-                                    {
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        adjacentRooms++;
-                                    }
+                                    adjacentRooms++;
                                     break;
 
                                 case RoomType.ShopRoom:
@@ -291,7 +280,7 @@ public class LevelGenerator : MonoBehaviour
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
@@ -302,7 +291,18 @@ public class LevelGenerator : MonoBehaviour
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x, gridPoint.y + 1] != (int)RoomType.SecretRoom)
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.SecretRoom:
+                                    if (grid[gridPoint.x, gridPoint.y + 1] == (int)RoomType.BossRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
@@ -316,12 +316,12 @@ public class LevelGenerator : MonoBehaviour
                         {
                             switch (roomType)
                             {
-                                case RoomType.SecretRoom:
+                                case RoomType.BossRoom:
                                     adjacentRooms++;
                                     break;
 
-                                case RoomType.BossRoom:
-                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.SecretRoom)
+                                case RoomType.ShopRoom:
+                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.StartingRoom)
                                     {
                                         continue;
                                     }
@@ -331,28 +331,25 @@ public class LevelGenerator : MonoBehaviour
                                     }
                                     break;
 
-                                case RoomType.ShopRoom:
-                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.StartingRoom)
+                                case RoomType.ItemRoom:
+                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.ShopRoom)
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
                                     break;
 
-                                case RoomType.ItemRoom:
-                                    if (grid[gridPoint.x + 1, gridPoint.y] is not null)
+                                case RoomType.SecretRoom:
+                                    if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom)
                                     {
-                                        if (grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.BossRoom || grid[gridPoint.x + 1, gridPoint.y] == (int)RoomType.ShopRoom)
-                                        {
-                                            continue;
-                                        }
-                                        else if (grid[gridPoint.x + 1, gridPoint.y] != (int)RoomType.SecretRoom)
-                                        {
-                                            adjacentRooms++;
-                                        }
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        adjacentRooms++;
                                     }
                                     break;
                             }
@@ -364,19 +361,8 @@ public class LevelGenerator : MonoBehaviour
                         {
                             switch (roomType)
                             {
-                                case RoomType.SecretRoom:
-                                    adjacentRooms++;
-                                    break;
-
                                 case RoomType.BossRoom:
-                                    if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.SecretRoom)
-                                    {
-                                        continue;
-                                    }
-                                    else
-                                    {
-                                        adjacentRooms++;
-                                    }
+                                    adjacentRooms++;
                                     break;
 
                                 case RoomType.ShopRoom:
@@ -384,7 +370,7 @@ public class LevelGenerator : MonoBehaviour
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
@@ -395,7 +381,18 @@ public class LevelGenerator : MonoBehaviour
                                     {
                                         continue;
                                     }
-                                    else if (grid[gridPoint.x, gridPoint.y - 1] != (int)RoomType.SecretRoom)
+                                    else
+                                    {
+                                        adjacentRooms++;
+                                    }
+                                    break;
+
+                                case RoomType.SecretRoom:
+                                    if (grid[gridPoint.x, gridPoint.y - 1] == (int)RoomType.BossRoom)
+                                    {
+                                        continue;
+                                    }
+                                    else
                                     {
                                         adjacentRooms++;
                                     }
