@@ -33,9 +33,9 @@ public class LevelManager : MonoBehaviour
 
         levelGenerator.rooms[currentRoom.x, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
 
-        UIController.instance.coinText.text = currentCoins.ToString();
-        UIController.instance.keyText.text = currentBombs.ToString();
-        UIController.instance.bombText.text = currentBombs.ToString();
+        UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
+        UIController.instance.keyText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
+        UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
     }
 
     // Update is called once per frame
@@ -227,7 +227,7 @@ public class LevelManager : MonoBehaviour
     {
         currentCoins += coinValue;
 
-        UIController.instance.coinText.text = currentCoins.ToString();
+        UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
     }
 
     public void SpendCoin(int coinValue)
@@ -239,14 +239,14 @@ public class LevelManager : MonoBehaviour
             currentCoins = 0;
         }
 
-        UIController.instance.coinText.text = currentCoins.ToString();
+        UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
     }
 
     public void GetKey()
     {
         currentKeys++;
 
-        UIController.instance.keyText.text = currentKeys.ToString();
+        UIController.instance.keyText.text = currentKeys > 9 ? currentKeys.ToString() : $"0{currentKeys.ToString()}";
     }
 
     public void UseKey()
@@ -258,14 +258,14 @@ public class LevelManager : MonoBehaviour
             currentKeys = 0;
         }
 
-        UIController.instance.keyText.text = currentKeys.ToString();
+        UIController.instance.keyText.text = currentKeys > 9 ? currentKeys.ToString() : $"0{currentKeys.ToString()}";
     }
 
     public void GetBomb()
     {
         currentBombs++;
 
-        UIController.instance.bombText.text = currentBombs.ToString();
+        UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
     }
 
     public void UseBomb()
@@ -277,6 +277,6 @@ public class LevelManager : MonoBehaviour
             currentBombs = 0;
         }
 
-        UIController.instance.bombText.text = currentBombs.ToString();
+        UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
     }
 }

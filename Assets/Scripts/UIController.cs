@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Globalization;
 
 public class UIController : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class UIController : MonoBehaviour
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
     public TMP_Text coinText, keyText, bombText;
-    public TMP_Text damageText, attackSpeedText, shotSpeedText, moveSpeedText;
+    public TMP_Text damageText, attackSpeedText, moveSpeedText, attackRangeText, shotSpeedText, criticalChanceText;
     public GameObject map, bigMap;
     public GameObject deathScreen, pauseMenu;
     public Image fadeScreen;
@@ -93,10 +94,12 @@ public class UIController : MonoBehaviour
 
     public void UpdateStats()
     {
-        damageText.text = PlayerController.instance.damage.ToString();
-        attackSpeedText.text = PlayerController.instance.attackSpeed.ToString();
-        shotSpeedText.text = PlayerController.instance.shotSpeed.ToString();
-        moveSpeedText.text = PlayerController.instance.moveSpeed.ToString();
+        damageText.text = PlayerController.instance.stats.damage.ToString(CultureInfo.InvariantCulture);
+        attackSpeedText.text = PlayerController.instance.stats.attackSpeed.ToString(CultureInfo.InvariantCulture);
+        moveSpeedText.text = PlayerController.instance.stats.moveSpeed.ToString(CultureInfo.InvariantCulture);
+        attackRangeText.text = PlayerController.instance.stats.attackRange.ToString(CultureInfo.InvariantCulture);
+        shotSpeedText.text = PlayerController.instance.stats.shotSpeed.ToString(CultureInfo.InvariantCulture);
+        criticalChanceText.text = $"{PlayerController.instance.stats.criticalChance} %";
     }
 
     public void StartFadeToBlack()

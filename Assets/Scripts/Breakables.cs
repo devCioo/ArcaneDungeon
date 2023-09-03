@@ -6,7 +6,7 @@ public class Breakables : MonoBehaviour
 {
     private int health;
     public float dropChance;
-    public Item[] possibleDrops;
+    public Drop[] possibleDrops;
 
     public SpriteRenderer sr;
     public Sprite[] sprites;
@@ -41,12 +41,12 @@ public class Breakables : MonoBehaviour
             {
                 float itemChance = Random.Range(0f, 100f);
                 float roll = 0f;
-                foreach (Item item in possibleDrops)
+                foreach (Drop drop in possibleDrops)
                 {
-                    roll += item.dropChance;
+                    roll += drop.dropChance;
                     if (roll >= itemChance)
                     {
-                        Instantiate(item.item, transform.position, transform.rotation);
+                        Instantiate(drop.item, transform.position, transform.rotation);
                         break;
                     }
                 }
@@ -60,7 +60,7 @@ public class Breakables : MonoBehaviour
 }
 
 [System.Serializable]
-public class Item
+public class Drop
 {
     public GameObject item;
     public float dropChance;

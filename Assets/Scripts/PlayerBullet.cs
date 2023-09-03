@@ -13,8 +13,8 @@ public class PlayerBullet : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        damage = PlayerController.instance.damage;
-        shotSpeed = PlayerController.instance.shotSpeed;
+        damage = PlayerController.instance.stats.damage;
+        shotSpeed = PlayerController.instance.stats.shotSpeed;
     }
 
     // Update is called once per frame

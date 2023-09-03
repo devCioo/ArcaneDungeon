@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8e412f9a9351c2d4194f2703f09de623
+guid: 7209ea2165915504b87c8bab2532f957
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,127 +123,169 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Stats_0
+      name: Mage_Lift_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7c662b498f0fc7498b71d3447674346
-      internalID: 1496798492
+      spriteID: ff226319f8658134ab00776b8979a877
+      internalID: 1981323366
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Stats_1
+      name: Mage_Lift_1
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fbfb6e5fdd04e84ab9b6949f4f942c8
-      internalID: 223200096
+      spriteID: 73c92ad99a660f14ca820d812b89dfb5
+      internalID: 1453428844
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Stats_2
+      name: Mage_Lift_2
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2f8147a1958d8684990175c69c7b3b2d
-      internalID: 210534111
+      spriteID: 1dcabea7867118a45a7bebc72673cb08
+      internalID: -1440054106
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Stats_3
+      name: Mage_Lift_3
       rect:
         serializedVersion: 2
         x: 96
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f0f01e4820051743b9e059fea0edfa5
-      internalID: 300890990
+      spriteID: c4d3a2d87e075074bacd948661f91003
+      internalID: -162144558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Stats_4
+      name: Mage_Lift_4
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 995f6556c41ba3b48b07114b55a88f55
-      internalID: -56345284
+      spriteID: 1029f39e4e99701409f0ae4312a495d2
+      internalID: -835307488
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI_Stats_5
+      name: Mage_Lift_5
       rect:
         serializedVersion: 2
         x: 160
         y: 0
         width: 32
         height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24d78ab37cf7f284e95b91c9aa7ef1ba
-      internalID: 1713558417
+      spriteID: f6777f1a66b10b2488847d3a70267316
+      internalID: -2133781134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mage_Lift_6
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23070c9bcc9ec14b9db1da703529cc2
+      internalID: 924142150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mage_Lift_7
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 32
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5, y: 0.18}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 922c8275fe533a14ca800806b7083069
+      internalID: -227331459
       vertices: []
       indices: 
       edges: []
@@ -259,12 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI_Stats_0: 1496798492
-      UI_Stats_1: 223200096
-      UI_Stats_2: 210534111
-      UI_Stats_3: 300890990
-      UI_Stats_4: -56345284
-      UI_Stats_5: 1713558417
+      Mage_Lift_0: 1981323366
+      Mage_Lift_1: 1453428844
+      Mage_Lift_2: -1440054106
+      Mage_Lift_3: -162144558
+      Mage_Lift_4: -835307488
+      Mage_Lift_5: -2133781134
+      Mage_Lift_6: 924142150
+      Mage_Lift_7: -227331459
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

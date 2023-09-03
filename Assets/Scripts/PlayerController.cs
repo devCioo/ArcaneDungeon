@@ -6,13 +6,13 @@ public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
 
-    public float damage, shotSpeed;
-    public float moveSpeed;
+    public Statistics stats;
     private Vector2 moveInput;
-    public float attackSpeed;
     private float shotDelay;
     [HideInInspector]
     public bool canMove = true, canShoot = true;
+
+    public List<GameObject> items = new List<GameObject>();
 
     public Rigidbody2D rb;
     public GameObject bulletToFire;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         instance = this;
-        shotDelay = 1 / attackSpeed;
+        shotDelay = 1 / stats.attackSpeed;
     }
 
     // Update is called once per frame
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             moveInput.y = Input.GetAxisRaw("Vertical");
             moveInput.Normalize();
 
-            rb.velocity = moveInput * moveSpeed;
+            rb.velocity = moveInput * stats.moveSpeed;
 
             anim.SetFloat("posY", moveInput.y);
             anim.SetFloat("posX", moveInput.x);
@@ -123,4 +123,10 @@ public class PlayerController : MonoBehaviour
 
         canShoot = true;
     }
+}
+
+[System.Serializable]
+public class Statistics
+{
+    public float damage, attackSpeed, moveSpeed, attackRange, shotSpeed, criticalChance;
 }
