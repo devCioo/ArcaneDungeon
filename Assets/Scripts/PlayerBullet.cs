@@ -20,7 +20,7 @@ public class PlayerBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = transform.right * shotSpeed;
+        rb.velocity = transform.right * shotSpeed * 10;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

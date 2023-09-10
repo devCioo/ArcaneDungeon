@@ -21,15 +21,13 @@ public class LevelGenerator : MonoBehaviour
     public GameObject bossRoomDoor, shopRoomDoor, itemRoomDoor, secretRoomDoor;
     public GameObject mapRoom;
     public Sprite normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
-    public RoomCenter startRoomCenter, secretRoomCenter, bossRoomCenter, shopRoomCenter, itemRoomCenter;
-    public RoomCenter[] roomCenters;
+    public RoomCenter[] startingRoomCenters, normalRoomCenters, bossRoomCenters, shopRoomCenters, itemRoomCenters, secretRoomCenters;
 
     // Start is called before the first frame update
     void Start()
     {
         GenerateGrid();
         CreateOutlines();
-        SetRoomTypes();
         CreateCenters();
         GenerateMapLayout();
     }
@@ -571,27 +569,14 @@ public class LevelGenerator : MonoBehaviour
                             }
                             break;
                     }
+
+                    rooms[i, j].GetComponent<Room>().roomType = (RoomType)grid[i, j];
                 }
 
                 roomPosition += new Vector2(xOffset, 0f);
             }
 
             roomPosition = new Vector2(-101.5f, roomPosition.y - yOffset);
-        }
-    }
-
-    public void SetRoomTypes()
-    {
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                if (rooms[i, j] != null)
-                {
-                    int? roomType = grid[i, j];
-                    rooms[i, j].GetComponent<Room>().roomType = (RoomType)roomType;
-                }
-            }
         }
     }
 
@@ -609,34 +594,51 @@ public class LevelGenerator : MonoBehaviour
                 {
                     if (rooms[i, j].GetComponent<Room>().roomType == RoomType.StartingRoom)
                     {
-                        Instantiate(startRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        selectedCenter = Random.Range(0, startingRoomCenters.Length);
+                        Instantiate(startingRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.SecretRoom)
                     {
                         secretRoomPosition = new Vector2Int(i, j);
-                        Instantiate(secretRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        selectedCenter = Random.Range(0, secretRoomCenters.Length);
+                        Instantiate(secretRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.BossRoom)
                     {
-                        Instantiate(bossRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        selectedCenter = Random.Range(0, bossRoomCenters.Length);
+                        RoomCenter roomCenter = Instantiate(bossRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                        roomCenter.room = rooms[i, j].GetComponent<Room>();
                         SwapDoors(new Vector2Int(i, j), bossRoomDoor);
+
+                        int selectedItem = Random.Range(0, ItemManager.instance.bossRoomItems.Count);
+                        GameObject item = Instantiate(ItemManager.instance.bossRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                        roomCenter.GetComponentInChildren<ItemPedestal>().item = item;
+                        ItemManager.instance.bossRoomItems.RemoveAt(selectedItem);
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ShopRoom)
                     {
                         shopRoomPosition = new Vector2Int(i, j);
-                        Instantiate(shopRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        selectedCenter = Random.Range(0, shopRoomCenters.Length);
+                        Instantiate(shopRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
                         SwapDoors(new Vector2Int(i, j), shopRoomDoor);
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ItemRoom)
                     {
                         itemRoomPosition = new Vector2Int(i, j);
-                        Instantiate(itemRoomCenter, roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        selectedCenter = Random.Range(0, itemRoomCenters.Length);
+                        RoomCenter roomCenter = Instantiate(itemRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                        roomCenter.room = rooms[i, j].GetComponent<Room>();
                         SwapDoors(new Vector2Int(i, j), itemRoomDoor);
+
+                        int selectedItem = Random.Range(0, ItemManager.instance.itemRoomItems.Count);
+                        GameObject item = Instantiate(ItemManager.instance.itemRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                        roomCenter.GetComponentInChildren<ItemPedestal>().item = item;
+                        ItemManager.instance.itemRoomItems.RemoveAt(selectedItem);
                     }
                     else
                     {
-                        selectedCenter = Random.Range(0, roomCenters.Length);
-                        Instantiate(roomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        selectedCenter = Random.Range(0, normalRoomCenters.Length);
+                        Instantiate(normalRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
                     }
                 }
 

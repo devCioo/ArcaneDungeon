@@ -34,7 +34,7 @@ public class LevelManager : MonoBehaviour
         levelGenerator.rooms[currentRoom.x, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
 
         UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
-        UIController.instance.keyText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
+        UIController.instance.keyText.text = currentKeys > 9 ? currentKeys.ToString() : $"0{currentKeys.ToString()}";
         UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
     }
 

@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             moveInput.y = Input.GetAxisRaw("Vertical");
             moveInput.Normalize();
 
-            rb.velocity = moveInput * stats.moveSpeed;
+            rb.velocity = moveInput * stats.moveSpeed * 5;
 
             anim.SetFloat("posY", moveInput.y);
             anim.SetFloat("posX", moveInput.x);
@@ -123,10 +123,40 @@ public class PlayerController : MonoBehaviour
 
         canShoot = true;
     }
+
+    public void AddStats(Item item)
+    {
+        Statistics oldStats = new Statistics(stats);
+
+        stats.damage += item.stats.damage;
+        stats.attackSpeed += item.stats.attackSpeed;
+        stats.moveSpeed += item.stats.moveSpeed;
+        stats.damage += item.stats.attackRange;
+        stats.shotSpeed += item.stats.shotSpeed;
+        stats.criticalChance += item.stats.criticalChance;
+
+        UIController.instance.UpdateStatistics(oldStats, stats);
+
+        if (item.isHealthUpgrade)
+        {
+            PlayerHealthController.instance.maxHealth += item.healthUpgradeValue;
+            UIController.instance.UpdateHealthUI();
+        }
+    }
 }
 
 [System.Serializable]
 public class Statistics
 {
     public float damage, attackSpeed, moveSpeed, attackRange, shotSpeed, criticalChance;
+
+    public Statistics(Statistics other)
+    {
+        damage = other.damage;
+        attackSpeed = other.attackSpeed;
+        moveSpeed = other.moveSpeed;
+        attackRange = other.attackRange;
+        shotSpeed = other.shotSpeed;
+        criticalChance = other.criticalChance;
+    }
 }

@@ -29,7 +29,7 @@ public class ItemPedestal : MonoBehaviour
                 StartCoroutine(PositionOverPlayer());
                 PlayerController.instance.anim.SetTrigger("lifting");
                 PlayerController.instance.items.Add(item);
-                item.GetComponent<Item>().AddStats();
+                PlayerController.instance.AddStats(item.GetComponent<Item>());
             }
         }
     }
