@@ -26,10 +26,8 @@ public class ItemPedestal : MonoBehaviour
             if (item != null)
             {
                 StopAllCoroutines();
-                StartCoroutine(PositionOverPlayer());
-                PlayerController.instance.anim.SetTrigger("lifting");
-                PlayerController.instance.items.Add(item);
-                PlayerController.instance.AddStats(item.GetComponent<Item>());
+                StartCoroutine(PlayerController.instance.PositionOverPlayer(item));
+                item = null;
             }
         }
     }
@@ -48,17 +46,5 @@ public class ItemPedestal : MonoBehaviour
         }
 
         StartCoroutine(AnimatePedestalItem());
-    }
-
-    private IEnumerator PositionOverPlayer()
-    {
-        for (float i = 0f; i < 0.6f; i += 0.01f)
-        {
-            item.transform.position = PlayerController.instance.transform.position + new Vector3(0f, 1.3f, 0f);
-            yield return new WaitForSeconds(0.01f);
-        }
-
-        item.SetActive(false);
-        item = null;
     }
 }

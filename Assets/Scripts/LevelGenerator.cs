@@ -595,19 +595,19 @@ public class LevelGenerator : MonoBehaviour
                     if (rooms[i, j].GetComponent<Room>().roomType == RoomType.StartingRoom)
                     {
                         selectedCenter = Random.Range(0, startingRoomCenters.Length);
-                        Instantiate(startingRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(startingRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.SecretRoom)
                     {
                         secretRoomPosition = new Vector2Int(i, j);
                         selectedCenter = Random.Range(0, secretRoomCenters.Length);
-                        Instantiate(secretRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(secretRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.BossRoom)
                     {
                         selectedCenter = Random.Range(0, bossRoomCenters.Length);
                         RoomCenter roomCenter = Instantiate(bossRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                        roomCenter.room = rooms[i, j].GetComponent<Room>();
+                        rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
                         SwapDoors(new Vector2Int(i, j), bossRoomDoor);
 
                         int selectedItem = Random.Range(0, ItemManager.instance.bossRoomItems.Count);
@@ -619,7 +619,7 @@ public class LevelGenerator : MonoBehaviour
                     {
                         shopRoomPosition = new Vector2Int(i, j);
                         selectedCenter = Random.Range(0, shopRoomCenters.Length);
-                        Instantiate(shopRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(shopRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
                         SwapDoors(new Vector2Int(i, j), shopRoomDoor);
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ItemRoom)
@@ -627,7 +627,7 @@ public class LevelGenerator : MonoBehaviour
                         itemRoomPosition = new Vector2Int(i, j);
                         selectedCenter = Random.Range(0, itemRoomCenters.Length);
                         RoomCenter roomCenter = Instantiate(itemRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                        roomCenter.room = rooms[i, j].GetComponent<Room>();
+                        rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
                         SwapDoors(new Vector2Int(i, j), itemRoomDoor);
 
                         int selectedItem = Random.Range(0, ItemManager.instance.itemRoomItems.Count);
@@ -638,7 +638,7 @@ public class LevelGenerator : MonoBehaviour
                     else
                     {
                         selectedCenter = Random.Range(0, normalRoomCenters.Length);
-                        Instantiate(normalRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f)).room = rooms[i, j].GetComponent<Room>();
+                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(normalRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
                     }
                 }
 

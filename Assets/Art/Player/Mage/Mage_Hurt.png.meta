@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MageHurt_0
+      name: Mage_Hurt_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,20 +131,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 85b1f2ea6f815e741805ab0dc6527353
-      internalID: -210400345
+      spriteID: bfdf3d06daf25d7449f6450ff375f5ad
+      internalID: -378278183
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_1
+      name: Mage_Hurt_1
       rect:
         serializedVersion: 2
         x: 32
@@ -152,20 +152,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb2411d7b6eba46439e86911c0bdb552
-      internalID: -693017245
+      spriteID: c66305299c11a0e408004a021d84ecea
+      internalID: 1196646188
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_2
+      name: Mage_Hurt_2
       rect:
         serializedVersion: 2
         x: 0
@@ -173,20 +173,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9871ae798154925439af11125143edfa
-      internalID: 1577938887
+      spriteID: ddd552c1cf102e345be2770e01099d31
+      internalID: -593212876
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_3
+      name: Mage_Hurt_3
       rect:
         serializedVersion: 2
         x: 32
@@ -194,20 +194,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5949beb699e1b3429125d196d7daaf9
-      internalID: -1650604127
+      spriteID: ea91788999175e54fa0e3bc6cff907a9
+      internalID: -126325056
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_4
+      name: Mage_Hurt_4
       rect:
         serializedVersion: 2
         x: 0
@@ -215,20 +215,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9d6afb5ea7d54f9489eeab321c867dd9
-      internalID: -770518866
+      spriteID: ca9fdedaf36aa3c4cb16eb4688eeb947
+      internalID: -144247849
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_5
+      name: Mage_Hurt_5
       rect:
         serializedVersion: 2
         x: 32
@@ -236,20 +236,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3febcdca92f32aa4798537a568b79ce1
-      internalID: -1854423365
+      spriteID: b997776f9ab771744a1418612355474f
+      internalID: 1889118496
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_6
+      name: Mage_Hurt_6
       rect:
         serializedVersion: 2
         x: 0
@@ -257,20 +257,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bbb760dd0e9ba784c8a7d6d612d1ec5e
-      internalID: -27433806
+      spriteID: f2bb55d95cda201428821afae0495876
+      internalID: -146546830
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageHurt_7
+      name: Mage_Hurt_7
       rect:
         serializedVersion: 2
         x: 32
@@ -278,14 +278,14 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0a9a4380416dad42a4da2dd1baf647b
-      internalID: -391656313
+      spriteID: ae0dcadf19f8fc14cb8fce1ed8b3311b
+      internalID: 310653154
       vertices: []
       indices: 
       edges: []
@@ -301,14 +301,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MageHurt_0: -210400345
-      MageHurt_1: -693017245
-      MageHurt_2: 1577938887
-      MageHurt_3: -1650604127
-      MageHurt_4: -770518866
-      MageHurt_5: -1854423365
-      MageHurt_6: -27433806
-      MageHurt_7: -391656313
+      Mage_Hurt_0: -378278183
+      Mage_Hurt_1: 1196646188
+      Mage_Hurt_2: -593212876
+      Mage_Hurt_3: -126325056
+      Mage_Hurt_4: -144247849
+      Mage_Hurt_5: 1889118496
+      Mage_Hurt_6: -146546830
+      Mage_Hurt_7: 310653154
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

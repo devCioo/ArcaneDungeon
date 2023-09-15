@@ -123,7 +123,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MageWalk_0
+      name: Mage_Walk_0
       rect:
         serializedVersion: 2
         x: 0
@@ -131,20 +131,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 35f60650f98834449aa88affc827b0be
-      internalID: -551369183
+      spriteID: 1e707f03ecb41ab4ab56defbd9dcc1d0
+      internalID: 918687428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_1
+      name: Mage_Walk_1
       rect:
         serializedVersion: 2
         x: 32
@@ -152,20 +152,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71dfc32f73511754aa3e69668b83ce0e
-      internalID: 1636824374
+      spriteID: 452cb7ca68653fe439355f2655b4431e
+      internalID: 357728608
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_2
+      name: Mage_Walk_2
       rect:
         serializedVersion: 2
         x: 64
@@ -173,20 +173,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a07b52dcbd8f2a74189cb02ff0c49e61
-      internalID: -1570620997
+      spriteID: 3e8a472d739429d489579f5fe9ff41cf
+      internalID: 814546518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_3
+      name: Mage_Walk_3
       rect:
         serializedVersion: 2
         x: 96
@@ -194,20 +194,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cb388f7e25cec134a8cbac9d1f2a1cf3
-      internalID: 1905249453
+      spriteID: 4e0dda0e9ee2e714b844436db0d3a96f
+      internalID: 738800161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_4
+      name: Mage_Walk_4
       rect:
         serializedVersion: 2
         x: 128
@@ -215,20 +215,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58eee121aca3f894b81b5962512c7ae1
-      internalID: -180813791
+      spriteID: 3b3ad576919af434d8b54320a5854773
+      internalID: 842164133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_5
+      name: Mage_Walk_5
       rect:
         serializedVersion: 2
         x: 160
@@ -236,20 +236,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51bc57c76f52ada41bb4134cfe43ff3e
-      internalID: -1193441939
+      spriteID: 0e4704be0e0438149b2b7a9bd5a6b792
+      internalID: 1868434744
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_6
+      name: Mage_Walk_6
       rect:
         serializedVersion: 2
         x: 0
@@ -257,20 +257,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8017f539a0b29c44cac9776b483a15cc
-      internalID: -860549670
+      spriteID: 78470e82a484fa744a8b4e37ecf6e7ed
+      internalID: -2118304021
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_7
+      name: Mage_Walk_7
       rect:
         serializedVersion: 2
         x: 32
@@ -278,20 +278,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24147456b801eda468004648f2b5598d
-      internalID: -729275280
+      spriteID: 0f5add04aea0cf841ad08e489ff38567
+      internalID: 1478468206
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_8
+      name: Mage_Walk_8
       rect:
         serializedVersion: 2
         x: 64
@@ -299,20 +299,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8079b31c71bc62e4cac89e5cb3200474
-      internalID: 1836252520
+      spriteID: bf428d807e8c79042bbbe7c6c42e7351
+      internalID: -1610473330
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_9
+      name: Mage_Walk_9
       rect:
         serializedVersion: 2
         x: 96
@@ -320,20 +320,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aa9ee702e90f7e0419bf765ec0e7abc9
-      internalID: -857336971
+      spriteID: a9edaddaeabb26745bce221b34d775a4
+      internalID: -1472341914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_10
+      name: Mage_Walk_10
       rect:
         serializedVersion: 2
         x: 128
@@ -341,20 +341,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c028aa38bd9b9446a27248c868f4961
-      internalID: 1964162650
+      spriteID: cff6930f4a135dd42b49ec149a2df7a0
+      internalID: -1341407717
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_11
+      name: Mage_Walk_11
       rect:
         serializedVersion: 2
         x: 160
@@ -362,20 +362,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8239bd20d268ff488754e8b6ed28e5a
-      internalID: 1506763554
+      spriteID: 68072810bcfeae044bb25a520b18e633
+      internalID: -1927053119
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_12
+      name: Mage_Walk_12
       rect:
         serializedVersion: 2
         x: 0
@@ -383,20 +383,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ead1a8067105de442b1515be9b7902ab
-      internalID: -674884406
+      spriteID: 0ceb516e18a8d7b41af291c4f3a68d02
+      internalID: -1313078461
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_13
+      name: Mage_Walk_13
       rect:
         serializedVersion: 2
         x: 32
@@ -404,20 +404,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbc93432b0dc1014bae93c893bbf0f24
-      internalID: -496299394
+      spriteID: 0a8d5663483344b4b8ae7dd4ae0ba807
+      internalID: -568742855
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_14
+      name: Mage_Walk_14
       rect:
         serializedVersion: 2
         x: 64
@@ -425,20 +425,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5d59317429c0c934f94c05090aba7041
-      internalID: 1301058104
+      spriteID: 70d277f1c90ad2a488e18d5a3d10a618
+      internalID: -555646172
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_15
+      name: Mage_Walk_15
       rect:
         serializedVersion: 2
         x: 96
@@ -446,20 +446,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9fa66eab11be913488ca2e75c0f92884
-      internalID: 1080191024
+      spriteID: 1f5f1d95a6bc80049a6480752048d649
+      internalID: -1000654632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_16
+      name: Mage_Walk_16
       rect:
         serializedVersion: 2
         x: 128
@@ -467,20 +467,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 384cd947f97c3564085c990a9a70d101
-      internalID: -1916503727
+      spriteID: 62a3f5a9d2cf8b444a3c21133ce91026
+      internalID: 1154521508
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_17
+      name: Mage_Walk_17
       rect:
         serializedVersion: 2
         x: 160
@@ -488,20 +488,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e2d736105820ca748ab6571c9780578a
-      internalID: 1730826474
+      spriteID: 1387a41bd7a143b4f95fc44e0299037a
+      internalID: 1791864627
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_18
+      name: Mage_Walk_18
       rect:
         serializedVersion: 2
         x: 0
@@ -509,20 +509,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2003ff83fab4fb44fa49a3a363fa5f2f
-      internalID: 438300080
+      spriteID: 21d66e6fffbcae2478bd1c70a6ce8a6a
+      internalID: -1873824140
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_19
+      name: Mage_Walk_19
       rect:
         serializedVersion: 2
         x: 32
@@ -530,20 +530,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4765c696b84a854478c95a676b58075a
-      internalID: -728576286
+      spriteID: 29eb0ea5d513e7d4d837f49954032700
+      internalID: 1223907403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_20
+      name: Mage_Walk_20
       rect:
         serializedVersion: 2
         x: 64
@@ -551,20 +551,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 134cd5dfdce20c2429be575b2ca805a4
-      internalID: 1096396984
+      spriteID: 08d535a03190bc74cbea44095fc820ca
+      internalID: 864418746
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_21
+      name: Mage_Walk_21
       rect:
         serializedVersion: 2
         x: 96
@@ -572,20 +572,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8137c4e6f92591f4696bbabeb05df70b
-      internalID: -233412094
+      spriteID: e0e5b137ca193764c96f17f935fd7a9c
+      internalID: -1647086555
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_22
+      name: Mage_Walk_22
       rect:
         serializedVersion: 2
         x: 128
@@ -593,20 +593,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b387f7517a632d4e84f2c157cc704e2
-      internalID: -1149742543
+      spriteID: 5693c42e170049342878ec8fa091ea91
+      internalID: -948774176
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageWalk_23
+      name: Mage_Walk_23
       rect:
         serializedVersion: 2
         x: 160
@@ -614,14 +614,14 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 9
-      pivot: {x: 0.5, y: 0.18}
+      pivot: {x: 0.5, y: 0.125}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e59a46307a83606458447cddca92649b
-      internalID: -872909212
+      spriteID: b86e0ad7003c1174b92d16787634ce70
+      internalID: 444804639
       vertices: []
       indices: 
       edges: []
@@ -637,30 +637,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MageWalk_0: -551369183
-      MageWalk_1: 1636824374
-      MageWalk_10: 1964162650
-      MageWalk_11: 1506763554
-      MageWalk_12: -674884406
-      MageWalk_13: -496299394
-      MageWalk_14: 1301058104
-      MageWalk_15: 1080191024
-      MageWalk_16: -1916503727
-      MageWalk_17: 1730826474
-      MageWalk_18: 438300080
-      MageWalk_19: -728576286
-      MageWalk_2: -1570620997
-      MageWalk_20: 1096396984
-      MageWalk_21: -233412094
-      MageWalk_22: -1149742543
-      MageWalk_23: -872909212
-      MageWalk_3: 1905249453
-      MageWalk_4: -180813791
-      MageWalk_5: -1193441939
-      MageWalk_6: -860549670
-      MageWalk_7: -729275280
-      MageWalk_8: 1836252520
-      MageWalk_9: -857336971
+      Mage_Walk_0: 918687428
+      Mage_Walk_1: 357728608
+      Mage_Walk_10: -1341407717
+      Mage_Walk_11: -1927053119
+      Mage_Walk_12: -1313078461
+      Mage_Walk_13: -568742855
+      Mage_Walk_14: -555646172
+      Mage_Walk_15: -1000654632
+      Mage_Walk_16: 1154521508
+      Mage_Walk_17: 1791864627
+      Mage_Walk_18: -1873824140
+      Mage_Walk_19: 1223907403
+      Mage_Walk_2: 814546518
+      Mage_Walk_20: 864418746
+      Mage_Walk_21: -1647086555
+      Mage_Walk_22: -948774176
+      Mage_Walk_23: 444804639
+      Mage_Walk_3: 738800161
+      Mage_Walk_4: 842164133
+      Mage_Walk_5: 1868434744
+      Mage_Walk_6: -2118304021
+      Mage_Walk_7: 1478468206
+      Mage_Walk_8: -1610473330
+      Mage_Walk_9: -1472341914
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

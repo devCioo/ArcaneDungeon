@@ -11,6 +11,7 @@ public class Room : MonoBehaviour
     public bool isActiveRoom;
 
     public RoomType roomType;
+    public RoomCenter roomCenter;
     public GameObject doorUp, doorRight, doorDown, doorLeft;
     public Tilemap tilemap;
     public GameObject mapRoom;
@@ -18,13 +19,31 @@ public class Room : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (roomCenter.openWhenEnemiesCleared)
+        {
+            closeWhenEntered = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (roomCenter.enemies.Count > 0 && isActiveRoom)
+        {
+            for (int i = 0; i < roomCenter.enemies.Count; i++)
+            {
+                if (roomCenter.enemies[i] == null)
+                {
+                    roomCenter.enemies.RemoveAt(i);
+                    i--;
+                }
+            }
 
+            if (roomCenter.enemies.Count == 0)
+            {
+                OpenDoors();
+            }
+        }
     }
 
     public void OpenDoors()
@@ -80,6 +99,7 @@ public class Room : MonoBehaviour
             }
 
             isActiveRoom = true;
+            roomCenter.SpawnEnemies();
             LevelManager.instance.UpdateCurrentRoomPosition(transform);
             LevelManager.instance.UpdateMap();
 
