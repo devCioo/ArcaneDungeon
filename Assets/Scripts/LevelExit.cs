@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour
 {
+    public BoxCollider2D exitCollider;
+    public Animator anim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +18,12 @@ public class LevelExit : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Open()
+    {
+        anim.Play("Level_Exit_Open");
+        exitCollider.enabled = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)

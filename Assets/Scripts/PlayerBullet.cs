@@ -32,7 +32,10 @@ public class PlayerBullet : MonoBehaviour
         {
             other.GetComponent<EnemyController>().TakeDamage(damage);
         }
-
+        if (other.CompareTag("Boss"))
+        {
+            other.GetComponent<BossController>().TakeDamage(damage);
+        }
         if (other.CompareTag("Breakable"))
         {
             other.GetComponent<Breakables>().TakeDamage(1);

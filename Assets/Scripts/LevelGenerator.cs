@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class LevelGenerator : MonoBehaviour
 {
     public int levelSize;
+    public FloorDepth floorDepth;
     public bool shopAndItemRoomRequireKeys;
     private Direction direction;
     private bool canCreate;
@@ -614,6 +615,10 @@ public class LevelGenerator : MonoBehaviour
                         GameObject item = Instantiate(ItemManager.instance.bossRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
                         roomCenter.GetComponentInChildren<ItemPedestal>().item = item;
                         ItemManager.instance.bossRoomItems.RemoveAt(selectedItem);
+                        item.transform.SetParent(roomCenter.transform.Find("Item Pedestal"));
+                        roomCenter.transform.Find("Item Pedestal").gameObject.SetActive(false);
+
+                        SpawnBoss(roomCenter);
                     }
                     else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ShopRoom)
                     {
@@ -634,6 +639,7 @@ public class LevelGenerator : MonoBehaviour
                         GameObject item = Instantiate(ItemManager.instance.itemRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
                         roomCenter.GetComponentInChildren<ItemPedestal>().item = item;
                         ItemManager.instance.itemRoomItems.RemoveAt(selectedItem);
+                        item.transform.SetParent(roomCenter.transform.Find("Item Pedestal"));
                     }
                     else
                     {
@@ -787,6 +793,36 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
+    public void SpawnBoss(RoomCenter roomCenter)
+    {
+        int selectedBoss = 0;
+        GameObject boss = null;
+
+        switch (floorDepth)
+        {
+            case FloorDepth.Underground_1:
+            case FloorDepth.Underground_2:
+                selectedBoss = Random.Range(0, BossManager.instance.undergroundBosses.Count);
+                boss = Instantiate(BossManager.instance.undergroundBosses[selectedBoss], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                break;
+        }
+
+        roomCenter.enemies.Add(boss);
+        boss.SetActive(false);
+        UIController.instance.bossHealthBarImage.sprite = boss.GetComponent<BossController>().bossHealthBarSprite;
+        UIController.instance.isBossDefeated = false;
+        boss.transform.SetParent(roomCenter.transform.Find("Enemies"));
+
+        switch (floorDepth)
+        {
+            case FloorDepth.Underground_1:
+            case FloorDepth.Underground_2:
+                BossManager.instance.undergroundBosses.RemoveAt(selectedBoss);
+                break;
+        }
+    }
+
+
     public void GenerateMapLayout()
     {
         Vector2 position = new Vector2(-5.5f, 6.5f);
@@ -851,6 +887,12 @@ public enum RoomType
     BossRoom,
     ShopRoom,
     ItemRoom
+}
+
+public enum FloorDepth
+{
+    Underground_1,
+    Underground_2,
 }
 
 [System.Serializable]

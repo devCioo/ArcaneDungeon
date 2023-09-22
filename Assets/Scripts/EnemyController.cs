@@ -11,6 +11,7 @@ public class EnemyController : MonoBehaviour
 
     public bool shouldJump;
 
+    public SpriteRenderer sr, hurtSr;
     public Rigidbody2D rb;
     public Animator anim;
 
@@ -48,12 +49,12 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float amount)
     {
-        anim.SetTrigger("damaged");
         health -= amount;
         if (health <= 0)
         {
             Destroy(gameObject);
         }
+        StartCoroutine(GetHurt());
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -72,13 +73,22 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private IEnumerator GetHurt()
+    {
+        sr.enabled = false;
+        hurtSr.enabled = true;
+        yield return new WaitForSeconds(0.1f);
+        sr.enabled = true;
+        hurtSr.enabled = false;
+    }
+
     private IEnumerator JumpAndWait()
     {
         anim.SetTrigger("jump");
 
         for (float i = 0f; i < 1.5f; i += 0.1f)
         {
-            if (i == 0.3f)
+            if (i == 0.2f)
             {
                 rb.AddForce(moveDirection * 5f, ForceMode2D.Impulse);
             }

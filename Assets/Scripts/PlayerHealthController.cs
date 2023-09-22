@@ -13,7 +13,7 @@ public class PlayerHealthController : MonoBehaviour
     private bool isInvincible;
 
     public Animator anim;
-    public SpriteRenderer sr;
+    public SpriteRenderer sr, hurtSr;
 
     private void Awake()
     {
@@ -26,7 +26,8 @@ public class PlayerHealthController : MonoBehaviour
         currentHealth = maxHealth;
         UIController.instance.UpdateHealthUI();
         anim = PlayerController.instance.GetComponent<Animator>();
-        sr = PlayerController.instance.GetComponent<SpriteRenderer>();
+        sr = PlayerController.instance.transform.Find("Body").GetComponent<SpriteRenderer>();
+        hurtSr = PlayerController.instance.transform.Find("Hurt Body").GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -57,23 +58,24 @@ public class PlayerHealthController : MonoBehaviour
     {
         isInvincible = true;
 
-        for (float i = 0f; i < invincibilityDuration; i += invincibilityDeltaTime)
+        sr.enabled = false;
+        hurtSr.enabled = true;
+        yield return new WaitForSeconds(0.15f);
+
+        sr.enabled = true;
+        hurtSr.enabled = false;
+
+        for (float i = 0f; i < (invincibilityDuration - 0.15f); i += invincibilityDeltaTime)
         {
-            if (i == 0f)
+            if (sr.color.a == 1)
             {
-                anim.SetTrigger("damaged");
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.2f);
             }
             else
             {
-                if (sr.color.a == 1)
-                {
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.2f);
-                }
-                else
-                {
-                    sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
-                }
+                sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 1f);
             }
+
             yield return new WaitForSeconds(invincibilityDeltaTime);
         }
 

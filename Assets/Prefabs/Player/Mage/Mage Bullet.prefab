@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2811711854366158569}
-  - component: {fileID: 2585232006648141890}
   - component: {fileID: 4717684010609594975}
+  - component: {fileID: 2585232006648141890}
   - component: {fileID: 1608062775299894010}
   - component: {fileID: 3536031156365158778}
   - component: {fileID: 107021150849515480}
@@ -34,8 +34,24 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4717684010609594975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605669385805731259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248f37e5af70a1c48b3eab4002b15c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotSpeed: 7.5
+  damage: 3
+  rb: {fileID: 3536031156365158778}
+  impactEffect: {fileID: 2314349256988274409, guid: 6d32593bccb528d49a9a0a233d7e0587, type: 3}
 --- !u!212 &2585232006648141890
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -75,7 +91,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 64065989
-  m_SortingLayer: 3
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 851629120, guid: 59d57a3770a629e4b9200af02eeacba2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -88,22 +104,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4717684010609594975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1605669385805731259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 248f37e5af70a1c48b3eab4002b15c67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shotSpeed: 7.5
-  damage: 3
-  rb: {fileID: 3536031156365158778}
-  impactEffect: {fileID: 2314349256988274409, guid: 6d32593bccb528d49a9a0a233d7e0587, type: 3}
 --- !u!61 &1608062775299894010
 BoxCollider2D:
   m_ObjectHideFlags: 0

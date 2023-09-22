@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     public static PlayerController instance;
 
     public Statistics stats;
-    private Vector2 moveInput;
     private float shotDelay;
+    private Vector2 moveInput;
     [HideInInspector]
     public bool canMove = true, canShoot = true;
 
@@ -132,7 +132,7 @@ public class PlayerController : MonoBehaviour
         stats.damage += item.stats.damage;
         stats.attackSpeed += item.stats.attackSpeed;
         stats.moveSpeed += item.stats.moveSpeed;
-        stats.damage += item.stats.attackRange;
+        stats.attackRange += item.stats.attackRange;
         stats.shotSpeed += item.stats.shotSpeed;
         stats.criticalChance += item.stats.criticalChance;
 

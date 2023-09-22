@@ -98,12 +98,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a4ac2e418b07fb4fa52b086c44e7cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropChance: 10
+  dropChance: 100
   possibleDrops:
-  - item: {fileID: 8014040658681978709, guid: 91cec8d3df5b5f945a2454246f3862f4, type: 3}
-    dropChance: 80
   - item: {fileID: 8666863913914778999, guid: 837077cfe9f4c05449a22b40e7609607, type: 3}
-    dropChance: 20
+    dropChance: 25
+  - item: {fileID: 8405087772954533737, guid: 1a187d9bdcf64184b8233d88347c512c, type: 3}
+    dropChance: 25
+  - item: {fileID: 8835221878719065609, guid: 82d4a44d778398b498a6da5830389c23, type: 3}
+    dropChance: 25
+  - item: {fileID: 8785863120777129833, guid: 0d41ade0cc0dc154188a7c7faa9a8525, type: 3}
+    dropChance: 25
   sr: {fileID: 7594568381782092015}
   sprites:
   - {fileID: -1317476850, guid: ed716cd7374b3af48983b92d6eea358d, type: 3}

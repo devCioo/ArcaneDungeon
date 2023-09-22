@@ -16,12 +16,15 @@ public class UIController : MonoBehaviour
     public float fadeSpeed;
     private bool fadeToBlack, fadeOutBlack;
     public bool isBigMapActive = false;
+    public bool isBossDefeated;
 
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;
     public TMP_Text coinText, keyText, bombText;
     public TMP_Text damageText, attackSpeedText, moveSpeedText, attackRangeText, shotSpeedText, criticalChanceText;
     public TMP_Text damageUpdateText, attackSpeedUpdateText, moveSpeedUpdateText, attackRangeUpdateText, shotSpeedUpdateText, criticalChanceUpdateText;
+    public GameObject bossHealthBar;
+    public Image bossHealthBarImage, healthBar;
     public GameObject map, bigMap;
     public GameObject deathScreen, pauseMenu;
     public Image fadeScreen;
@@ -123,11 +126,17 @@ public class UIController : MonoBehaviour
             }
             if (oldStat > newStat)
             {
-                textBox.text = "-" + (newStat - oldStat).ToString("0.00", CultureInfo.InvariantCulture);
+                textBox.text = (newStat - oldStat).ToString("0.00", CultureInfo.InvariantCulture);
                 textBox.color = new Color(1f, 0f, 0f, 0f);
                 StartCoroutine(ShowStatDifference(textBox));
             }
         }
+    }
+
+    public void UpdateBossHealthUI(float currentHealth, float maxHealth)
+    {
+        healthBar.fillAmount = Mathf.Lerp(healthBar.fillAmount, currentHealth / maxHealth, 3f);
+        healthBar.color = Color.Lerp(Color.red, Color.green, (currentHealth / maxHealth));
     }
 
     public void StartFadeToBlack()

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using static UnityEditor.Progress;
 
 public class Room : MonoBehaviour
 {
@@ -42,6 +43,12 @@ public class Room : MonoBehaviour
             if (roomCenter.enemies.Count == 0)
             {
                 OpenDoors();
+                if (roomType == RoomType.BossRoom)
+                {
+                    Debug.Log("Opening exit");
+                    roomCenter.transform.Find("Item Pedestal").gameObject.SetActive(true);
+                    roomCenter.GetComponentInChildren<LevelExit>().Open();
+                }
             }
         }
     }
@@ -103,6 +110,10 @@ public class Room : MonoBehaviour
             LevelManager.instance.UpdateCurrentRoomPosition(transform);
             LevelManager.instance.UpdateMap();
 
+            if (roomType == RoomType.BossRoom && !UIController.instance.isBossDefeated)
+            {
+                UIController.instance.bossHealthBar.SetActive(true);
+            }
             if (roomType == RoomType.SecretRoom)
             {
                 LevelManager.instance.RevealSecretDoors();
