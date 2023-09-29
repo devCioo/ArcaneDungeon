@@ -469,7 +469,7 @@ MonoBehaviour:
   nextLevel: Victory Screen
   isPaused: 0
   bomb: {fileID: 4404186356592965196, guid: 72c21ca3205963d40ab3e12993816a02, type: 3}
-  currentCoins: 0
+  currentCoins: 30
   currentKeys: 3
   currentBombs: 3
 --- !u!114 &1096655158
@@ -486,7 +486,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemRoomItems:
   - {fileID: 2497601266921174289, guid: 370bb33a6d114c24992cfc02e44f8b25, type: 3}
-  shopRoomItems: []
+  shopRoomItems:
+  - {fileID: 3026718308522102939, guid: 5552f144e4c5cab48998df4249595f01, type: 3}
   secretRoomItems: []
   bossRoomItems:
   - {fileID: 6522230802112371076, guid: 66a42e7291585f1458839f6dc8ecb775, type: 3}
@@ -502,6 +503,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6070047327c76b49a24112d85ca7a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentBoss: {fileID: 0}
+  isBossDefeated: 0
   undergroundBosses:
   - {fileID: 6347013434174522100, guid: 5d4a71782969eb3418c3639f6bca1f59, type: 3}
   sewersBosses: []
@@ -685,7 +688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-    damage: 3
+    damage: 10
     attackSpeed: 2.5
     moveSpeed: 1
     attackRange: 7.5
@@ -760,7 +763,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.2}
+  m_Offset: {x: 0, y: 0.3}
   serializedVersion: 2
   m_Radius: 0.3
 --- !u!95 &1669364199
@@ -1002,7 +1005,7 @@ SpriteRenderer:
   m_SortingLayerID: 1642844897
   m_SortingLayer: 6
   m_SortingOrder: -1
-  m_Sprite: {fileID: -1766440777, guid: c8afff1166cba304887057a2d2e2585f, type: 3}
+  m_Sprite: {fileID: 707394463, guid: c8afff1166cba304887057a2d2e2585f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1240,17 +1243,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2759575119816207402, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+    - target: {fileID: 2994028302096871193, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6577210191379853620, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6797957499452145148, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
-      propertyPath: m_FillAmount
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8734520897853504548, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_Pivot.x

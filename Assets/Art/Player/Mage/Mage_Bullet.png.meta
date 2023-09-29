@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 128
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -123,85 +123,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MageBullet_0
+      name: Mage_Bullet_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.75, y: 0.46875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e344aa190cc9b054c9a17b24acfb2ff1
-      internalID: 851629120
+      spriteID: 38915d4589c47e94a88511f4a08c3855
+      internalID: 1814590191
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageBullet_1
+      name: Mage_Bullet_1
       rect:
         serializedVersion: 2
         x: 16
         y: 0
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.75, y: 0.46875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98d4ab6466169e9409bc876d0bf3148d
-      internalID: -852705397
+      spriteID: 1096700d8e8daab46b01057f3a95c31f
+      internalID: -1749081080
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageBullet_2
+      name: Mage_Bullet_2
       rect:
         serializedVersion: 2
         x: 32
         y: 0
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.75, y: 0.46875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02964c17e2aaf03468984a737c85aa94
-      internalID: 1501312311
+      spriteID: fa4f2ac88a3c0124e846a43f2ea310c9
+      internalID: 274685999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MageBullet_3
+      name: Mage_Bullet_3
       rect:
         serializedVersion: 2
         x: 48
         y: 0
         width: 16
         height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      alignment: 9
+      pivot: {x: 0.75, y: 0.46875}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7c2f179842a6bde43b7b5f3beff7bb0d
-      internalID: 1516460670
+      spriteID: 777a4bdcab96280488787641762c1cdd
+      internalID: 1213662486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Mage_Bullet_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 9
+      pivot: {x: 0.75, y: 0.46875}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fa15165c7e39243b3ebb95399fdbc8
+      internalID: 566210848
       vertices: []
       indices: 
       edges: []
@@ -217,10 +238,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MageBullet_0: 851629120
-      MageBullet_1: -852705397
-      MageBullet_2: 1501312311
-      MageBullet_3: 1516460670
+      Mage_Bullet_0: 1814590191
+      Mage_Bullet_1: -1749081080
+      Mage_Bullet_2: 274685999
+      Mage_Bullet_3: 1213662486
+      Mage_Bullet_4: 566210848
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

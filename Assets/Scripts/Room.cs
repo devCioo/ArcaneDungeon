@@ -45,8 +45,11 @@ public class Room : MonoBehaviour
                 OpenDoors();
                 if (roomType == RoomType.BossRoom)
                 {
-                    Debug.Log("Opening exit");
-                    roomCenter.transform.Find("Item Pedestal").gameObject.SetActive(true);
+                    foreach (GameObject itemPedestal in roomCenter.itemPedestals)
+                    {
+                        itemPedestal.SetActive(true);
+                    }
+                    
                     roomCenter.GetComponentInChildren<LevelExit>().Open();
                 }
             }
@@ -110,7 +113,7 @@ public class Room : MonoBehaviour
             LevelManager.instance.UpdateCurrentRoomPosition(transform);
             LevelManager.instance.UpdateMap();
 
-            if (roomType == RoomType.BossRoom && !UIController.instance.isBossDefeated)
+            if (roomType == RoomType.BossRoom && !BossManager.instance.isBossDefeated)
             {
                 UIController.instance.bossHealthBar.SetActive(true);
             }

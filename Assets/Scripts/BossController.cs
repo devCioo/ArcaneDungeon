@@ -69,7 +69,7 @@ public class BossController : MonoBehaviour
         {
             Destroy(gameObject);
             UIController.instance.bossHealthBar.SetActive(false);
-            UIController.instance.isBossDefeated = true;
+            BossManager.instance.isBossDefeated = true;
         }
         StartCoroutine(GetHurt());
     }

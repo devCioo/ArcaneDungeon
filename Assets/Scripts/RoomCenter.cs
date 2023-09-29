@@ -8,7 +8,17 @@ public class RoomCenter : MonoBehaviour
 {
     public bool openWhenEnemiesCleared;
 
-    public List<GameObject> enemies = new List<GameObject>();
+    public List<GameObject> enemies;
+    public bool hasItemPedestals;
+    public List<GameObject> itemPedestals;
+
+    private void Awake()
+    {
+        if (itemPedestals.Count > 0)
+        {
+            hasItemPedestals = true;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()

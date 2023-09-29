@@ -37,7 +37,7 @@ Transform:
   - {fileID: 6062628182687462313}
   - {fileID: 8188117271426338146}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4141390980736889703
 MonoBehaviour:
@@ -92,7 +92,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.41}
   serializedVersion: 2
-  m_Radius: 0.4
+  m_Radius: 0.41
 --- !u!50 &71819147074827639
 Rigidbody2D:
   serializedVersion: 4
@@ -434,7 +434,7 @@ SpriteRenderer:
   m_SortingLayerID: -1601553569
   m_SortingLayer: 4
   m_SortingOrder: -1
-  m_Sprite: {fileID: 707394463, guid: c8afff1166cba304887057a2d2e2585f, type: 3}
+  m_Sprite: {fileID: 251678785, guid: c8afff1166cba304887057a2d2e2585f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

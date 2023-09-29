@@ -26,7 +26,7 @@ public class ItemPedestal : MonoBehaviour
             if (item != null)
             {
                 StopAllCoroutines();
-                StartCoroutine(PlayerController.instance.PositionOverPlayer(item));
+                StartCoroutine(PlayerController.instance.CollectItem(item));
                 item = null;
             }
         }

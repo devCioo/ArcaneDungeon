@@ -232,6 +232,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openWhenEnemiesCleared: 1
   enemies: []
+  hasItemPedestals: 1
+  itemPedestals:
+  - {fileID: 8818355991623344949}
 --- !u!1 &9142984781180477814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,7 +1700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1717,15 +1720,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1747,5 +1750,10 @@ PrefabInstance:
 --- !u!4 &3463192811734154851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
+  m_PrefabInstance: {fileID: 4787510045042191035}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8818355991623344949 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4040220382731372942, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
   m_PrefabInstance: {fileID: 4787510045042191035}
   m_PrefabAsset: {fileID: 0}

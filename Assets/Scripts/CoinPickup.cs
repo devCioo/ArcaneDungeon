@@ -22,7 +22,7 @@ public class CoinPickup : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            LevelManager.instance.GetCoin(coinValue);
+            LevelManager.instance.GetCoins(coinValue);
             Destroy(gameObject);
         }
     }

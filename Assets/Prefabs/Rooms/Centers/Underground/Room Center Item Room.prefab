@@ -186,7 +186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openWhenEnemiesCleared: 0
   enemies: []
-  room: {fileID: 0}
+  hasItemPedestals: 1
+  itemPedestals:
+  - {fileID: 2440602434397837916}
 --- !u!1 &4979104001890228574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,6 +1668,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
+--- !u!1 &2440602434397837916 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4040220382731372942, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}
+  m_PrefabInstance: {fileID: 1859843655951684562}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7759809316311303946 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8250344405245039832, guid: 7ed2dbc40449ab748bb67b014ea99845, type: 3}

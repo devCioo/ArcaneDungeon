@@ -6,6 +6,8 @@ public class BossManager : MonoBehaviour
 {
     public static BossManager instance;
 
+    public GameObject currentBoss;
+    public bool isBossDefeated;
     public List<GameObject> undergroundBosses, sewersBosses;
 
     private void Awake()

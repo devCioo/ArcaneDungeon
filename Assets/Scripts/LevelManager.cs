@@ -223,14 +223,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void GetCoin(int coinValue)
+    public void GetCoins(int coinValue)
     {
         currentCoins += coinValue;
 
         UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
     }
 
-    public void SpendCoin(int coinValue)
+    public void SpendCoins(int coinValue)
     {
         currentCoins -= coinValue;
 

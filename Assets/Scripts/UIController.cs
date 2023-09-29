@@ -16,7 +16,6 @@ public class UIController : MonoBehaviour
     public float fadeSpeed;
     private bool fadeToBlack, fadeOutBlack;
     public bool isBigMapActive = false;
-    public bool isBossDefeated;
 
     public Image[] hearts;
     public Sprite fullHeart, halfHeart, emptyHeart;

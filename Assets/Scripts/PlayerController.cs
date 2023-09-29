@@ -13,8 +13,6 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool canMove = true, canShoot = true;
 
-    public List<GameObject> items = new List<GameObject>();
-
     public Rigidbody2D rb;
     public GameObject bulletToFire;
     public Transform upPos, downPos, leftPos, rightPos;
@@ -141,23 +139,39 @@ public class PlayerController : MonoBehaviour
         if (item.isHealthUpgrade)
         {
             PlayerHealthController.instance.maxHealth += item.healthUpgradeValue;
+            PlayerHealthController.instance.currentHealth += item.healthUpgradeValue;
             UIController.instance.UpdateHealthUI();
         }
     }
 
-    public IEnumerator PositionOverPlayer(GameObject item)
+    public IEnumerator CollectItem(GameObject item)
     {
         anim.SetTrigger("lifting");
-        items.Add(item);
         AddStats(item.GetComponent<Item>());
 
         for (float i = 0f; i < 0.6f; i += 0.01f)
         {
-            item.transform.position = PlayerController.instance.transform.position + new Vector3(0f, 1.3f, 0f);
+            item.transform.position = transform.position + new Vector3(0f, 1.3f, 0f);
             yield return new WaitForSeconds(0.01f);
         }
 
-        item.SetActive(false);
+        Destroy(item);
+    }
+
+    public IEnumerator BuyItem(GameObject item, ShopItem shopItem)
+    {
+        anim.SetTrigger("lifting");
+        AddStats(item.GetComponent<Item>());
+        shopItem.GetComponent<CircleCollider2D>().enabled = false;
+
+        for (float i = 0f; i < 0.6f; i += 0.01f)
+        {
+            item.transform.position = transform.position + new Vector3(0f, 1.3f, 0f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        Destroy(item);
+        Destroy(shopItem);
     }
 }
 

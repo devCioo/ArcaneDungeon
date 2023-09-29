@@ -593,58 +593,99 @@ public class LevelGenerator : MonoBehaviour
             {
                 if (rooms[i, j] is not null)
                 {
-                    if (rooms[i, j].GetComponent<Room>().roomType == RoomType.StartingRoom)
-                    {
-                        selectedCenter = Random.Range(0, startingRoomCenters.Length);
-                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(startingRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                    }
-                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.SecretRoom)
-                    {
-                        secretRoomPosition = new Vector2Int(i, j);
-                        selectedCenter = Random.Range(0, secretRoomCenters.Length);
-                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(secretRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                    }
-                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.BossRoom)
-                    {
-                        selectedCenter = Random.Range(0, bossRoomCenters.Length);
-                        RoomCenter roomCenter = Instantiate(bossRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                        rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
-                        SwapDoors(new Vector2Int(i, j), bossRoomDoor);
+                    RoomCenter roomCenter;
 
-                        int selectedItem = Random.Range(0, ItemManager.instance.bossRoomItems.Count);
-                        GameObject item = Instantiate(ItemManager.instance.bossRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
-                        roomCenter.GetComponentInChildren<ItemPedestal>().item = item;
-                        ItemManager.instance.bossRoomItems.RemoveAt(selectedItem);
-                        item.transform.SetParent(roomCenter.transform.Find("Item Pedestal"));
-                        roomCenter.transform.Find("Item Pedestal").gameObject.SetActive(false);
+                    switch (rooms[i, j].GetComponent<Room>().roomType)
+                    {
+                        case RoomType.StartingRoom:
+                            selectedCenter = Random.Range(0, startingRoomCenters.Length);
+                            roomCenter = Instantiate(startingRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
+                            break;
 
-                        SpawnBoss(roomCenter);
-                    }
-                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ShopRoom)
-                    {
-                        shopRoomPosition = new Vector2Int(i, j);
-                        selectedCenter = Random.Range(0, shopRoomCenters.Length);
-                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(shopRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                        SwapDoors(new Vector2Int(i, j), shopRoomDoor);
-                    }
-                    else if (rooms[i, j].GetComponent<Room>().roomType == RoomType.ItemRoom)
-                    {
-                        itemRoomPosition = new Vector2Int(i, j);
-                        selectedCenter = Random.Range(0, itemRoomCenters.Length);
-                        RoomCenter roomCenter = Instantiate(itemRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
-                        rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
-                        SwapDoors(new Vector2Int(i, j), itemRoomDoor);
+                        case RoomType.SecretRoom:
+                            secretRoomPosition = new Vector2Int(i, j);
+                            selectedCenter = Random.Range(0, secretRoomCenters.Length);
+                            roomCenter = Instantiate(secretRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
+                            break;
 
-                        int selectedItem = Random.Range(0, ItemManager.instance.itemRoomItems.Count);
-                        GameObject item = Instantiate(ItemManager.instance.itemRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
-                        roomCenter.GetComponentInChildren<ItemPedestal>().item = item;
-                        ItemManager.instance.itemRoomItems.RemoveAt(selectedItem);
-                        item.transform.SetParent(roomCenter.transform.Find("Item Pedestal"));
+                        case RoomType.BossRoom:
+                            selectedCenter = Random.Range(0, bossRoomCenters.Length);
+                            roomCenter = Instantiate(bossRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
+                            SwapDoors(new Vector2Int(i, j), bossRoomDoor);
+                            SpawnBoss(roomCenter);
+                            break;
+
+                        case RoomType.ShopRoom:
+                            shopRoomPosition = new Vector2Int(i, j);
+                            selectedCenter = Random.Range(0, shopRoomCenters.Length);
+                            roomCenter = Instantiate(shopRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
+                            SwapDoors(new Vector2Int(i, j), shopRoomDoor);
+                            break;
+
+                        case RoomType.ItemRoom:
+                            itemRoomPosition = new Vector2Int(i, j);
+                            selectedCenter = Random.Range(0, itemRoomCenters.Length);
+                            roomCenter = Instantiate(itemRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
+                            SwapDoors(new Vector2Int(i, j), itemRoomDoor);
+                            break;
+
+                        case RoomType.NormalRoom:
+                            selectedCenter = Random.Range(0, normalRoomCenters.Length);
+                            roomCenter = Instantiate(normalRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                            rooms[i, j].GetComponent<Room>().roomCenter = roomCenter;
+                            break;
+
+                        default:
+                            roomCenter = null;
+                            break;
                     }
-                    else
+
+                    if (roomCenter.hasItemPedestals)
                     {
-                        selectedCenter = Random.Range(0, normalRoomCenters.Length);
-                        rooms[i, j].GetComponent<Room>().roomCenter = Instantiate(normalRoomCenters[selectedCenter], roomPosition, Quaternion.Euler(0f, 0f, 0f));
+                        int selectedItem;
+                        GameObject item = new GameObject();
+
+                        foreach (GameObject itemPedestal in roomCenter.itemPedestals)
+                        {
+                            switch (rooms[i, j].GetComponent<Room>().roomType)
+                            {
+                                case RoomType.SecretRoom:
+                                    selectedItem = Random.Range(0, ItemManager.instance.secretRoomItems.Count);
+                                    item = Instantiate(ItemManager.instance.secretRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                                    ItemManager.instance.secretRoomItems.RemoveAt(selectedItem);
+                                    itemPedestal.GetComponent<ItemPedestal>().item = item;
+                                    break;
+
+                                case RoomType.BossRoom:
+                                    selectedItem = Random.Range(0, ItemManager.instance.bossRoomItems.Count);
+                                    item = Instantiate(ItemManager.instance.bossRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                                    ItemManager.instance.bossRoomItems.RemoveAt(selectedItem);
+                                    itemPedestal.GetComponent<ItemPedestal>().item = item;
+                                    item.transform.SetParent(itemPedestal.transform);
+                                    itemPedestal.gameObject.SetActive(false);
+                                    break;
+
+                                case RoomType.ShopRoom:
+                                    selectedItem = Random.Range(0, ItemManager.instance.shopRoomItems.Count);
+                                    item = Instantiate(ItemManager.instance.shopRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                                    ItemManager.instance.shopRoomItems.RemoveAt(selectedItem);
+                                    itemPedestal.GetComponent<ShopItem>().item = item;
+                                    break;
+
+                                case RoomType.ItemRoom:
+                                    selectedItem = Random.Range(0, ItemManager.instance.itemRoomItems.Count);
+                                    item = Instantiate(ItemManager.instance.itemRoomItems[selectedItem], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                                    ItemManager.instance.itemRoomItems.RemoveAt(selectedItem);
+                                    itemPedestal.GetComponent<ItemPedestal>().item = item;
+                                    break;
+                            }
+
+                        }
                     }
                 }
 
@@ -796,32 +837,23 @@ public class LevelGenerator : MonoBehaviour
     public void SpawnBoss(RoomCenter roomCenter)
     {
         int selectedBoss = 0;
-        GameObject boss = null;
 
         switch (floorDepth)
         {
             case FloorDepth.Underground_1:
             case FloorDepth.Underground_2:
                 selectedBoss = Random.Range(0, BossManager.instance.undergroundBosses.Count);
-                boss = Instantiate(BossManager.instance.undergroundBosses[selectedBoss], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
-                break;
-        }
-
-        roomCenter.enemies.Add(boss);
-        boss.SetActive(false);
-        UIController.instance.bossHealthBarImage.sprite = boss.GetComponent<BossController>().bossHealthBarSprite;
-        UIController.instance.isBossDefeated = false;
-        boss.transform.SetParent(roomCenter.transform.Find("Enemies"));
-
-        switch (floorDepth)
-        {
-            case FloorDepth.Underground_1:
-            case FloorDepth.Underground_2:
+                BossManager.instance.currentBoss = Instantiate(BossManager.instance.undergroundBosses[selectedBoss], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
                 BossManager.instance.undergroundBosses.RemoveAt(selectedBoss);
                 break;
         }
-    }
 
+        roomCenter.enemies.Add(BossManager.instance.currentBoss);
+        BossManager.instance.currentBoss.SetActive(false);
+        UIController.instance.bossHealthBarImage.sprite = BossManager.instance.currentBoss.GetComponent<BossController>().bossHealthBarSprite;
+        BossManager.instance.isBossDefeated = false;
+        BossManager.instance.currentBoss.transform.SetParent(roomCenter.transform.Find("Enemies"));
+    }
 
     public void GenerateMapLayout()
     {

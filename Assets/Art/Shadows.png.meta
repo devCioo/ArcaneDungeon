@@ -185,6 +185,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Shadows_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c4829434cfcedd47bb357b69ebe0c3f
+      internalID: -589126030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -199,6 +220,7 @@ TextureImporter:
       Shadows_0: -1766440777
       Shadows_1: 707394463
       Shadows_2: 251678785
+      Shadows_3: -589126030
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
