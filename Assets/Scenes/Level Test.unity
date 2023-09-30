@@ -696,7 +696,6 @@ MonoBehaviour:
     criticalChance: 0
   canMove: 1
   canShoot: 1
-  items: []
   rb: {fileID: 1669364196}
   bulletToFire: {fileID: 1605669385805731259, guid: 4500d023cdf30a24d9508adc2ce73d40, type: 3}
   upPos: {fileID: 43603745}

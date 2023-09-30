@@ -9,6 +9,8 @@ public class BossController : MonoBehaviour
     public float maxHealth, currentHealth;
 
     public BossAction[] actions;
+    public BossSequence[] sequences;
+    public int currentSequence;
     public int currentAction;
 
     public SpriteRenderer sr, hurtSr;
@@ -20,6 +22,7 @@ public class BossController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        actions = sequences[currentSequence].actions;
         currentHealth = maxHealth;
         UIController.instance.UpdateBossHealthUI(currentHealth, maxHealth);
         StartCoroutine(CountActionLength());
@@ -71,6 +74,15 @@ public class BossController : MonoBehaviour
             UIController.instance.bossHealthBar.SetActive(false);
             BossManager.instance.isBossDefeated = true;
         }
+        else
+        {
+            if (currentHealth <= sequences[currentSequence].endSequenceHealth && currentSequence < sequences.Length - 1)
+            {
+                currentSequence++;
+                currentAction = 0;
+                actions = sequences[currentSequence].actions;
+            }
+        }
         StartCoroutine(GetHurt());
     }
 
@@ -119,7 +131,7 @@ public class BossController : MonoBehaviour
     {
         canShoot = false;
 
-        for (float i = 0f; i < 0.5f; i += 0.01f)
+        for (float i = 0f; i < actions[currentAction].shotDelay; i += 0.01f)
         {
             yield return new WaitForSeconds(0.01f);
         }
@@ -140,10 +152,19 @@ public class BossAction
     public float actionLength;
     public bool shouldMove;
     public bool shouldShoot;
-    public float moveSpeed;
+    public float moveSpeed, shotDelay;
     public Transform firePoint;
     public GameObject bullet;
 
     public bool spawnEnemiesOnDeath;
     public GameObject enemy;
+}
+
+[System.Serializable]
+public class BossSequence
+{
+    [Header("Sequence")]
+    public BossAction[] actions;
+
+    public float endSequenceHealth;
 }

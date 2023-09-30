@@ -53,25 +53,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0}
   canShoot: 1
-  maxHealth: 100
+  maxHealth: 200
   currentHealth: 0
-  actions:
-  - actionLength: 2
-    shouldMove: 1
-    shouldShoot: 0
-    moveSpeed: 3
-    firePoint: {fileID: 0}
-    bullet: {fileID: 0}
-    spawnEnemiesOnDeath: 0
-    enemy: {fileID: 0}
-  - actionLength: 2.05
-    shouldMove: 0
-    shouldShoot: 1
-    moveSpeed: 0
-    firePoint: {fileID: 1809116800281884504}
-    bullet: {fileID: 2270224583049464613, guid: 7e250984902ccc0438a36cfa15cada48, type: 3}
-    spawnEnemiesOnDeath: 0
-    enemy: {fileID: 0}
+  actions: []
+  sequences:
+  - actions:
+    - actionLength: 2
+      shouldMove: 1
+      shouldShoot: 0
+      moveSpeed: 3
+      shotDelay: 0
+      firePoint: {fileID: 0}
+      bullet: {fileID: 0}
+      spawnEnemiesOnDeath: 0
+      enemy: {fileID: 0}
+    - actionLength: 2
+      shouldMove: 0
+      shouldShoot: 1
+      moveSpeed: 0
+      shotDelay: 1
+      firePoint: {fileID: 1809116800281884504}
+      bullet: {fileID: 2270224583049464613, guid: 7e250984902ccc0438a36cfa15cada48, type: 3}
+      spawnEnemiesOnDeath: 0
+      enemy: {fileID: 0}
+    endSequenceHealth: 100
+  - actions:
+    - actionLength: 3
+      shouldMove: 1
+      shouldShoot: 0
+      moveSpeed: 4
+      shotDelay: 0
+      firePoint: {fileID: 0}
+      bullet: {fileID: 0}
+      spawnEnemiesOnDeath: 0
+      enemy: {fileID: 0}
+    - actionLength: 1
+      shouldMove: 0
+      shouldShoot: 1
+      moveSpeed: 0
+      shotDelay: 0.6
+      firePoint: {fileID: 1809116800281884504}
+      bullet: {fileID: 2270224583049464613, guid: 7e250984902ccc0438a36cfa15cada48, type: 3}
+      spawnEnemiesOnDeath: 0
+      enemy: {fileID: 0}
+    endSequenceHealth: 50
+  - actions:
+    - actionLength: 5
+      shouldMove: 0
+      shouldShoot: 1
+      moveSpeed: 0
+      shotDelay: 0.4
+      firePoint: {fileID: 1809116800281884504}
+      bullet: {fileID: 2270224583049464613, guid: 7e250984902ccc0438a36cfa15cada48, type: 3}
+      spawnEnemiesOnDeath: 0
+      enemy: {fileID: 0}
+    endSequenceHealth: 0
+  currentSequence: 0
   currentAction: 0
   sr: {fileID: 1252368011324261378}
   hurtSr: {fileID: 3760548917895249346}
