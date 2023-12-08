@@ -23,7 +23,6 @@ public class PlayerHealthController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
         UIController.instance.UpdateHealthUI();
         anim = PlayerController.instance.GetComponent<Animator>();
         sr = PlayerController.instance.transform.Find("Body").GetComponent<SpriteRenderer>();

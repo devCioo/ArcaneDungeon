@@ -9,8 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: f45903f0f7b9bce4cbdf58d93dfd8614
   - enabled: 1
-    path: Assets/Scenes/Test.unity
-    guid: 700a0c0b71762f148abd0beed2ab7f83
+    path: Assets/Scenes/Underground 1.unity
+    guid: 7e579e231c8efd44e9d97a6767da0ed6
+  - enabled: 1
+    path: Assets/Scenes/Underground 2.unity
+    guid: cb8b1ed119202224cb5de8771bd6b014
+  - enabled: 1
+    path: Assets/Scenes/Sewers 1.unity
+    guid: a6b26ab1fac81f54b90165c0b30e56f0
+  - enabled: 1
+    path: Assets/Scenes/Sewers 2.unity
+    guid: fb4e26dc676788b4b94d23b0fe53d23c
   - enabled: 1
     path: Assets/Scenes/Victory Screen.unity
     guid: 63e1c9de9c48ba3489c61e8d21591039

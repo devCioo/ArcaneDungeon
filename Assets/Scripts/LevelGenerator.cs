@@ -24,13 +24,19 @@ public class LevelGenerator : MonoBehaviour
     public Sprite normalMapRoom, secretMapRoom, bossMapRoom, shopMapRoom, itemMapRoom;
     public RoomCenter[] startingRoomCenters, normalRoomCenters, bossRoomCenters, shopRoomCenters, itemRoomCenters, secretRoomCenters;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         GenerateGrid();
         CreateOutlines();
         CreateCenters();
         GenerateMapLayout();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -900,6 +906,8 @@ public class LevelGenerator : MonoBehaviour
 
             position = new Vector2(-5.5f, position.y - 1f);
         }
+
+        Debug.Log("Starting room: " + rooms[6, 6]);
     }
 }
 

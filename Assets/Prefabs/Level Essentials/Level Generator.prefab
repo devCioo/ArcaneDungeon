@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &216443018095027142
 MonoBehaviour:
@@ -44,8 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 601f91c3b21c4394d9e90c00bff5b474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSize: 8
+  levelSize: 2
+  floorDepth: 0
+  shopAndItemRoomRequireKeys: 0
   secretRoomPosition: {x: 0, y: 0}
+  shopRoomPosition: {x: 0, y: 0}
+  itemRoomPosition: {x: 0, y: 0}
   outlines:
     noDoor: {fileID: 1338678661494255299, guid: d4089121b8f4a7f46b709bc3b4dfaa80, type: 3}
     singleUp: {fileID: 7347791540522630348, guid: 69c10776b3f7c89499552e1763727229, type: 3}
@@ -73,8 +77,15 @@ MonoBehaviour:
   bossMapRoom: {fileID: -1255936980, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
   shopMapRoom: {fileID: -1722700943, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
   itemMapRoom: {fileID: -461761903, guid: 9a117f5c3a5c885409859c7d7664612a, type: 3}
-  startRoomCenter: {fileID: 3422955423206802587, guid: 0b3f12facbe27c14db2098e640565ff8, type: 3}
-  bossRoomCenter: {fileID: 5108709874159726122, guid: dc91a3022aa685f4d81b779e0b096dfa, type: 3}
-  roomCenters:
+  startingRoomCenters:
   - {fileID: 3422955423206802587, guid: 0b3f12facbe27c14db2098e640565ff8, type: 3}
+  normalRoomCenters:
   - {fileID: 6594053591106436846, guid: be2faa5a31084c94e8c4ee8d0ba301d6, type: 3}
+  bossRoomCenters:
+  - {fileID: 5108709874159726122, guid: dc91a3022aa685f4d81b779e0b096dfa, type: 3}
+  shopRoomCenters:
+  - {fileID: 7878532232666709061, guid: 6f6bf4985e01a7549ac5e15be9bf1421, type: 3}
+  itemRoomCenters:
+  - {fileID: 3523559361340438467, guid: 22768c7bf1b95194c92ea91bbc1ffdf7, type: 3}
+  secretRoomCenters:
+  - {fileID: 8510869253098824084, guid: 330003fde93141e45b78508e12d09dc8, type: 3}

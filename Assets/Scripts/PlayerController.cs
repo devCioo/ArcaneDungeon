@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = this;
         shotDelay = 1 / stats.attackSpeed;
     }
 

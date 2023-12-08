@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,6 +26,8 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CharacterTracker.instance.LoadValues();
+
         Time.timeScale = 1f;
         oldRoom = new Vector2Int(6, 6);
         currentRoom = new Vector2Int(6, 6);
@@ -33,6 +36,7 @@ public class LevelManager : MonoBehaviour
 
         levelGenerator.rooms[currentRoom.x, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
 
+        UIController.instance.UpdateStatistics(PlayerController.instance.stats, PlayerController.instance.stats);
         UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
         UIController.instance.keyText.text = currentKeys > 9 ? currentKeys.ToString() : $"0{currentKeys.ToString()}";
         UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
@@ -63,6 +67,7 @@ public class LevelManager : MonoBehaviour
 
         yield return new WaitForSeconds(loadTime);
 
+        CharacterTracker.instance.SaveValues();
         SceneManager.LoadScene(nextLevel);
     }
 
