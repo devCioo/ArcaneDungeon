@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
     damage: 0
-    attackSpeed: 0.1
+    attackSpeed: 0
     moveSpeed: 0
     attackRange: 0
     shotSpeed: 0
