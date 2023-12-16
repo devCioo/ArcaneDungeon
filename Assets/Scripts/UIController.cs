@@ -152,7 +152,7 @@ public class UIController : MonoBehaviour
 
     public void Resume()
     {
-        LevelManager.instance.PauseOrResume();
+        GameManager.instance.PauseOrResume();
     }
 
     private IEnumerator ShowStatDifference(TMP_Text textBox)

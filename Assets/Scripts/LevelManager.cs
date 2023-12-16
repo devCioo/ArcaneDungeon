@@ -13,8 +13,7 @@ public class LevelManager : MonoBehaviour
     public Vector2Int oldRoom, currentRoom;
     public float currentRoomX, currentRoomY;
     public string nextLevel;
-    public bool isPaused;
-    public GameObject bomb;
+
 
     public int currentCoins, currentKeys, currentBombs;
 
@@ -45,19 +44,7 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            PauseOrResume();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (currentBombs > 0)
-            {
-                Instantiate(bomb, PlayerController.instance.transform.position, Quaternion.Euler(0f, 0f, 0f));
-                UseBomb();
-            }
-        }
+        
     }
 
     public IEnumerator EndLevel()
@@ -69,22 +56,6 @@ public class LevelManager : MonoBehaviour
 
         CharacterTracker.instance.SaveValues();
         SceneManager.LoadScene(nextLevel);
-    }
-
-    public void PauseOrResume()
-    {
-        if (!isPaused)
-        {
-            UIController.instance.pauseMenu.SetActive(true);
-            isPaused = true;
-            Time.timeScale = 0f;
-        }
-        else
-        {
-            UIController.instance.pauseMenu.SetActive(false);
-            isPaused = false;
-            Time.timeScale = 1f;
-        }
     }
 
     public void RevealSecretDoors()

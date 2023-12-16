@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +10,13 @@ public class PlayerController : MonoBehaviour
 
     public Statistics stats;
     private float shotDelay;
-    private Vector2 moveInput;
+    private Vector2 moveInput, attackInput;
     [HideInInspector]
     public bool canMove = true, canShoot = true;
 
+    public Joystick movementJoystick, attackJoystick;
     public Rigidbody2D rb;
-    public GameObject bulletToFire;
+    public GameObject bulletToFire, bomb;
     public Transform upPos, downPos, leftPos, rightPos;
     public Animator anim;
 
@@ -32,82 +34,61 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (canMove && !LevelManager.instance.isPaused)
+        if (canMove && !GameManager.instance.isPaused)
         {
-            moveInput.x = Input.GetAxisRaw("Horizontal");
-            moveInput.y = Input.GetAxisRaw("Vertical");
+            moveInput = new Vector2(movementJoystick.Horizontal, movementJoystick.Vertical);
             moveInput.Normalize();
 
             rb.velocity = moveInput * stats.moveSpeed * 5;
 
-            anim.SetFloat("posY", moveInput.y);
-            anim.SetFloat("posX", moveInput.x);
-
-            if (canShoot)
-            {
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    anim.SetTrigger("attackBack");
-                    Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
-                    StartCoroutine(DisableShootingTemporarily());
-                }
-                if (Input.GetKeyDown(KeyCode.DownArrow))
-                {
-                    anim.SetTrigger("attackFront");
-                    Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
-                    StartCoroutine(DisableShootingTemporarily());
-                }
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
-                {
-                    anim.SetTrigger("attackLeft");
-                    Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
-                    StartCoroutine(DisableShootingTemporarily());
-                }
-                if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    anim.SetTrigger("attackRight");
-                    Instantiate(bulletToFire, rightPos.position, upPos.rotation);
-                    StartCoroutine(DisableShootingTemporarily());
-                }
-
-                if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
-                {
-                    if (canShoot)
-                    {
-                        if (Input.GetKey(KeyCode.UpArrow))
-                        {
-                            anim.SetTrigger("attackBack");
-                            Instantiate(bulletToFire, upPos.position, Quaternion.Euler(0f, 0f, 90f));
-                            StartCoroutine(DisableShootingTemporarily());
-                        }
-                        if (Input.GetKey(KeyCode.DownArrow))
-                        {
-                            anim.SetTrigger("attackFront");
-                            Instantiate(bulletToFire, downPos.position, Quaternion.Euler(0f, 0f, -90f));
-                            StartCoroutine(DisableShootingTemporarily());
-                        }
-                        if (Input.GetKey(KeyCode.LeftArrow))
-                        {
-                            anim.SetTrigger("attackLeft");
-                            Instantiate(bulletToFire, leftPos.position, Quaternion.Euler(0f, 0f, 180f));
-                            StartCoroutine(DisableShootingTemporarily());
-                        }
-                        if (Input.GetKey(KeyCode.RightArrow))
-                        {
-                            anim.SetTrigger("attackRight");
-                            Instantiate(bulletToFire, rightPos.position, upPos.rotation);
-                            StartCoroutine(DisableShootingTemporarily());
-                        }
-                    }
-                }
-            }
+            anim.SetFloat("movePosX", moveInput.x);
+            anim.SetFloat("movePosY", moveInput.y);
+            anim.SetFloat("velocity", moveInput.sqrMagnitude);
         }
         else
         {
             rb.velocity = Vector2.zero;
-            anim.SetFloat("posY", 0f);
-            anim.SetFloat("posX", 0f);
+            anim.SetFloat("movePosX", 0f);
+            anim.SetFloat("movePosY", 0f);
         }
+
+        if (canShoot && !GameManager.instance.isPaused)
+        {
+            attackInput = new Vector2(attackJoystick.Horizontal, attackJoystick.Vertical);
+            if (attackInput != Vector2.zero)
+            {
+                float angle = Mathf.Atan2(attackInput.y, attackInput.x) * Mathf.Rad2Deg;
+                Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+                if (attackInput.y > 0)
+                {
+                    Instantiate(bulletToFire, upPos.position, rotation);
+                }
+                else if (attackInput.x > 0)
+                {
+                    Instantiate(bulletToFire, rightPos.position, rotation);
+                }
+                else if (attackInput.y < 0)
+                {
+                    Instantiate(bulletToFire, downPos.position, rotation);
+                }
+                else if (attackInput.x < 0)
+                {
+                    Instantiate(bulletToFire, leftPos.position, rotation);
+                }
+
+                StartCoroutine(DisableShootingTemporarily());
+                anim.SetFloat("shootPosX", attackInput.x);
+                anim.SetFloat("shootPosY", attackInput.y);
+                anim.SetTrigger("shot");
+            }
+        }
+    }
+
+    public void PlaceBomb()
+    {
+        Instantiate(bomb, transform.position, transform.rotation);
+        LevelManager.instance.UseBomb();
     }
 
     private IEnumerator DisableShootingTemporarily()

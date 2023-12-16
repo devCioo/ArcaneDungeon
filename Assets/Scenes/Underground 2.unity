@@ -329,11 +329,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6457304497800128862, guid: 30cfbaad0d060fb4d954a7d343270259, type: 3}
+    - {fileID: 7070676197412457584, guid: 30cfbaad0d060fb4d954a7d343270259, type: 3}
+    - {fileID: 6248619915904413496, guid: 30cfbaad0d060fb4d954a7d343270259, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30cfbaad0d060fb4d954a7d343270259, type: 3}
+--- !u!114 &376785069686654037 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 827650877329004642, guid: 30cfbaad0d060fb4d954a7d343270259, type: 3}
+  m_PrefabInstance: {fileID: 376785069686654036}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eb981b74dab711488c335b6e2da00dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5688202009350770677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,9 +425,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 452759971248917737, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6731376973047036084}
+    - target: {fileID: 452759971248917737, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaceBomb
+      objectReference: {fileID: 0}
     - target: {fileID: 2994028302096871193, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684963273952615997, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 376785069686654037}
+    - target: {fileID: 4684963273952615997, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleBigMap
       objectReference: {fileID: 0}
     - target: {fileID: 8734520897853504548, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_Pivot.x
@@ -499,6 +529,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8775697964941085117, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 376785069686654037}
+    - target: {fileID: 8775697964941085117, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PauseOrResume
+      objectReference: {fileID: 0}
     - target: {fileID: 8961651090421754638, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
       propertyPath: m_Name
       value: UI Canvas
@@ -508,6 +546,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+--- !u!114 &6538362782929752345 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1747530151846041629, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+  m_PrefabInstance: {fileID: 6538362782929752344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6538362782929752346 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2052459739527752667, guid: f6541de7d41609241a4489b44c6a7855, type: 3}
+  m_PrefabInstance: {fileID: 6538362782929752344}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6731376973047036083
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -560,6 +620,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6225379974045805254, guid: e73c5b48bf1267e4982f856107f8066f, type: 3}
+      propertyPath: bomb
+      value: 
+      objectReference: {fileID: 4404186356592965196, guid: 72c21ca3205963d40ab3e12993816a02, type: 3}
+    - target: {fileID: 6225379974045805254, guid: e73c5b48bf1267e4982f856107f8066f, type: 3}
+      propertyPath: attackJoystick
+      value: 
+      objectReference: {fileID: 6538362782929752345}
+    - target: {fileID: 6225379974045805254, guid: e73c5b48bf1267e4982f856107f8066f, type: 3}
+      propertyPath: movementJoystick
+      value: 
+      objectReference: {fileID: 6538362782929752346}
     - target: {fileID: 7442460937671738764, guid: e73c5b48bf1267e4982f856107f8066f, type: 3}
       propertyPath: m_Name
       value: Player - Mage
@@ -569,3 +641,14 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e73c5b48bf1267e4982f856107f8066f, type: 3}
+--- !u!114 &6731376973047036084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6225379974045805254, guid: e73c5b48bf1267e4982f856107f8066f, type: 3}
+  m_PrefabInstance: {fileID: 6731376973047036083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d869d6bf9b3fc0d459dcc6a2cc6c576a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
