@@ -407,7 +407,7 @@ Transform:
   - {fileID: 7829347302405059930}
   - {fileID: 1285422767283806743}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7641777296540544674
 MonoBehaviour:
@@ -425,6 +425,7 @@ MonoBehaviour:
   isClosed: 0
   isActiveRoom: 0
   roomType: 0
+  roomCenter: {fileID: 0}
   doorUp: {fileID: 6182508992351162176}
   doorRight: {fileID: 0}
   doorDown: {fileID: 3068747332057676284}
@@ -2073,7 +2074,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3200491412537761433, guid: 098094bdd0e0fb646864cd5aadeda343, type: 3}
       propertyPath: m_Name
-      value: Normal Doors (1)
+      value: Door Down
       objectReference: {fileID: 0}
     - target: {fileID: 6878803533706256122, guid: 098094bdd0e0fb646864cd5aadeda343, type: 3}
       propertyPath: m_RootOrder
@@ -2152,7 +2153,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3200491412537761433, guid: 098094bdd0e0fb646864cd5aadeda343, type: 3}
       propertyPath: m_Name
-      value: Normal Doors
+      value: Door Up
       objectReference: {fileID: 0}
     - target: {fileID: 6878803533706256122, guid: 098094bdd0e0fb646864cd5aadeda343, type: 3}
       propertyPath: m_RootOrder

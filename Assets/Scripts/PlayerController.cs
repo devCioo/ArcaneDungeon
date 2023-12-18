@@ -1,8 +1,5 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 public class PlayerController : MonoBehaviour
 {
@@ -50,6 +47,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = Vector2.zero;
             anim.SetFloat("movePosX", 0f);
             anim.SetFloat("movePosY", 0f);
+            anim.SetFloat("velocity", moveInput.sqrMagnitude);
         }
 
         if (canShoot && !GameManager.instance.isPaused)

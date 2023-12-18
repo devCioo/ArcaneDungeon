@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -843,7 +841,6 @@ public class LevelGenerator : MonoBehaviour
     public void SpawnBoss(RoomCenter roomCenter)
     {
         int selectedBoss = 0;
-
         switch (floorDepth)
         {
             case FloorDepth.Underground_1:
@@ -851,6 +848,12 @@ public class LevelGenerator : MonoBehaviour
                 selectedBoss = Random.Range(0, BossManager.instance.undergroundBosses.Count);
                 BossManager.instance.currentBoss = Instantiate(BossManager.instance.undergroundBosses[selectedBoss], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
                 BossManager.instance.undergroundBosses.RemoveAt(selectedBoss);
+                break;
+            case FloorDepth.Sewers_1:
+            case FloorDepth.Sewers_2:
+                selectedBoss = Random.Range(0, BossManager.instance.sewersBosses.Count);
+                BossManager.instance.currentBoss = Instantiate(BossManager.instance.sewersBosses[selectedBoss], roomCenter.transform.position, Quaternion.Euler(0f, 0f, 0f));
+                BossManager.instance.sewersBosses.RemoveAt(selectedBoss);
                 break;
         }
 
@@ -933,6 +936,8 @@ public enum FloorDepth
 {
     Underground_1,
     Underground_2,
+    Sewers_1,
+    Sewers_2
 }
 
 [System.Serializable]

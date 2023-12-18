@@ -151,6 +151,10 @@ PrefabInstance:
       propertyPath: levelSize
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 216443018095027142, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
+      propertyPath: floorDepth
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 855349722826036247, guid: 6fcbb994bb2e58641916bf3934073319, type: 3}
       propertyPath: m_RootOrder
       value: 3
