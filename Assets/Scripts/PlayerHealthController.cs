@@ -22,10 +22,10 @@ public class PlayerHealthController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UIController.instance.UpdateHealthUI();
         anim = PlayerController.instance.GetComponent<Animator>();
         sr = PlayerController.instance.transform.Find("Body").GetComponent<SpriteRenderer>();
         hurtSr = PlayerController.instance.transform.Find("Hurt Body").GetComponent<SpriteRenderer>();
+        UIController.instance.UpdateHealthUI();
     }
 
     // Update is called once per frame

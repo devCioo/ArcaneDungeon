@@ -135,5 +135,9 @@ public class Room : MonoBehaviour
         {
             isActiveRoom = false;
         }
+        if (other.CompareTag("Bullet"))
+        {
+            Destroy(other.gameObject);
+        }
     }
 }

@@ -27,6 +27,11 @@ public class UIController : MonoBehaviour
     public Image fadeScreen;
     public string mainMenuScene;
 
+    public TextMeshProUGUI fpsText;
+    private float pollingTime = 1f;
+    private float time;
+    private int frameCount;
+
     private void Awake()
     {
         instance = this;
@@ -61,7 +66,19 @@ public class UIController : MonoBehaviour
                 fadeToBlack = false;
             }
         }
-    }
+
+        time += Time.deltaTime;
+        frameCount++;
+
+        if (time >= pollingTime)
+        {
+            int frameRate = Mathf.RoundToInt(frameCount / time);
+            fpsText.text = frameRate.ToString() + " FPS";
+
+            time -= pollingTime;
+            frameCount = 0;
+        }
+}
 
     public void UpdateHealthUI()
     {

@@ -125,6 +125,8 @@ public class PlayerController : MonoBehaviour
     public IEnumerator CollectItem(GameObject item)
     {
         anim.SetTrigger("lifting");
+        StatsManager.instance.gameStats.itemsPickedUp++;
+        StatsManager.instance.SaveStats();
         AddStats(item.GetComponent<Item>());
 
         for (float i = 0f; i < 0.6f; i += 0.01f)

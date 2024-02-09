@@ -15,7 +15,7 @@ public class CharacterTracker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        LoadValues();
     }
 
     // Update is called once per frame

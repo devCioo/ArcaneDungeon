@@ -44,6 +44,10 @@ public class Bomb : MonoBehaviour
         {
             other.GetComponent<EnemyController>().TakeDamage(damage);
         }
+        if (other.CompareTag("Obstacle"))
+        {
+            Destroy(other.gameObject);
+        }
 
         Instantiate(explosionEffect, transform.position, Quaternion.Euler(0f, 0f, 0f));
         Destroy(gameObject);

@@ -8,6 +8,8 @@ TagManager:
   - Breakable
   - SecretDoor
   - Boss
+  - Obstacle
+  - Bullet
   layers:
   - Default
   - TransparentFX

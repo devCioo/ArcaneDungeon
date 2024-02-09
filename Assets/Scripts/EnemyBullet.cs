@@ -12,7 +12,7 @@ public class EnemyBullet : MonoBehaviour
     public int splitBulletsCount;
     public float splitAngle;
 
-    private Vector3 direction;
+    private Vector3 direction = Vector3.right;
 
     // Start is called before the first frame update
     void Start()
@@ -41,25 +41,19 @@ public class EnemyBullet : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else
-        {
-            if (isSplitting)
-            {          
-                for (int i = 0; i < splitBulletsCount; i++)
-                {
-                    float angle = i * splitAngle - (splitBulletsCount - 1) * splitAngle / 2;
-                    Vector3 splitDirection = Quaternion.Euler(0f, 0f, angle) * direction;
-
-                    Instantiate(smallBullet, transform.position, Quaternion.identity).GetComponent<EnemyBullet>().direction = -splitDirection.normalized;
-                }
-            }
-            Destroy(gameObject);
-        }
-
     }
 
-    private void OnBecameInvisible()
+    private void OnDestroy()
     {
-        Destroy(gameObject);
+        if (isSplitting)
+        {
+            for (int i = 0; i < splitBulletsCount; i++)
+            {
+                float angle = i * splitAngle - (splitBulletsCount - 1) * splitAngle / 2;
+                Vector3 splitDirection = Quaternion.Euler(0f, 0f, angle) * direction;
+
+                Instantiate(smallBullet, transform.position, Quaternion.identity).GetComponent<EnemyBullet>().direction = -splitDirection.normalized;
+            }
+        }
     }
 }

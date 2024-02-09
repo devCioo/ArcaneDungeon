@@ -69,6 +69,8 @@ public class BossController : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            StatsManager.instance.gameStats.enemiesDefeated++;
+            StatsManager.instance.SaveStats();
             Destroy(gameObject);
             UIController.instance.bossHealthBar.SetActive(false);
             BossManager.instance.isBossDefeated = true;

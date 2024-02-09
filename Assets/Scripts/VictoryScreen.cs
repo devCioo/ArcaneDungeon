@@ -13,6 +13,8 @@ public class VictoryScreen : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        StatsManager.instance.gameStats.attemptsWon++;
+        StatsManager.instance.SaveStats();
         StartCoroutine(WaitForAnyKey());
     }
 

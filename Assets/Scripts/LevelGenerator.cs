@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class LevelGenerator : MonoBehaviour
     private int?[,] grid = new int?[13, 13];
     private Vector2Int gridPoint, oldPoint;
 
+    public GameObject[,] map = new GameObject[13, 13];
     public GameObject[,] rooms = new GameObject[13, 13];
     public Vector2Int secretRoomPosition, shopRoomPosition, itemRoomPosition;
 
@@ -25,27 +27,22 @@ public class LevelGenerator : MonoBehaviour
 
     private void Awake()
     {
-        GenerateGrid();
-        CreateOutlines();
-        CreateCenters();
-        GenerateMapLayout();
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GenerateGrid();
+        GenerateMapLayout();
+        CreateOutlines();
+        CreateCenters();
     }
 
     // Update is called once per frame
     void Update()
     {
-#if UNITY_EDITOR
-        if (Input.GetKey(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-#endif
+
     }
 
     public void GenerateGrid()
@@ -445,6 +442,53 @@ public class LevelGenerator : MonoBehaviour
         return furthestPoint;
     }
 
+    public void GenerateMapLayout()
+    {
+        Vector2 position = new Vector2(-5.5f, 6.5f);
+
+        for (int i = 0; i < 13; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                if (grid[i, j] != null)
+                {
+                    GameObject mapRoomObject = Instantiate(mapRoom, position, Quaternion.Euler(0f, 0f, 0f));
+
+                    switch (grid[i, j])
+                    {
+                        case 0:
+                        case 1:
+                            break;
+
+                        case 2:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = secretMapRoom;
+                            break;
+
+                        case 3:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = bossMapRoom;
+                            break;
+
+                        case 4:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = shopMapRoom;
+                            break;
+
+                        case 5:
+                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = itemMapRoom;
+                            break;
+                    }
+
+                    map[i, j] = mapRoomObject;
+                    mapRoomObject.GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
+                    mapRoomObject.SetActive(false);
+                }
+
+                position += new Vector2(1f, 0f);
+            }
+
+            position = new Vector2(-5.5f, position.y - 1f);
+        }
+    }
+
     public void CreateOutlines()
     {
         bool isRoomUp = false, isRoomRight = false, isRoomDown = false, isRoomLeft = false;
@@ -575,7 +619,9 @@ public class LevelGenerator : MonoBehaviour
                             break;
                     }
 
+                    rooms[i, j].GetComponent<Room>().mapRoom = map[i, j];
                     rooms[i, j].GetComponent<Room>().roomType = (RoomType)grid[i, j];
+                    rooms[i, j].GetComponent<BoxCollider2D>().enabled = true;
                 }
 
                 roomPosition += new Vector2(xOffset, 0f);
@@ -840,6 +886,7 @@ public class LevelGenerator : MonoBehaviour
 
     public void SpawnBoss(RoomCenter roomCenter)
     {
+        Debug.Log(BossManager.instance);
         int selectedBoss = 0;
         switch (floorDepth)
         {
@@ -862,55 +909,6 @@ public class LevelGenerator : MonoBehaviour
         UIController.instance.bossHealthBarImage.sprite = BossManager.instance.currentBoss.GetComponent<BossController>().bossHealthBarSprite;
         BossManager.instance.isBossDefeated = false;
         BossManager.instance.currentBoss.transform.SetParent(roomCenter.transform.Find("Enemies"));
-    }
-
-    public void GenerateMapLayout()
-    {
-        Vector2 position = new Vector2(-5.5f, 6.5f);
-
-        for (int i = 0; i < 13; i++)
-        {
-            for (int j = 0; j < 13; j++)
-            {
-                if (grid[i, j] != null)
-                {
-                    GameObject mapRoomObject = Instantiate(mapRoom, position, Quaternion.Euler(0f, 0f, 0f));
-
-                    switch (grid[i, j])
-                    {
-                        case 0:
-                        case 1:
-                            break;
-
-                        case 2:
-                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = secretMapRoom;
-                            break;
-
-                        case 3:
-                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = bossMapRoom;
-                            break;
-
-                        case 4:
-                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = shopMapRoom;
-                            break;
-
-                        case 5:
-                            mapRoomObject.GetComponent<SpriteRenderer>().sprite = itemMapRoom;
-                            break;
-                    }
-
-                    rooms[i, j].GetComponent<Room>().mapRoom = mapRoomObject;
-                    rooms[i, j].GetComponent<Room>().mapRoom.GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
-                    rooms[i, j].GetComponent<Room>().mapRoom.SetActive(false);
-                }
-
-                position += new Vector2(1f, 0f);
-            }
-
-            position = new Vector2(-5.5f, position.y - 1f);
-        }
-
-        Debug.Log("Starting room: " + rooms[6, 6]);
     }
 }
 

@@ -23,25 +23,29 @@ public class PlayerBullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Instantiate(impactEffect, transform.position, transform.rotation);
-        Destroy(gameObject);
-
         if (other.CompareTag("Enemy"))
         {
             other.GetComponent<EnemyController>().TakeDamage(damage);
+            Destroy(gameObject);
         }
         if (other.CompareTag("Boss"))
         {
             other.GetComponent<BossController>().TakeDamage(damage);
+            Destroy(gameObject);
         }
         if (other.CompareTag("Breakable"))
         {
             other.GetComponent<Breakables>().TakeDamage(1);
+            Destroy(gameObject);
+        }
+        if (other.CompareTag("Obstacle"))
+        {
+            Destroy(gameObject);
         }
     }
 
-    private void OnBecameInvisible()
+    private void OnDestroy()
     {
-        Destroy(gameObject);
+        Instantiate(impactEffect, transform.position, transform.rotation);
     }
 }

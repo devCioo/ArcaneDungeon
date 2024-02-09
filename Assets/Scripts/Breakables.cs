@@ -30,6 +30,8 @@ public class Breakables : MonoBehaviour
 
         if (health <= 0)
         {
+            StatsManager.instance.gameStats.potsDestroyed++;
+            StatsManager.instance.SaveStats();
             Destroy(gameObject);
             Instantiate(destroyed[Random.Range(0, destroyed.Length)], transform.position, transform.rotation);
 

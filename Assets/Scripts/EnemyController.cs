@@ -50,6 +50,8 @@ public class EnemyController : MonoBehaviour
         health -= amount;
         if (health <= 0)
         {
+            StatsManager.instance.gameStats.enemiesDefeated++;
+            StatsManager.instance.SaveStats();
             Destroy(gameObject);
         }
         StartCoroutine(GetHurt());

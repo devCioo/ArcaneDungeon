@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         CharacterTracker.instance.LoadValues();
-
         Time.timeScale = 1f;
         oldRoom = new Vector2Int(6, 6);
         currentRoom = new Vector2Int(6, 6);
@@ -34,6 +33,7 @@ public class LevelManager : MonoBehaviour
         levelGenerator.rooms[currentRoom.x, currentRoom.y].GetComponent<Room>().mapRoom.SetActive(true);
 
         UIController.instance.UpdateStatistics(PlayerController.instance.stats, PlayerController.instance.stats);
+        UIController.instance.UpdateHealthUI();
         UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
         UIController.instance.keyText.text = currentKeys > 9 ? currentKeys.ToString() : $"0{currentKeys.ToString()}";
         UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
@@ -202,6 +202,8 @@ public class LevelManager : MonoBehaviour
         currentCoins += coinValue;
 
         UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
+        StatsManager.instance.gameStats.coinsCollected += coinValue;
+        StatsManager.instance.SaveStats();
     }
 
     public void SpendCoins(int coinValue)
@@ -214,6 +216,8 @@ public class LevelManager : MonoBehaviour
         }
 
         UIController.instance.coinText.text = currentCoins > 9 ? currentCoins.ToString() : $"0{currentCoins.ToString()}";
+        StatsManager.instance.gameStats.coinsSpent += coinValue;
+        StatsManager.instance.SaveStats();
     }
 
     public void GetKey()
@@ -221,6 +225,8 @@ public class LevelManager : MonoBehaviour
         currentKeys++;
 
         UIController.instance.keyText.text = currentKeys > 9 ? currentKeys.ToString() : $"0{currentKeys.ToString()}";
+        StatsManager.instance.gameStats.keysCollected++;
+        StatsManager.instance.SaveStats();
     }
 
     public void UseKey()
@@ -240,6 +246,8 @@ public class LevelManager : MonoBehaviour
         currentBombs++;
 
         UIController.instance.bombText.text = currentBombs > 9 ? currentBombs.ToString() : $"0{currentBombs.ToString()}";
+        StatsManager.instance.gameStats.bombsCollected++;
+        StatsManager.instance.SaveStats();
     }
 
     public void UseBomb()
